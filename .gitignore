@@ -1,0 +1,10 @@
+.idea/
+.env
+*.csv
+*.xlsx
+*.xlsx#
+*.zip
+*.pyc
+venv/
+setting.py
+node_modules/

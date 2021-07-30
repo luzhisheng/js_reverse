@@ -1,0 +1,20 @@
+window.__cr_eval = window.eval
+var myeval = function (src) {
+    console.log(src);
+    debugger;
+    console.log("================ eval end ================")
+    return window.__cr_eval(src)
+}
+var _myeval = myeval.bind(null)
+_myeval.toString = window.__cr_eval.toString;
+Object.defineProperty(window, 'eval', { value: _myeval })
+
+window.__cr_fun = window.Function
+var myfun = function () {
+    var args = Array.prototype.slice.call(arguments, 0, -1).join(","), src = arguments[arguments.length - 1]
+    console.log(src);
+    console.log("================ Function end ================")
+    return window.__cr_fun.apply(this, arguments)
+}
+myfun.toString = function() { return window.__cr_fun + "" } // 小花招
+Object.defineProperty(window, 'Function', { value: myfun })
