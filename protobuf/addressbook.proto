@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+// message 语法关键字 定义一个消息
+message Person {
+    string name = 1;
+    int32 id = 2;
+    string email = 3;
+    enum PhoneType {
+        MOBILE = 0;
+        HOME = 1;
+        WORK = 2;
+    }
+
+    // 嵌套一个 message
+    message PhoneNumber {
+        repeated string number = 1;
+        PhoneType type = 2;
+    }
+
+    // 上面定义的消息要被使用
+    repeated PhoneNumber phones = 4;
+}
+
+message AddressBook {
+    repeated Person people = 1;
+}
