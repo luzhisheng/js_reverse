@@ -5,11 +5,13 @@ from setting import xhs_account
 
 
 class XhsApp(object):
+
     def __init__(self):
         self.nodejs_x_s_url = "http://127.0.0.1:3000/get_x_s"
         self.nodejs_id_url = "http://127.0.0.1:3001/get_sign"
         self.cookie_url = "https://www.xiaohongshu.com/fe_api/burdock/v2/shield/registerCanvas"
         self.login_url = "https://customer.xiaohongshu.com/api/cas/loginWithAccount"
+        self.login_loginWithTicket_url = "https://pgy.xiaohongshu.com/api/solar/loginWithTicket"
 
         self.sign = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4280.141 " \
                     "Safari/537.36~~~unknown~~~zh-CN~~~24~~~8~~~4~~~-480~~~Asia/Shanghai~~~1~~~1~~~1~~~1~~~unkno" \
@@ -25,8 +27,8 @@ class XhsApp(object):
     def get_x_s(self, x_t):
         x_s_data = 'test1test/api/cas/loginWithAccount{"account":"test2","password":"test3",' \
                    '"service":"https://pgy.xiaohongshu.com"}'
-        x_s_data = x_s_data.replace("test1", x_t)\
-            .replace("test2", xhs_account.get('account'))\
+        x_s_data = x_s_data.replace("test1", x_t) \
+            .replace("test2", xhs_account.get('account')) \
             .replace("test3", xhs_account.get('password'))
 
         data = {
@@ -68,6 +70,20 @@ class XhsApp(object):
         req = requests.post(self.login_url, headers=headers, data=payload)
         return req.text, req.headers
 
+    def get_login_with_ticket(self, timestamp2, x_s, x_t, customerBeakerSessionId, st_data):
+        headers = {
+            'cookie': f"timestamp2={timestamp2}; {customerBeakerSessionId}",
+            'x-s': x_s,
+            'x-t': x_t,
+            'content-type': 'application/json;charset=UTF-8'
+        }
+        print(headers)
+        payload = "{\"ticket\":\"test1\"}"
+        payload = payload.replace("test1", st_data)
+        print(payload)
+        req = requests.post(self.login_loginWithTicket_url, headers=headers, data=payload)
+        return req
+
     def run(self):
         x_t = self.get_timestamp()
         print('x_t : {}'.format(x_t))
@@ -77,9 +93,16 @@ class XhsApp(object):
 
         id = self.get_id()
         timestamp2 = self.get_cookie_timestamp2(id)
+        print('timestamp2 : {}'.format(timestamp2))
         text, headers = self.get_html(timestamp2, x_s, x_t)
+        text = json.loads(text)
         print(text)
-        print(headers)
+
+        lists = headers.get('Set-Cookie').split(';')
+        customerBeakerSessionId = lists[0]
+        print('customerBeakerSessionId : {}'.format(customerBeakerSessionId))
+        res = self.get_login_with_ticket(timestamp2, x_s, x_t, customerBeakerSessionId, text.get('data'))
+        print(res.text)
 
 
 if __name__ == '__main__':
