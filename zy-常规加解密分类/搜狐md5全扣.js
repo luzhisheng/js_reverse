@@ -1,4 +1,3 @@
-
 !function(window, factory) {
     "undefined" != typeof module && module.exports ? module.exports = factory(window) : "function" == typeof define && define.amd ? define(function() {
         return factory(window)
@@ -201,7 +200,8 @@
             return hex_md5(args)
         }
     }
-        , isSohu = /\.sohu.com/.test(location.host)
+    window.ayf = utils;
+    var isSohu = /\.sohu.com/.test(location.host)
         , browser = function() {
         var w = window
             , ver = w.opera ? opera.version().replace(/\d$/, "") - 0 : parseFloat((/(?:IE |fox\/|ome\/|ion\/)(\d+\.\d)/.exec(navigator.userAgent) || [, 0])[1]);
@@ -450,6 +450,3 @@
         window.SohuPassport = SohuPassport,
         SohuPassport
 });
-
-
-console.log(utils.md5("123456"));
