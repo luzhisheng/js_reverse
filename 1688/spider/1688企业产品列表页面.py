@@ -14,10 +14,12 @@ class Film(Baes):
         super(Film, self).__init__()
 
     def run(self):
-        for i in range(1, 24):
-            cookie2 = "1e3cee17580ffb0eea62cdaec87c7771"
-            x5sec = "7b226b796c696e3b32223a226666636266643833623266666662366331306164643530623830623436613662434d4f7076596f47454e337336596a57674f62427a674561437a59324f4449794d5463344e4473784d4f57426e355542227d"
-            url = self.url.format(i)
+        for i in range(15, 24):
+            cookie2 = "1bdee7e6f5206d15ccfabb2cc828a2d1"
+            x5sec = "7b226b796c696e3b32223a2232386636646266333930343734353861333765356163386535" \
+                    "35636232343339434a757676346f47454c434b357258693249655973674561437a59324f44497" \
+                    "4d5463344e4473784d4f57426e355542227d"
+            url = self.url.format(i).replace('detail', 'm')
             headers = {
                 'cookie': f"cookie2={cookie2};x5sec={x5sec}"
                 }
@@ -27,13 +29,18 @@ class Film(Baes):
                 print(f"【{datetime.now()}】报错{i}")
                 exit()
 
+            if '全球领先的采购批发平台,批发网' in response.text:
+                print(f"【{datetime.now()}】报错{i}")
+                exit()
+
             sel = Selector(text=response.text, type='html')
             urls = sel.xpath('//ul[@class="offer-list-row"]//div[@class="image"]/a/@href').extract()
 
             for url in urls:
                 item = {
                     "sign": self.generate_sign(url),
-                    "url": url
+                    "url": url,
+                    "stauts": "0"
                 }
                 self.col.insert_item('RAW_URLS', item)
             time.sleep(10)

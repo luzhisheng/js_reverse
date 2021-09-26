@@ -1,5 +1,8 @@
+import os
+
+
 MONGODB_CONF = {
-    'host': '127.0.0.1',
+    'host': '192.168.5.151',
     'port': 27017,
     'username': '',
     'pwd': "",
@@ -8,3 +11,6 @@ MONGODB_CONF = {
     'status': '',
     'producer': ''
 }
+
+DOCS_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+excel_path = os.path.join(DOCS_PATH, '1688/docs/')

@@ -12,17 +12,23 @@ class 企业产品详情页面(Baes):
         super(企业产品详情页面, self).__init__()
 
     def run(self):
-        res = self.col.find_item('RAW_URLS', {"stauts": "0"}, {"url": 1})
+        res = self.col.find_item('RAW_URLS', {"stauts": "0"}, {"url": 1, "sign": 1})
         for s in res:
-            url = s.get('url')
-            cookie2 = "1e3cee17580ffb0eea62cdaec87c7771"
-            x5sec = "7b226c61707574613b32223a223936636266303531633230613132626262646165393438306666303931336364434d625076596f4745506a44375a4f6f706f58416f514561437a59324f4449794d5463344e4473314d50617371536f3d227d"
+            url = s.get('url').replace('detail', 'm')
+            sign = s.get('sign')
+            x5sec = "7b22776972656c6573732d7365727665722d72656e6465723b32223a2236653736" \
+                    "323835663332623033396233366663613833323639396433326236364350372b76346" \
+                    "f47454b7a58673776446d357578685145773563795068766a2f2f2f2f2f41513d3d227d"
             headers = {
-                'cookie': f"cookie2={cookie2};x5sec={x5sec}"
+                'cookie': f"x5sec={x5sec}"
             }
             response = requests.request("GET", url, headers=headers)
 
             if '系统自动生成，请勿修改 100%' in response.text:
+                print(f"【{datetime.now()}】报错{url}")
+                exit()
+
+            if '全球领先的采购批发平台,批发网' in response.text:
                 print(f"【{datetime.now()}】报错{url}")
                 exit()
 
@@ -32,7 +38,7 @@ class 企业产品详情页面(Baes):
                 "content": response.text
             }
             self.col.insert_item('RAW_CONTENT', item)
-            self.col.update_item('RAW_URLS', item)
+            self.col.update_item('RAW_URLS', sign)
             time.sleep(10)
 
 
