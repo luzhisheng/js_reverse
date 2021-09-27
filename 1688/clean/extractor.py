@@ -38,6 +38,9 @@ class extractor(Baes):
                 }
                 sub_categorys.append(sub_categorys_dict)
 
+            value = globalData.get('skuModel').get('skuProps')[0].get('value')
+            sub_colour_categorys = value
+
             orderParam = globalData.get('orderParamModel').get('orderParam').get('skuParam').get('skuRangePrices')
             companyName = globalData.get('tempModel').get('companyName')
             sellerLoginId = globalData.get('tempModel').get('sellerLoginId')
@@ -62,6 +65,7 @@ class extractor(Baes):
                 "company_name_url": "https://detail.1688.com/offer/{}.html".format(offerId),
                 "title": title,
                 "sub_categorys": sub_categorys,
+                "sub_colour_categorys": sub_colour_categorys,
                 "order_param_model": orderParam,
                 "sellerLoginId": sellerLoginId,
                 "offerUnit": offerUnit,
