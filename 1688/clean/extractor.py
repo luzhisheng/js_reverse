@@ -33,7 +33,6 @@ class extractor(Baes):
                 sub_categorys_dict = {
                     'specId': value.get('specId'),
                     'specAttrs': key,
-                    'discountPrice': value.get('discountPrice'),
                     'canBookCount': value.get('canBookCount')
                 }
                 sub_categorys.append(sub_categorys_dict)
@@ -53,11 +52,23 @@ class extractor(Baes):
                 print(f"【{datetime.now()}】图片下载{fullPathImageURI}")
                 time.sleep(1)
 
-            a_590893002003 = data.get('590893002003')
+            a_590893001984 = data.get('590893001984')
+            if not a_590893001984:
+                priceModel = globalData.get('processingModel').get('offerPriceModel').get('currentPrices')
+            else:
+                priceModel = a_590893001984.get('data').get('priceModel')
 
+            a_590893001997 = data.get('590893001997')
+            if not a_590893001997:
+                unitWeight = data.get('605462009364').get('data').get('test').get('unitWeight')
+            else:
+                unitWeight = a_590893001997.get('data').get('test').get('unitWeight')
+
+            a_590893002003 = data.get('590893002003')
             if not a_590893002003:
                 a_590893002003 = data.get('605462009362')
             propsList = a_590893002003.get('data').get('propsList')
+
             detailUrl = globalData.get('detailModel').get('detailUrl')
 
             item = {
@@ -66,12 +77,13 @@ class extractor(Baes):
                 "title": title,
                 "sub_categorys": sub_categorys,
                 "sub_colour_categorys": sub_colour_categorys,
-                "order_param_model": orderParam,
+                "order_param_model": priceModel,
                 "sellerLoginId": sellerLoginId,
                 "offerUnit": offerUnit,
                 "images": images,
                 "propsList": propsList,
-                "detailUrl": detailUrl
+                "detailUrl": detailUrl,
+                "unit_weight": unitWeight
             }
             print(json.dumps(item))
             exit()
