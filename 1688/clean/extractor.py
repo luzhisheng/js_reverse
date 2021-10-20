@@ -25,6 +25,8 @@ class extractor(Baes):
             globalData = json_dict.get('globalData')
             offerId = globalData.get('tempModel').get('offerId')
 
+            print(f"【{datetime.now()}】解析 {offerId}")
+
             data = json_dict.get('data')
             skuInfoMap = globalData.get('skuModel').get('skuInfoMap')
 
@@ -37,8 +39,11 @@ class extractor(Baes):
                 }
                 sub_categorys.append(sub_categorys_dict)
 
-            value = globalData.get('skuModel').get('skuProps')[0].get('value')
-            sub_colour_categorys = value
+            if globalData.get('skuModel').get('skuProps'):
+                value = globalData.get('skuModel').get('skuProps')[0].get('value')
+                sub_colour_categorys = value
+            else:
+                sub_colour_categorys = []
 
             orderParam = globalData.get('orderParamModel').get('orderParam').get('skuParam').get('skuRangePrices')
             companyName = globalData.get('tempModel').get('companyName')
@@ -46,11 +51,11 @@ class extractor(Baes):
             offerUnit = globalData.get('tempModel').get('offerUnit')
             images = globalData.get('images')
 
-            # for image in images:
-            #     fullPathImageURI = image.get('fullPathImageURI')
-            #     download_img(fullPathImageURI, offerId)
-            #     print(f"【{datetime.now()}】图片下载{fullPathImageURI}")
-            #     time.sleep(1)
+            for image in images:
+                fullPathImageURI = image.get('fullPathImageURI')
+                download_img(fullPathImageURI, offerId)
+                print(f"【{datetime.now()}】图片下载{fullPathImageURI}")
+                time.sleep(1)
 
             a_590893001984 = data.get('590893001984')
             if not a_590893001984:
@@ -86,9 +91,7 @@ class extractor(Baes):
                 "detailUrl": detailUrl,
                 "unit_weight": unitWeight
             }
-            print(json.dumps(item))
             self.col.insert_item('CLEAN_CONTENT', item)
-            print(f"【{datetime.now()}】解析{offerId}")
 
 
 if __name__ == '__main__':
