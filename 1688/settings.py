@@ -2,7 +2,7 @@ import os
 
 
 MONGODB_CONF = {
-    'host': '192.168.5.151',
+    'host': '127.0.0.1',
     'port': 27017,
     'username': '',
     'pwd': "",

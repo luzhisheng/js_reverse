@@ -46,11 +46,11 @@ class extractor(Baes):
             offerUnit = globalData.get('tempModel').get('offerUnit')
             images = globalData.get('images')
 
-            for image in images:
-                fullPathImageURI = image.get('fullPathImageURI')
-                download_img(fullPathImageURI, offerId)
-                print(f"【{datetime.now()}】图片下载{fullPathImageURI}")
-                time.sleep(1)
+            # for image in images:
+            #     fullPathImageURI = image.get('fullPathImageURI')
+            #     download_img(fullPathImageURI, offerId)
+            #     print(f"【{datetime.now()}】图片下载{fullPathImageURI}")
+            #     time.sleep(1)
 
             a_590893001984 = data.get('590893001984')
             if not a_590893001984:
@@ -72,8 +72,9 @@ class extractor(Baes):
             detailUrl = globalData.get('detailModel').get('detailUrl')
 
             item = {
+                "sign": self.generate_sign("https://detail.1688.com/offer/{}.html".format(offerId)),
                 "company_name": companyName,
-                "company_name_url": "https://detail.1688.com/offer/{}.html".format(offerId),
+                "url": "https://detail.1688.com/offer/{}.html".format(offerId),
                 "title": title,
                 "sub_categorys": sub_categorys,
                 "sub_colour_categorys": sub_colour_categorys,
@@ -86,8 +87,7 @@ class extractor(Baes):
                 "unit_weight": unitWeight
             }
             print(json.dumps(item))
-            exit()
-
+            self.col.insert_item('CLEAN_CONTENT', item)
             print(f"【{datetime.now()}】解析{offerId}")
 
 

@@ -16,20 +16,18 @@ class 企业产品详情页面(Baes):
         for s in res:
             url = s.get('url').replace('detail', 'm')
             sign = s.get('sign')
-            x5sec = "7b22776972656c6573732d7365727665722d72656e6465723b32223a2236653736" \
-                    "323835663332623033396233366663613833323639396433326236364350372b76346" \
-                    "f47454b7a58673776446d357578685145773563795068766a2f2f2f2f2f41513d3d227d"
+            x5sec = "7b22776972656c6573732d7365727665722d72656e6465723b32223a223532323634333863383734346532666230393835646164396366336533376664434d756776597347454a5056377266593972325539414561437a59324f4449794d5463344e4473784d4f584d6a3462342f2f2f2f2f77453d227d"
             headers = {
-                'cookie': f"x5sec={x5sec}"
+                'Cookie': f"x5sec={x5sec}"
             }
             response = requests.request("GET", url, headers=headers)
 
             if '系统自动生成，请勿修改 100%' in response.text:
-                print(f"【{datetime.now()}】报错{url}")
+                print(f"系统自动生成，请勿修改 100%【{datetime.now()}】报错{url}")
                 exit()
 
             if '全球领先的采购批发平台,批发网' in response.text:
-                print(f"【{datetime.now()}】报错{url}")
+                print(f"全球领先的采购批发平台,批发网【{datetime.now()}】报错{url}")
                 exit()
 
             item = {
