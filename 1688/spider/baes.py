@@ -1,9 +1,22 @@
 from urllib.parse import urlparse
+from datetime import datetime
 import hashlib
 import base64
 
 
 class Baes(object):
+
+    def getYMDHMSstrList(self):
+        """返回：[2019,03,01]"""
+        td = datetime.now()
+        tdTupele = td.timetuple()
+        y = str(tdTupele[0])
+        m = ("0" + str(tdTupele[1]))[-2:]
+        d = ("0" + str(tdTupele[2]))[-2:]
+        h = ("0" + str(tdTupele[3]))[-2:]
+        M = ("0" + str(tdTupele[4]))[-2:]
+        s = ("0" + str(tdTupele[5]))[-2:]
+        return [y, m, d, h, M, s]
 
     def generate_sign(self, url):
         """通过md5生成项目符号表单URL"""

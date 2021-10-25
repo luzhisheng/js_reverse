@@ -49,13 +49,14 @@ class extractor(Baes):
             companyName = globalData.get('tempModel').get('companyName')
             sellerLoginId = globalData.get('tempModel').get('sellerLoginId')
             offerUnit = globalData.get('tempModel').get('offerUnit')
+            saledCount = globalData.get('tempModel').get('saledCount')
             images = globalData.get('images')
 
-            for image in images:
-                fullPathImageURI = image.get('fullPathImageURI')
-                download_img(fullPathImageURI, offerId)
-                print(f"【{datetime.now()}】图片下载{fullPathImageURI}")
-                time.sleep(1)
+            # for image in images:
+            #     fullPathImageURI = image.get('fullPathImageURI')
+            #     download_img(fullPathImageURI, offerId)
+            #     print(f"【{datetime.now()}】图片下载{fullPathImageURI}")
+            #     time.sleep(1)
 
             a_590893001984 = data.get('590893001984')
             if not a_590893001984:
@@ -78,6 +79,7 @@ class extractor(Baes):
 
             item = {
                 "sign": self.generate_sign("https://detail.1688.com/offer/{}.html".format(offerId)),
+                "id": offerId,
                 "company_name": companyName,
                 "url": "https://detail.1688.com/offer/{}.html".format(offerId),
                 "title": title,
@@ -86,6 +88,7 @@ class extractor(Baes):
                 "order_param_model": priceModel,
                 "sellerLoginId": sellerLoginId,
                 "offerUnit": offerUnit,
+                "saledCount": saledCount,
                 "images": images,
                 "propsList": propsList,
                 "detailUrl": detailUrl,
