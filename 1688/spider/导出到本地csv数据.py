@@ -16,18 +16,14 @@ class 导出到本地csv数据(Baes):
         self.writer = pd.ExcelWriter(pd_path, options={'strings_to_urls': False})
 
     def export(self):
-        res = self.col.find_item('CLEAN_CONTENT', {}, {"id": 1, "company_name": 1, "url": 1, "title": 1,
-                                                       "sub_categorys": 1,
-                                                       "sub_colour_categorys": 1, "order_param_model": 1,
-                                                       "sellerLoginId": 1, "offerUnit": 1, "images": 1, "propsList": 1,
-                                                       "detailUrl": 1, "unit_weight": 1})
+        res = self.col.find_item('CLEAN_CONTENT', {}, None)
 
         # 初始化df
         df = pd.DataFrame(columns={
             "店铺id": str,
             "店铺名称": str,
             "店铺地址": str,
-            "銷量": pd.to_numeric,
+            "30天銷量": pd.to_numeric,
             "商品名称": str,
             "轮播图": str,
             "起订量1": str,
@@ -115,8 +111,6 @@ class 导出到本地csv数据(Baes):
                     sfkjckzgzy = props.get('value')
                     continue
 
-            print(s.get('id'))
-
             originalPrices = s.get('order_param_model').get('originalPrices')
             qdl_1 = ""
             jg_1 = ""
@@ -144,7 +138,7 @@ class 导出到本地csv数据(Baes):
                 "店铺id": s.get('id'),
                 "店铺名称": s.get('company_name'),
                 "店铺地址": s.get('url'),
-                "銷量": s.get('saledCount'),
+                "30天銷量": s.get('saledCount'),
                 "商品名称": s.get('title'),
                 "轮播图": carousel_id,
                 "起订量1": qdl_1,
