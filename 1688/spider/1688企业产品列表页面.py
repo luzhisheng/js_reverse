@@ -10,14 +10,15 @@ class Film(Baes):
 
     def __init__(self):
         self.col = MongoDao()
-        self.url = "https://shop1456245592469.1688.com/page/offerlist.htm?spm=a2615.7691456.autotrace-paginator." \
+        domain = "https://hymxfs.1688.com/"
+        self.url = f"{domain}page/offerlist.htm?spm=a2615.7691456.autotrace-paginator." \
                    "4.79f525026COu37&pageNum={}"
         super(Film, self).__init__()
 
     def run(self):
         for i in range(1, 33):
-            cookie2 = "1bd7858d65500ba53956ab164308ad2a"
-            x5sec = "7b226b796c696e3b32223a223932613866656331376631373065326331363635306638303764646635666438434f766276497347454c36483635715739704f7968674561437a59324f4449794d5463344e4473784d4f57426e355542227d"
+            cookie2 = "181121407f591d0971aa4a0751559b75"
+            x5sec = "7b226b796c696e3b32223a223736366266373939656335633166326666653261393931656464613964306339434d6e57386f7347455047366974503932497a5232674561437a51344f5463774e7a6b774e7a73784b414977355947666c51453d227d"
             url = self.url.format(i).replace('detail', 'm')
             headers = {
                 'cookie': f"cookie2={cookie2};x5sec={x5sec}"

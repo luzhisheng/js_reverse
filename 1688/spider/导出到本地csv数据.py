@@ -16,7 +16,7 @@ class 导出到本地csv数据(Baes):
         self.writer = pd.ExcelWriter(pd_path, options={'strings_to_urls': False})
 
     def export(self):
-        res = self.col.find_item('CLEAN_CONTENT', {}, None)
+        res = self.col.find_item('CLEAN_CONTENT', {"company_name" : "坂戈实力旗舰店"}, None)
 
         # 初始化df
         df = pd.DataFrame(columns={
@@ -68,6 +68,20 @@ class 导出到本地csv数据(Baes):
                 fullPathImageURI = image.get('fullPathImageURI')
                 url_path = urlparse(fullPathImageURI).path
                 carousel_id.append(url_path.split("/")[-1])
+
+            pp = ''
+            hh = ''
+            bz = ''
+            cz = ''
+            cc = ''
+            ys = ''
+            yszlzy = ''
+            sfjk = ''
+            zx = ''
+            zyxy = ''
+            zyxsdq = ''
+            yksqdzypp = ''
+            sfkjckzgzy = ''
 
             propsList = s.get('propsList')
             for props in propsList:
@@ -174,7 +188,7 @@ class 导出到本地csv数据(Baes):
                 imageUrl_id = ''
                 specAttrs = sub_category.get('specAttrs')
                 for sub_colour_category in sub_colour_categorys:
-                    if specAttrs == sub_colour_category.get('name'):
+                    if sub_colour_category.get('name') in specAttrs:
                         imageUrl = sub_colour_category.get('imageUrl') or ''
                         if imageUrl:
                             url_path = urlparse(imageUrl).path
