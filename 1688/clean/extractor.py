@@ -40,7 +40,7 @@ class extractor(Baes):
                 sub_categorys.append(sub_categorys_dict)
 
             if globalData.get('skuModel').get('skuProps'):
-                value = globalData.get('skuModel').get('skuProps')[0].get('value')
+                value = globalData.get('skuModel').get('skuProps')
                 sub_colour_categorys = value
             else:
                 sub_colour_categorys = []
