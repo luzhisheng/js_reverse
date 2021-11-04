@@ -13,7 +13,7 @@ class 导出到本地xlsx数据(Baes):
         self.col = MongoDao()
         super(导出到本地xlsx数据, self).__init__()
 
-    def export(self, company_name, writer):
+    def export(self, company_name):
         res = self.col.find_item('CLEAN_CONTENT', {"company_name": company_name}, None)
 
         # 初始化df
@@ -111,24 +111,19 @@ class 导出到本地xlsx数据(Baes):
                     dict_list_row.append(row_dict)
 
         df = df.append(dict_list, ignore_index=True, sort=False)
-        df.to_excel(sheet_name="1-产品属性", index=False, excel_writer=writer)
+        df.to_csv('../docs/1-产品属性.csv', index=False, header=True)
 
         df_cat = df_cat.append(dict_list_cat, ignore_index=True, sort=False)
-        df_cat.to_excel(sheet_name="2-产品图片", index=False, excel_writer=writer)
+        df_cat.to_csv('../docs/2-产品图片.csv', index=False, header=True)
 
         df_price = df_price.append(dict_list_price, ignore_index=True, sort=False)
-        df_price.to_excel(sheet_name="3-价格区间", index=False, excel_writer=writer)
+        df_price.to_csv('../docs/3-价格区间.csv', index=False, header=True)
 
         df_row = df_row.append(dict_list_row, ignore_index=True, sort=False)
-        df_row.to_excel(sheet_name="4-选项列", index=False, excel_writer=writer)
-
-        writer.save()
+        df_row.to_csv('../docs/4-选项列.csv', index=False, header=True)
 
     def run(self, company_name):
-        path_1 = f"{company_name}_1688_{''.join(self.getYMDHMSstrList()[0:4])}_v1.xlsx"
-        pd_path = os.path.join(settings.excel_path, path_1)
-        writer = pd.ExcelWriter(pd_path, options={'strings_to_urls': False})
-        self.export(company_name, writer)
+        self.export(company_name)
 
 
 if __name__ == '__main__':
