@@ -13,6 +13,18 @@ class 导出到本地xlsx数据(Baes):
         self.col = MongoDao()
         super(导出到本地xlsx数据, self).__init__()
 
+        path_1 = "包含产品的所有信息的表_1688_{}_v1.xlsx".format("".join(self.getYMDHMSstrList()[0:4]))
+        pd_path_1 = os.path.join(settings.excel_path, path_1)
+        self.writer = pd.ExcelWriter(pd_path_1, options={'strings_to_urls': False})
+
+        path_2 = "产品图片_1688_{}_v1.xlsx".format("".join(self.getYMDHMSstrList()[0:4]))
+        pd_path_2 = os.path.join(settings.excel_path, path_2)
+        self.writer_img = pd.ExcelWriter(pd_path_2, options={'strings_to_urls': False})
+
+        path_3 = "选项列_1688_{}_v1.xlsx".format("".join(self.getYMDHMSstrList()[0:4]))
+        pd_path_3 = os.path.join(settings.excel_path, path_3)
+        self.writer_option = pd.ExcelWriter(pd_path_3, options={'strings_to_urls': False})
+
     def export(self, company_name):
         res = self.col.find_item('CLEAN_CONTENT', {"company_name": company_name}, None)
 
@@ -111,16 +123,20 @@ class 导出到本地xlsx数据(Baes):
                     dict_list_row.append(row_dict)
 
         df = df.append(dict_list, ignore_index=True, sort=False)
-        df.to_csv('../docs/1-产品属性.csv', index=False, header=True)
-
-        df_cat = df_cat.append(dict_list_cat, ignore_index=True, sort=False)
-        df_cat.to_csv('../docs/2-产品图片.csv', index=False, header=True)
+        df.to_excel(sheet_name="1-产品属性", index=False, excel_writer=self.writer)
 
         df_price = df_price.append(dict_list_price, ignore_index=True, sort=False)
-        df_price.to_csv('../docs/3-价格区间.csv', index=False, header=True)
+        df_price.to_excel(sheet_name="2-价格区间", index=False, excel_writer=self.writer)
+
+        df_cat = df_cat.append(dict_list_cat, ignore_index=True, sort=False)
+        df_cat.to_excel(sheet_name="1-产品图片", index=False, excel_writer=self.writer_img)
 
         df_row = df_row.append(dict_list_row, ignore_index=True, sort=False)
-        df_row.to_csv('../docs/4-选项列.csv', index=False, header=True)
+        df_row.to_excel(sheet_name="1-选项列", index=False, excel_writer=self.writer_option)
+
+        self.writer.save()
+        self.writer_img.save()
+        self.writer_option.save()
 
     def run(self, company_name):
         self.export(company_name)
