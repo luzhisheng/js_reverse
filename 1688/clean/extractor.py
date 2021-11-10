@@ -30,20 +30,32 @@ class extractor(Baes):
             data = json_dict.get('data')
             skuInfoMap = globalData.get('skuModel').get('skuInfoMap')
 
-            sub_categorys = []
+            sub_categorys_canBookCount = []
             for key, value in skuInfoMap.items():
                 sub_categorys_dict = {
                     'specId': value.get('specId'),
-                    'specAttrs': key,
+                    'specAttrs': key.replace('&gt;', '|'),
+                    'Price': globalData.get('tempModel').get('price'),
                     'canBookCount': value.get('canBookCount')
                 }
-                sub_categorys.append(sub_categorys_dict)
+                sub_categorys_canBookCount.append(sub_categorys_dict)
 
             if globalData.get('skuModel').get('skuProps'):
-                value = globalData.get('skuModel').get('skuProps')
-                sub_colour_categorys = value
+                skuProps = globalData.get('skuModel').get('skuProps')
+                list_dict = []
+                for skuProp in skuProps:
+                    prop = skuProp.get('prop')
+                    value = skuProp.get('value')
+                    for val in value:
+                        item_dict = {
+                            'OptionImageUrl': val.get('imageUrl') or '',
+                            'name': prop,
+                            'optionValue': val.get('name')
+                        }
+                        list_dict.append(item_dict)
+
             else:
-                sub_colour_categorys = []
+                list_dict = []
 
             orderParam = globalData.get('orderParamModel').get('orderParam').get('skuParam').get('skuRangePrices')
             companyName = globalData.get('tempModel').get('companyName')
@@ -67,8 +79,13 @@ class extractor(Baes):
             a_590893001997 = data.get('590893001997')
             if not a_590893001997:
                 unitWeight = data.get('605462009364').get('data').get('test').get('unitWeight')
+                location = data.get('605462009364').get('data').get('location')
+                cost = data.get('605462009364').get('data').get('logistics')
             else:
                 unitWeight = a_590893001997.get('data').get('test').get('unitWeight')
+                location = a_590893001997.get('data').get('location')
+                cost = a_590893001997.get('data').get('logistics')
+            logistics = [{"from": location}, {"cost": cost}]
 
             a_590893002003 = data.get('590893002003')
             if not a_590893002003:
@@ -83,16 +100,17 @@ class extractor(Baes):
                 "company_name": companyName,
                 "url": "https://detail.1688.com/offer/{}.html".format(offerId),
                 "title": title,
-                "sub_categorys": sub_categorys,
-                "sub_colour_categorys": sub_colour_categorys,
+                "sub_categorys_canBookCount": sub_categorys_canBookCount,
+                "sub_categorys_option": list_dict,
                 "order_param_model": priceModel,
                 "sellerLoginId": sellerLoginId,
                 "offerUnit": offerUnit,
-                "saledCount": saledCount,
+                "30daySold": saledCount,
                 "images": images,
                 "propsList": propsList,
                 "detailUrl": detailUrl,
-                "unit_weight": unitWeight
+                "unit_weight": unitWeight,
+                "logistics": logistics
             }
             self.col.insert_item('CLEAN_CONTENT', item)
 
