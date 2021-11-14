@@ -78,14 +78,14 @@ class extractor(Baes):
 
             a_590893001997 = data.get('590893001997')
             if not a_590893001997:
-                unitWeight = data.get('605462009364').get('data').get('test').get('unitWeight')
+                # unitWeight = data.get('605462009364').get('data').get('test').get('unitWeight')
                 location = data.get('605462009364').get('data').get('location')
                 cost = data.get('605462009364').get('data').get('logistics')
             else:
-                unitWeight = a_590893001997.get('data').get('test').get('unitWeight')
+                # unitWeight = a_590893001997.get('data').get('test').get('unitWeight')
                 location = a_590893001997.get('data').get('location')
                 cost = a_590893001997.get('data').get('logistics')
-            logistics = [{"from": location}, {"cost": cost}]
+            logistics = [{"from": location}, {"cost": cost.replace('快递', '').strip()}]
 
             a_590893002003 = data.get('590893002003')
             if not a_590893002003:
@@ -109,7 +109,7 @@ class extractor(Baes):
                 "images": images,
                 "propsList": propsList,
                 "detailUrl": detailUrl,
-                "unit_weight": unitWeight,
+                "unit_weight": "",
                 "logistics": logistics
             }
             self.col.insert_item('CLEAN_CONTENT', item)

@@ -47,7 +47,7 @@ class MongoDao(object):
         else:
             print(f"【{datetime.now()}】过滤")
 
-    def find_item(self, collection, query, projection):
+    def find_item(self, collection, *args, **kwargs):
         collection = self.client[collection]
-        return collection.find(query, projection).batch_size(1)
+        return collection.find(*args, **kwargs).batch_size(1)
 
