@@ -2,8 +2,6 @@ from dao.mongo_dao import MongoDao
 from scrapy.selector import Selector
 from spider.baes import Baes
 from datetime import datetime
-from tool.download_img import download_img
-import time
 import json
 import re
 
@@ -47,8 +45,12 @@ class extractor(Baes):
                     prop = skuProp.get('prop')
                     value = skuProp.get('value')
                     for val in value:
+                        if val.get('imageUrl'):
+                            val_imageUrl = val.get('imageUrl').replace('.jpg', '.32x32.jpg')
+                        else:
+                            val_imageUrl = ''
                         item_dict = {
-                            'OptionImageUrl': val.get('imageUrl') or '',
+                            'OptionImageUrl': val_imageUrl,
                             'name': prop,
                             'optionValue': val.get('name')
                         }
@@ -57,18 +59,17 @@ class extractor(Baes):
             else:
                 list_dict = []
 
-            orderParam = globalData.get('orderParamModel').get('orderParam').get('skuParam').get('skuRangePrices')
             companyName = globalData.get('tempModel').get('companyName')
             sellerLoginId = globalData.get('tempModel').get('sellerLoginId')
             offerUnit = globalData.get('tempModel').get('offerUnit')
             saledCount = globalData.get('tempModel').get('saledCount')
-            images = globalData.get('images')
-
-            # for image in images:
-            #     fullPathImageURI = image.get('fullPathImageURI')
-            #     download_img(fullPathImageURI, offerId)
-            #     print(f"【{datetime.now()}】图片下载{fullPathImageURI}")
-            #     time.sleep(1)
+            images = []
+            images_item = globalData.get('images')
+            for image in images_item:
+                image_item = {
+                    "imageURI": image.get('imageURI').split('/')[-1]
+                }
+                images.append(image_item)
 
             a_590893001984 = data.get('590893001984')
             if not a_590893001984:
@@ -110,7 +111,9 @@ class extractor(Baes):
                 "propsList": propsList,
                 "detailUrl": detailUrl,
                 "unit_weight": "",
-                "logistics": logistics
+                "logistics": logistics,
+                "download_img_status": 0,
+                "detail_url_status": 0
             }
             self.col.insert_item('CLEAN_CONTENT', item)
 
