@@ -1,4 +1,4 @@
-from dao.mongo_dao import MongoDao
+from dao.mongo_dao import MyMongodb, MongoDao
 from spider.baes import Baes
 from datetime import datetime
 import time
@@ -8,15 +8,16 @@ import requests
 class 企业产品详情页面(Baes):
 
     def __init__(self):
+        self.mongodb = MyMongodb().db
         self.col = MongoDao()
         super(企业产品详情页面, self).__init__()
 
     def run(self):
-        res = self.col.find_item('RAW_URLS', {"stauts": "0"}, {"url": 1, "sign": 1})
+        res = self.mongodb['RAW_URLS'].find({"stauts": "0"}, {"url": 1, "sign": 1})
         for s in res:
             url = s.get('url').replace('detail', 'm')
             sign = s.get('sign')
-            x5sec = "7b22776972656c6573732d7365727665722d72656e6465723b32223a223433333035343562623433343530616361636164636131373764396164613965434a754f7534774745507959795a577173616e3641526f4c4e6a59344d6a49784e7a67304f7a45773563795068766a2f2f2f2f2f41513d3d227d"
+            x5sec = "7b22776972656c6573732d7365727665722d72656e6465723b32223a226363663036373930386530363435333061646434616437316231373339646264434e7149744930474550476b36716541796f6655777745773563795068766a2f2f2f2f2f41513d3d227d"
             headers = {
                 'Cookie': f"x5sec={x5sec}"
             }
@@ -37,7 +38,7 @@ class 企业产品详情页面(Baes):
             }
             self.col.insert_item('RAW_CONTENT', item)
             self.col.update_item('RAW_URLS', sign)
-            time.sleep(10)
+            time.sleep(3)
 
 
 if __name__ == '__main__':

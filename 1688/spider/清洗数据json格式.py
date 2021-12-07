@@ -1,4 +1,4 @@
-from dao.mongo_dao import MongoDao
+from dao.mongo_dao import MongoDao, MyMongodb
 from scrapy.selector import Selector
 from spider.baes import Baes
 from datetime import datetime
@@ -9,11 +9,12 @@ import re
 class extractor(Baes):
 
     def __init__(self):
+        self.mongodb = MyMongodb().db
         self.col = MongoDao()
         super(extractor, self).__init__()
 
     def run(self):
-        res = self.col.find_item('RAW_CONTENT', {}, {"content": 1})
+        res = self.mongodb['RAW_CONTENT'].find({}, {"content": 1})
         for s in res:
             content = s.get('content')
             sel = Selector(text=content, type='html')
@@ -33,7 +34,7 @@ class extractor(Baes):
                 sub_categorys_dict = {
                     'specId': value.get('specId'),
                     'specAttrs': key.replace('&gt;', '|'),
-                    'Price': globalData.get('tempModel').get('price'),
+                    'Price': value.get('price') if value.get('price') else globalData.get('tempModel').get('price'),
                     'canBookCount': value.get('canBookCount')
                 }
                 sub_categorys_canBookCount.append(sub_categorys_dict)

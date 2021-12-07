@@ -39,3 +39,10 @@ class MongoDao(object):
         else:
             print(f"【{datetime.now()}】入库{item.get('sign')}")
             return collection.insert_one(item)
+
+    def update_item(self, collection, sign):
+        collection = self.client[collection]
+        if collection.find_one({"sign": sign}):
+            return collection.update_one({"sign": sign}, {"$set": {"stauts": '1'}})
+        else:
+            print(f"【{datetime.now()}】过滤")
