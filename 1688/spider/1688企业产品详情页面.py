@@ -12,12 +12,11 @@ class 企业产品详情页面(Baes):
         self.col = MongoDao()
         super(企业产品详情页面, self).__init__()
 
-    def run(self):
+    def run(self, x5sec):
         res = self.mongodb['RAW_URLS'].find({"stauts": "0"}, {"url": 1, "sign": 1})
         for s in res:
             url = s.get('url').replace('detail', 'm')
             sign = s.get('sign')
-            x5sec = "7b22776972656c6573732d7365727665722d72656e6465723b32223a226363663036373930386530363435333061646434616437316231373339646264434e7149744930474550476b36716541796f6655777745773563795068766a2f2f2f2f2f41513d3d227d"
             headers = {
                 'Cookie': f"x5sec={x5sec}"
             }
@@ -34,7 +33,8 @@ class 企业产品详情页面(Baes):
             item = {
                 "sign": self.generate_sign(url),
                 "url": url,
-                "content": response.text
+                "content": response.text,
+                "stauts": "0"
             }
             self.col.insert_item('RAW_CONTENT', item)
             self.col.update_item('RAW_URLS', sign)
@@ -43,4 +43,5 @@ class 企业产品详情页面(Baes):
 
 if __name__ == '__main__':
     f = 企业产品详情页面()
-    f.run()
+    x5sec = "7b22776972656c6573732d7365727665722d72656e6465723b32223a223266633031313838663533353565313937383231626330616335666437353532434f6e4436493047454a723972595054354f375a6d4145773563795068766a2f2f2f2f2f41513d3d227d"
+    f.run(x5sec)

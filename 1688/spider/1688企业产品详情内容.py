@@ -18,7 +18,7 @@ class 企业产品详情内容(Baes):
         return res
 
     def run(self):
-        res = self.client['CLEAN_CONTENT'].find({"detail_url_status": 0}).batch_size(1)
+        res = self.client['CLEAN_CONTENT'].find({"detail_url_status": 0}).batch_size(500)
         for s in res:
             sign = s.get('sign')
             id = s.get('id')
@@ -26,8 +26,12 @@ class 企业产品详情内容(Baes):
             if detailUrl:
                 detailUrl = re.findall(r'url=(.*)', detailUrl)[0]
                 res = self.get_detail(detailUrl)
-                offer_details = re.findall(r'offer_details=(.*);', res.text)[0]
-                offer_details_dict = json.loads(offer_details).get('content')
+
+                try:
+                    offer_details = re.findall(r'offer_details=(.*);', res.text)[0]
+                    offer_details_dict = json.loads(offer_details).get('content')
+                except IndexError:
+                    offer_details_dict = re.findall(r'desc=\'(.*)\';', res.text)[0]
 
                 item = {
                     "sign": sign,

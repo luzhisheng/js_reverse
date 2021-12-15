@@ -19,6 +19,10 @@ class extractor(Baes):
             content = s.get('content')
             sel = Selector(text=content, type='html')
             title = sel.xpath('//title/text()').extract_first()
+
+            if "阿里巴巴-1688商品无法查看或已下架" in content:
+                continue
+
             json_itme = re.findall(r'window.__INIT_DATA=(\{.*\})', content)[0]
             json_dict = json.loads(json_itme)
             globalData = json_dict.get('globalData')
@@ -28,6 +32,8 @@ class extractor(Baes):
 
             data = json_dict.get('data')
             skuInfoMap = globalData.get('skuModel').get('skuInfoMap')
+            if isinstance(skuInfoMap, list):
+                continue
 
             sub_categorys_canBookCount = []
             for key, value in skuInfoMap.items():
@@ -66,17 +72,23 @@ class extractor(Baes):
             saledCount = globalData.get('tempModel').get('saledCount')
             images = []
             images_item = globalData.get('images')
-            for image in images_item:
-                image_item = {
-                    "imageURI": image.get('imageURI').split('/')[-1]
-                }
-                images.append(image_item)
+            try:
+                for image in images_item:
+                    image_item = {
+                        "imageURI": image.get('imageURI').split('/')[-1]
+                    }
+                    images.append(image_item)
+            except Exception as e:
+                continue
 
             a_590893001984 = data.get('590893001984')
             if not a_590893001984:
                 priceModel = globalData.get('processingModel').get('offerPriceModel').get('currentPrices')
             else:
-                priceModel = a_590893001984.get('data').get('priceModel')
+                try:
+                    priceModel = a_590893001984.get('data').get('priceModel')
+                except Exception as e:
+                    continue
 
             a_590893001997 = data.get('590893001997')
             if not a_590893001997:
