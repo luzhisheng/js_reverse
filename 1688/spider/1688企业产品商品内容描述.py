@@ -6,19 +6,19 @@ import json
 import re
 
 
-class 企业产品详情内容(Baes):
+class 企业产品商品内容描述(Baes):
 
     def __init__(self):
         self.client = MyMongodb().db
         self.col = MongoDao()
-        super(企业产品详情内容, self).__init__()
+        super(企业产品商品内容描述, self).__init__()
 
     def get_detail(self, url):
         res = requests.get(url)
         return res
 
     def run(self):
-        res = self.client['CLEAN_CONTENT'].find({"detail_url_status": 0}).batch_size(500)
+        res = self.client['CLEAN_CONTENT'].find({"detail_url_status": 0}).batch_size(1)
         for s in res:
             sign = s.get('sign')
             id = s.get('id')
@@ -29,7 +29,7 @@ class 企业产品详情内容(Baes):
 
                 try:
                     offer_details = re.findall(r'offer_details=(.*);', res.text)[0]
-                    offer_details_dict = json.loads(offer_details).get('content')
+                    offer_details_dict = eval(offer_details).get('content')
                 except IndexError:
                     offer_details_dict = re.findall(r'desc=\'(.*)\';', res.text)[0]
 
@@ -45,5 +45,5 @@ class 企业产品详情内容(Baes):
 
 
 if __name__ == '__main__':
-    img = 企业产品详情内容()
+    img = 企业产品商品内容描述()
     img.run()
