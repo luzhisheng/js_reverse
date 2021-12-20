@@ -5,6 +5,10 @@ import os
 from dao.mongo_dao import MyMongodb
 from spider.baes import Baes
 from datetime import datetime
+import gevent
+import gevent.monkey
+from gevent import Greenlet
+gevent.monkey.patch_all(thread=False, select=False)
 
 
 class 图片下载(Baes):
@@ -20,6 +24,7 @@ class 图片下载(Baes):
             r = requests.get(image_url)
             with open(f'{settings.excel_path}{path}/{image_name}', 'wb') as f:
                 f.write(r.content)
+            print(f"【{datetime.now()}】图片下载{image_url}")
             return 1
         except Exception as e:
             return -1
@@ -36,27 +41,14 @@ class 图片下载(Baes):
     def run(self):
         res = self.client['CLEAN_CONTENT'].find({"download_img_status": 0}).batch_size(1)
         for s in res:
+            img_list = []
             id = s.get('id')
-            sign = s.get('sign')
             for img_url in s.get('images'):
                 if img_url.get('imageURI'):
                     fullPathImageURI = "https://cbu01.alicdn.com/img/ibank/" + img_url.get('imageURI')
-                    res = self.download_img(fullPathImageURI, id)
-                    if res == -1:
-                        break
-                    print(f"【{datetime.now()}】图片下载{fullPathImageURI}")
-
-            for sub_category in s.get('sub_categorys_option'):
-                if sub_category.get('OptionImageUrl'):
-                    OptionImageUrl = sub_category.get('OptionImageUrl')
-                    res = self.download_img(OptionImageUrl, id)
-                    if res == -1:
-                        break
-                    print(f"【{datetime.now()}】图片下载{OptionImageUrl}")
-
-            # res = self.client['CLEAN_CONTENT'].update_one({"sign": sign}, {"$set": {"download_img_status": 2}})
-            print(f"【{datetime.now()}】完成 {res}")
-            exit()
+                    img_list.append(fullPathImageURI)
+            dowload_jobs = [Greenlet.spawn(self.download_img, i, id) for i in img_list]
+            gevent.joinall(dowload_jobs)
 
 
 if __name__ == '__main__':
