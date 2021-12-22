@@ -11,11 +11,11 @@ from gevent import Greenlet
 gevent.monkey.patch_all(thread=False, select=False)
 
 
-class 图片下载(Baes):
+class 图片下载协程(Baes):
 
     def __init__(self):
         self.client = MyMongodb().db
-        super(图片下载, self).__init__()
+        super(图片下载协程, self).__init__()
 
     def request_download(self, image_url, path):
         try:
@@ -52,5 +52,5 @@ class 图片下载(Baes):
 
 
 if __name__ == '__main__':
-    img = 图片下载()
+    img = 图片下载协程()
     img.run()
