@@ -26,7 +26,7 @@ websocket html5 不是v8引擎自带的，本身就是关键词
 
 心跳包：客户端每隔30秒（不固定）发送给服务端信号，服务端就回认为客户端还是在线
 
-## 调试 message
+## 调试 onmessage
 
 ![debugger](../img/34.png)
 
