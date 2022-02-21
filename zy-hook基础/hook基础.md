@@ -136,4 +136,4 @@ es6 代理 Proxy
 
 测试效果，找到js，在资源面板中打开，在顶部打上断点，控制台输入以上代码，测试效果。
 
-![debugger](../img/56.png)
+![debugger](../img/57.png)
