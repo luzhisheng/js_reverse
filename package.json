@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@babel/core": "^7.17.5",
+    "anyproxy": "^4.1.3",
+    "cheerio": "^1.0.0-rc.10",
+    "express": "^4.17.3",
+    "shelljs": "^0.8.5"
+  }
+}
