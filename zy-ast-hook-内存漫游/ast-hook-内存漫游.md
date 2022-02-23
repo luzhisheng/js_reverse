@@ -40,3 +40,11 @@
 ### 设置代理
 
     SwitchyOmega
+
+![debugger](../img/59.png)
+
+### 挂上代理后，打开目标网站
+
+    hook.search('c99546cf032aaa5a679230de9a95c7db')
+    
+![debugger](../img/60.png)
