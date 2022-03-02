@@ -1,6 +1,6 @@
 ## ast
 
-ast抽象语法树
+ast抽象语法树，不是js独有的
 
 ## var a = 1 如果翻译成ast
 
@@ -33,6 +33,8 @@ ast抽象语法树
     
 Babel 是一个 JavaScript 编译器。
 
+编译器是将程序员写的代码变成计算机能看得懂的代码
+
 Babel 是一个工具链，主要用于将采用 ECMAScript 2015+ 语法编写的代码转换为向后兼容的 JavaScript 语法，以便能够运行在当前和旧版本的浏览器或其他环境中。
 
 es6 -> es5
@@ -46,6 +48,11 @@ Babel 手册
 
     https://github.com/jamiebuilds/babel-handbook/blob/master/translations/zh-Hans/README.md
     
+树结构遍历模式
+
+    深度优先，先子后兄
+    广度优先，先兄后子
+
 安装 babel-core 代码
 
     npm install babel-core

@@ -19,4 +19,3 @@ var jscode = fs.readFileSync("read.js", {     //更改读取文件
 let ast = parser.parse(jscode);
 
 console.log(ast);
-
