@@ -18,4 +18,16 @@ var jscode = fs.readFileSync("read.js", {     //更改读取文件
 
 let ast = parser.parse(jscode);
 
+
+function traverse_all_MemberExpression(ast) {
+    // 遍历节点，当遇到下列类型的时候会调用函数
+    traverse(ast, {
+        MemberExpression: {
+            enter: [replace]
+        },
+    })
+}
+
+traverse_all_MemberExpression(ast);
+
 console.log(ast);
