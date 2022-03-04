@@ -18,16 +18,18 @@ var jscode = fs.readFileSync("read.js", {     //更改读取文件
 
 let ast = parser.parse(jscode);
 
+var traverses =
+    {
+        // 遍历节点，当遇到下列类型的时候会调用函数
+        VariableDeclarator(path) {
+            console.log(path.node.id.name);
+            path.node.init = t.stringLiteral("ayf");
+            console.log(path.node.init.value);
+        }
+    };
 
-function traverse_all_MemberExpression(ast) {
-    // 遍历节点，当遇到下列类型的时候会调用函数
-    traverse(ast, {
-        MemberExpression: {
-            enter: [replace]
-        },
-    })
-}
+traverse(ast, traverses);
 
-traverse_all_MemberExpression(ast);
-
-console.log(ast);
+let code = generator(ast);
+console.log(code);
+console.log(code.code);
