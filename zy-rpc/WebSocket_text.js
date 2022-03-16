@@ -6,7 +6,7 @@
     };
 
     ws.onmessage = function (evt) {
-        console.log(window.ayf.RSA.evcrypt(evt.data))
+        console.log(window.ayf.RSA.evcrypt(evt.data));
     };
 
     ws.onclose = function (evt) {

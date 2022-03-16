@@ -46,3 +46,62 @@ websockets 地址
 
     ws://127.0.0.1:8765
 
+## 案例百度登陆
+
+找到RSA加密地方
+
+    e.RSA.encrypt('111111111111111')
+
+![debugger](../img/61.png)
+
+将js保存到本地替换
+
+![debugger](../img/62.png)
+
+进行js注入
+
+    if (e.RSA && e.rsakey) {
+        var s = o;
+
+        !function () {
+            window.ayf = e;
+            var ws = new WebSocket("ws://127.0.0.1:9999");
+    
+            ws.onopen = function (evt) {
+            };
+    
+            ws.onmessage = function (evt) {
+                ws.send(window.ayf.RSA.evcrypt(evt.data))
+            };
+    
+            ws.onclose = function (evt) {
+            };
+    
+        }();
+        
+        s.length < 128 && !e.config.safeFlag && (i.password = baidu.url.escapeSymbol(e.RSA.encrypt(s)),
+        i.rsakey = e.rsakey,
+        i.crypttype = 12)
+    }
+
+python 服务端代码
+
+    import asyncio
+    import websockets
+    import time
+    
+    
+    async def echo(websocket, path):
+        while True:
+            t = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+            await websocket.send(t)
+            msg = await websocket.recv()
+            print(msg)
+            await asyncio.sleep(10)
+    
+    
+    asyncio.get_event_loop().run_until_complete(
+        websockets.serve(echo, '127.0.0.1', 9999))
+    asyncio.get_event_loop().run_forever()
+
+
