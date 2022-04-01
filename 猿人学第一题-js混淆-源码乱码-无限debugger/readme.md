@@ -97,7 +97,9 @@
 
 ![debugger](../img/68.png)
 
-解码后是 oo0O0(_0x2268f9["toString"]())，_0x2268f9["toString"]() 返回是"1648906681000"
+解码后是 
+
+    oo0O0(_0x2268f9["toString"]())，_0x2268f9["toString"]() 返回是"1648906681000"
 
     oo0O0("1648906681000")
 
@@ -383,7 +385,9 @@ mwqqppz是什么？
     J('0x1', 'GTu!')    等于 mwqqppz
     mw   传入的 "1648906681000"
     
-eval(atob(window['b'])['replace']("mwqqppz", "'1648906681000'"));
+将参数替换
+
+    eval(atob(window['b'])['replace']("mwqqppz", "'1648906681000'"));
 
 replace 替换 window.f = hex_md5(mwqqppz); 中的 mwqqppz
 
