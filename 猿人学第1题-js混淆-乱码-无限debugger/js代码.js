@@ -201,5 +201,8 @@ function binl2b64(d) {
     return f
 };
 
-f = hex_md5('1648906681000');
-console.log(f);
+
+module.exports =
+    {
+        hex_md5
+    };
