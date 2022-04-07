@@ -1,12 +1,29 @@
 import requests
 import json
 from scrapy.selector import Selector
+import base64
 
 
 class 实例1(object):
 
     def __init__(self):
-        self.url = "https://match.yuanrenxue.com/api/match/4?page=1"
+        self.url = "https://match.yuanrenxue.com/api/match/4?page={}"
+        self.sign_url = "http://127.0.0.1:4001/get_sign"
+        self.num = 0
+
+    def get_sign(self, date_time):
+        data = {
+            'sign': str(date_time)
+        }
+        req = requests.post(self.sign_url, data=data)
+        sign = req.text
+        return sign
+
+    def get_md5(self, con_str):
+        ba_str = base64.b64encode(con_str.encode())
+        ba_str = ba_str.decode().replace('=', '')
+        img_number_sign = self.get_sign(ba_str)
+        return img_number_sign
 
     def get_res(self):
         num_item = {
@@ -22,17 +39,42 @@ class 实例1(object):
             "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAcCAYAAABh2p9gAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAMzSURBVEhLpZZPSBRhGMYfV9dpdV3UHDVXIw1KDUwJVy/VLTAVWugQRJqUpxAkFyuMIBMPWRGYiCGGC7J0KCRKL13Si9pBvKiH9NIYoavgqKvjujt9M/OuM+uustUPvpn3edl9eL/3+7Mbl3fqjIxoFDnhb76Bzcoi7No47FI6QRJxbHYKKQOdSPi8RFmdKIZ2BDt6sHazCNuUiY4E67cXSLvtJq1hojdhx57nPX4fMDOxL3OSMiihwmHzchu8njrSGmGGclc/Vit5BEibxEXw7bdgzy9BZqEyziLP5UH6Cn2AsV3ZBF+DnVTYlBuxNe/CGqcpSHPIdl6DeY60EXsdfCNtWLVp0rQyhhOORrU6vcKOamyEzNgUU4fuRTdTWHIj6fUkLCSDfCl2GrR433CvuAB+ipXqLM8iVzCMd29gFSiGDb4rWi/J0IE9fr88QFhEAoWHMwWzIFLMeplbAaV3ZFiIIPXjb4gXvBQx+Ax1MfUeGuEM1cYKZzMauhFv2Arg2X6k8CgCuRkUKaQgWGOo0CwYHLlS+LocJA7B3oKdMmOfOMi8wdDUy84nxQrrtU8h1egbNpyLkAbr9T1rQO/h5EtYJ0Q9wRVguXsYG30tCFwq1HJ2B4KtPdiY6cfyac3NrD4VJMQpk1ROij7uyJk/dmTIcgxjXT7+aUK27OsFOZN56BWqjIOrf4isWRHxlImOiLSh+0iaJqnCKmTPA4aMpREkVpcjx/UWGdOLSBZDNw0booC0iY/IuVoO6+NxoJjXbyVRK+LwCzYGAp7v+FWprbR5dhDZ1Z1RKowZB/y5+rbhhK/qO2bD/FMncb7kHClGRT07vxRDgGVgSo1iNrTZUnChrIQUm26zA5sUm4QZcJNa/G89bHDD+6SCFkRCem8Vkp9r1114hfbDToaBmlcQH4TMgMSFL0giM4Vww2Z2AqaGsd3qpIQB5We1bxTe7mqsh46ctIjU9kfq/gsRPuWuUfy8XkCCrRzbexTBz0yCpBRMzCzDdRfcgd/mIxdFYveiNsLNOGEMWc6qCDOFA4vCbu7WJmzXOrDF21SjEBz7x2Bm/xisQ90wf5inbCT/dVIiAf4ApbEnkB6qHqsAAAAASUVORK5CYII=": 9
         }
 
-        res = requests.get(url=self.url)
-        res_dict = json.loads(res.text)
-        info = res_dict.get('info')
-        selector = Selector(text=info, type='html')
-        td_list = selector.xpath('//td').extract()
-        for td in td_list:
-            td_sel = Selector(text=td, type='html')
-            img_list = td_sel.xpath('//img/@src').extract()
-            for img_url in img_list:
-                print(num_item[img_url])
-            exit()
+        Headers = {
+            "user-agent": "yuanrenxue.project",
+            "cookie": "Hm_lvt_c99546cf032aaa5a679230de9a95c7db=1648698333,1648863299; "
+                      "Hm_lpvt_c99546cf032aaa5a679230de9a95c7db=1648867785; qpfccr=true; no-alert3=true"
+        }
+        for j in range(1, 6):
+            res = requests.get(url=self.url.format(j), headers=Headers)
+            res_dict = json.loads(res.text)
+            info = res_dict.get('info')
+            key = res_dict.get('key')
+            value = res_dict.get('value')
+            img_number_sign = self.get_md5(key + value)
+            selector = Selector(text=info, type='html')
+            td_list = selector.xpath('//td').extract()
+            for td in td_list:
+                td_sel = Selector(text=td, type='html')
+                img_list = td_sel.xpath('//img').extract()
+                item_list = []
+                i = 0
+                item = {}
+                for img_str in img_list:
+                    if img_number_sign in img_str:
+                        continue
+                    img_sel = Selector(text=img_str, type='html')
+                    img_src = img_sel.xpath('//@src').extract_first()
+                    img_number = img_sel.xpath('//@class').extract_first()
+                    img_style = float(img_sel.xpath('//@style').extract_first().replace('left:', '').replace('px', ''))
+                    item[img_style + i] = num_item[img_src]
+                    i += 11.5
+
+                for i in sorted(item):
+                    item_list.append(str(item[i]))
+                num = int(''.join(item_list))
+                self.num += num
+        print(self.num)
+        exit()
 
 
 if __name__ == '__main__':
