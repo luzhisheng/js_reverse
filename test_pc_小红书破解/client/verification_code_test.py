@@ -3,7 +3,6 @@ import json
 import time
 import re
 import ddddocr
-from io import BytesIO
 
 
 class VerificationCode(object):
