@@ -26,8 +26,8 @@ class App(object):
             f.write(base64.decodebytes(b64_code.encode()))
 
     def get_xml(self):
-        font = TTFont('font.woff')
-        font.saveXML('movie.xml')
+        font = TTFont('5.woff')
+        font.saveXML('5.xml')
 
     def run(self):
         data_sum = 0
