@@ -3120,19 +3120,11 @@ function z(pwd, time) {
 }
 
 function r(param1, param2) {
-    if (window.o >= 6) {
-        alert('不要戳这么多下，人家好痛嘛~');
-        location.reload();
-    }
+    param1 = parseInt(param1);
+    param2 = parseInt(param2);
     return z(param1, param2);
 }
 
 
-ccc = r(1652374272000, 1);
-console.log(ccc);
-
-
-module.exports =
-    {
-        r
-    };
+// ccc = r(1652636231000, 1);
+// console.log(ccc);
