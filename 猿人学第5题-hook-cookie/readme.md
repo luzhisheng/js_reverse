@@ -33,7 +33,7 @@ Cookie之所以要新增一个包含固定字符串的判断是因为，cookie�
 hook window
 
     // ==UserScript==
-    // @name        Hook Cookie
+    // @name        Hook window
     // @namespace   http://tampermonkey.net/
     // @version     0.1
     // @description pass
