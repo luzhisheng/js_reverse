@@ -1,5 +1,7 @@
 ## 知识点
 
+油猴hook是注意 //@run-at      document-start 表示页面加载之前
+
 hook cookie
 
 Cookie之所以要新增一个包含固定字符串的判断是因为，cookie经常被修改，这样会断很多次，而我们只想让他断在固定cookie块被设置的时候，因此这么写
