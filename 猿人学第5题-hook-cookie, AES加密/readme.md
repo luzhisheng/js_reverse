@@ -149,6 +149,61 @@ hook window
 
 _$Ww是明文， _0x4e96b4['_$qF']是密钥
 
+### 测试一下是否是 标准的 CryptoJS js库
+
+    const CryptoJS = require("crypto-js");
+    _$Tk = CryptoJS;
+    window = global;
+    _0x4e96b4 = window;
+    
+    _0x4e96b4['_$pr'] = [
+        "d91dfb71a14b4b8dbab7a83b4db3c930",
+        "795fef1417a874c0a518372c686c4114",
+        "4da402cd8daa5909a9dcfdf931f0b269",
+        "f7071d9eb5acc11a29da60f508c0b048",
+        "c7740dc325c12af5fd95695e53b1cda9"
+    ];
+    
+    
+    _0x4e96b4['_$qF'] = {
+        "words": [
+            1297373489,
+            1299857785,
+            1330930554,
+            1297373490
+        ],
+        "sigBytes": 16
+    };
+    
+    _$Ww = _$Tk['enc']['Utf8']['parse'](_0x4e96b4['_$pr']['toString']());
+    _0x29dd83 = _$Tk['AES']['encrypt'](_$Ww, _0x4e96b4['_$qF'], {
+        'mode': _$Tk['mode']['ECB'],
+        'padding': _$Tk['pad']['Pkcs7']
+    });
+    
+    ss = _0x29dd83['toString']();
+    console.log(ss);
+    
+结果是和浏览器执行的一样
+
+    ywOWQQGsmlZnSRHpvOlsrLICIWP6VMt8UIHjTAjAkll06leu+va5tUF+blZKgfe2Mo64p2Gj/BC1icBOTqxDYpjF3RuhCvddBo6uEXzqkMpnk9ReYWyfFmCgkAsgTD8aOEwbL+AhReaAp/90AsvN2bFF2NmhpP2FUDAIUTnl9zIBicVGN97W/CjLNJVhEfTvif6zf7StT68TwDwgNgnj8VfaN47rQFftK7oApF/5CA4=
+
+
+### 先解决密钥的问题
+
+顺藤摸瓜 _0x4e96b4['_$qF']
+
+    // 密钥
+    _0x35bb1d = Date;
+    function _0x2d5f5b() {
+        return new _0x35bb1d()['valueOf']();
+    }
+    _$yw = _0x2d5f5b()['toString']();
+    _0x4e96b4['_$is'] = _$yw;
+    _0x4e96b4['_$qF'] = CryptoJS['enc']['Utf8']['parse'](_0x4e96b4['btoa'](_0x4e96b4['_$is'])['slice'](0, 16));
+
+### 解决明文 _$Ww
+
 继续看代码
 
     _$Ww = _$Tk['enc']['Utf8']['parse'](_0x4e96b4['_$pr']['toString']());
@@ -156,5 +211,49 @@ _$Ww是明文， _0x4e96b4['_$qF']是密钥
 实例代码
 
     let secret = CryptoJS.enc.Utf8.parse(secret_value);
+
+处理明文 _$Ww
+
+    _$Ww = _$Tk['enc']['Utf8']['parse'](_0x4e96b4['_$pr']['toString']());
+
+搜索 _0x4e96b4['_$pr'] 打上断点
+
+![debugger](../img/80.png)
+    
+找到 _$Wa 生成方法
+
+    _$Wa = _0x12eaf3();
+    _0x3d0f3f[_$Fe] = 'm=' + _0x474032(_$Wa) + ';\x20path=/';
+    _0x4e96b4['_$pr']['push'](_0x474032(_$Wa));
+    
+开始扣代码
+
+    const CryptoJS = require("crypto-js");
+    _$Tk = CryptoJS;
+    window = global;
+    _0x4e96b4 = window;
+    
+    _0x4e96b4['_$pr'] = [];
+    
+    _$Wa = 1653016793000;
+    // _0x3d0f3f[_$Fe] = 'm=' + _0x474032(_$Wa) + ';\x20path=/';
+    _0x4e96b4['_$pr']['push'](_0x474032(_$Wa));
+    
+    _$Ww = _$Tk['enc']['Utf8']['parse'](_0x4e96b4['_$pr']['toString']());
+    _0x29dd83 = _$Tk['AES']['encrypt'](_$Ww, _0x4e96b4['_$qF'], {
+        'mode': _$Tk['mode']['ECB'],
+        'padding': _$Tk['pad']['Pkcs7']
+    });
+    
+    ss = _0x29dd83['toString']();
+    console.log(ss);
+
+报错 ReferenceError: history is not defined
+
+window.history属性指向History对象，它表示当前窗口的浏览历史。
+
+    https://www.jianshu.com/p/bbc2f9552c06
+    
+history 是在浏览器里才有的函数
 
 
