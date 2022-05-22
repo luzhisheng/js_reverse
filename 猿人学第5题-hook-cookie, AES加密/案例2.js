@@ -204,18 +204,22 @@ function _0x12eaf3() {
 
 // 密钥
 _0x35bb1d = Date;
+
 function _0x2d5f5b() {
     return new _0x35bb1d()['valueOf']();
 }
+
 _$yw = _0x2d5f5b()['toString']();
 _0x4e96b4['_$is'] = _$yw;
 _0x4e96b4['_$qF'] = CryptoJS['enc']['Utf8']['parse'](_0x4e96b4['btoa'](_0x4e96b4['_$is'])['slice'](0, 16));
 
 // 明文
-_$Wa = _0x12eaf3();
-console.log(_$Wa);
-// _0x3d0f3f[_$Fe] = 'm=' + _0x474032(_$Wa) + ';\x20path=/';
-_0x4e96b4['_$pr']['push'](_0x474032(_$Wa));
+for (var i = 1; i < 6; i++) {
+    _$Wa = _0x12eaf3();
+    console.log(_$Wa);
+    // _0x3d0f3f[_$Fe] = 'm=' + _0x474032(_$Wa) + ';\x20path=/';
+    _0x4e96b4['_$pr']['push'](_0x474032(_$Wa));
+}
 console.log(_0x4e96b4['_$pr']);
 
 _$Ww = _$Tk['enc']['Utf8']['parse'](_0x4e96b4['_$pr']['toString']());
@@ -225,5 +229,5 @@ _0x29dd83 = _$Tk['AES']['encrypt'](_$Ww, _0x4e96b4['_$qF'], {
     'padding': _$Tk['pad']['Pkcs7']
 });
 
-ss = _0x29dd83['toString']();
-console.log(ss);
+RM4hZBv0dDon443M = _0x29dd83['toString']();
+console.log(RM4hZBv0dDon443M);

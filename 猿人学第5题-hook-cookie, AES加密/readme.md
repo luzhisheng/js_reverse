@@ -248,12 +248,28 @@ _$Ww是明文， _0x4e96b4['_$qF']是密钥
     ss = _0x29dd83['toString']();
     console.log(ss);
 
-报错 ReferenceError: history is not defined
+### 报错 ReferenceError: history is not defined
 
 window.history属性指向History对象，它表示当前窗口的浏览历史。
 
     https://www.jianshu.com/p/bbc2f9552c06
     
 history 是在浏览器里才有的函数
+
+    try {
+        op = _0x4e96b4['$_zw'][_$UH[0x6c]];
+    } catch (_0x58af26) {
+        var _0x3b7935 = 0x0;
+        for (var _0x1badc3 = 0x0; _0x1badc3 < 0xf4240; _0x1badc3++) {
+            _0x3b7935 = _0x3b7935 + _0x1badc3[_$UH[0x1f]]();
+            history['pushState'](0x0, 0x0, _0x3b7935);
+        }
+    }
+
+这里的 try catch 语法，对 op = _0x4e96b4['$_zw'][_$UH[0x6c]]; 进行断点
+
+    op = 26;
+    
+这里写死，直接过！
 
 
