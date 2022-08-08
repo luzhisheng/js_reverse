@@ -147,4 +147,14 @@
 
 ![debugger](../img/101.png)
 
+遇到md5先不要去破解扣代码将明文放入 https://www.cmd5.com/hash.aspx?s=123456 加密一下
 
+发现存在相同的密文
+
+![debugger](../img/102.png)
+
+在看看网站上密文
+
+![debugger](../img/103.png)
+
+问题得到解决！
