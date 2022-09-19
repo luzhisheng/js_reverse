@@ -2,7 +2,7 @@
 
 请问：
 
-请给出你模拟的加密内容 text (此值为固定字符串)
+如果加密密钥 key 为 8f03e080ec3f9a5d，那么加密后的密文 arg 是多少？
 
 # 复习AES对称加密
 
@@ -94,3 +94,49 @@
 
 ![debugger](../img/122.png)
 
+我们来看代码
+
+    o0oo0o00 = o00o0o00.o00o0o00o0o0.o00o0o00orypt(_$vD[_$jG()](_$jj() + "ify")({
+        o00o0o00o0o0o0: _$jG() + "0514" + _$he()
+    }), o00o0o00o0o0o00, {
+        mode: o00o0o00.mode.o00o0o00o0o0o,
+        padding: o00o0o00.pad.o00o0o00o0o0o0
+    }).toString();
+
+value 是
+
+    _$vD[_$jG()](_$jj() + "ify")({
+            o00o0o00o0o0o0: _$jG() + "0514" + _$he()
+        })
+
+![debugger](../img/123.png)
+
+结果是 '{"o00o0o00o0o0o0":"eval0514undefined"}'
+
+代码模拟
+
+    const CryptoJS = require("crypto-js");
+    
+    let value = '{"o00o0o00o0o0o0":"eval0514undefined"}'; //待加密的字符串
+    let secret_value = "8f03e080ec3f9a5d"; //密匙 16位
+    
+    // 密匙和向量处理
+    let secret = CryptoJS.enc.Utf8.parse(secret_value);
+    
+    // 加密
+    let encrypted = CryptoJS.AES.encrypt(value, secret, {
+        // mode 支持 CBC, CFB,CTB,ECB,OFB,OFB, 默认CBC
+        mode: CryptoJS.mode.ECB,
+    
+        // NoPadding, zeropadding 默认Pkcs7 即 pkcs5
+        padding: CryptoJS.pad.Pkcs7
+    });
+    
+    // 将加密结果转换为字符串
+    encrypted = encrypted.toString();
+    
+    console.log(encrypted);
+    
+结果
+
+    B2v6O5Kjg1DAYXSd09PlD/7+5ExifLq3L5a/wucoXOZnUpp/kMmSranYt17DAqjI

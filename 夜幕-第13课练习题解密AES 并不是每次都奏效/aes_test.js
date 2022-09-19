@@ -1,18 +1,13 @@
 const CryptoJS = require("crypto-js");
 
-encrypted = 'jdGUW9raTa4ekejTjLxrcu3q9Ir30gz8VJeCwifzyc5JP8m2vtBqW0HzNzJ9lCLd';
-secret = {
-    "words": [
-        895574833,
-        878916963,
-        875573601,
-        943076149
-    ],
-    "sigBytes": 16
-};
+let value = '{"o00o0o00o0o0o0":"eval0514undefined"}'; //待加密的字符串
+let secret_value = "8f03e080ec3f9a5d"; //密匙 16位
 
-// 解密，传入密文，密钥盒向量设置加密与填充模式
-let decrypted = CryptoJS.AES.decrypt(encrypted, secret, {
+// 密匙和向量处理
+let secret = CryptoJS.enc.Utf8.parse(secret_value);
+
+// 加密
+let encrypted = CryptoJS.AES.encrypt(value, secret, {
     // mode 支持 CBC, CFB,CTB,ECB,OFB,OFB, 默认CBC
     mode: CryptoJS.mode.ECB,
 
@@ -20,8 +15,7 @@ let decrypted = CryptoJS.AES.decrypt(encrypted, secret, {
     padding: CryptoJS.pad.Pkcs7
 });
 
-// 将解密结果转换为utf8字符串
-decrypted = CryptoJS.enc.Utf8.stringify(decrypted);
+// 将加密结果转换为字符串
+encrypted = encrypted.toString();
 
 console.log(encrypted);
-console.log(decrypted);
