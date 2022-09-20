@@ -27,35 +27,36 @@ headers = {
 response = requests.request("GET", url, headers=headers)
 html = etree.HTML(response.text)
 res = html.xpath('//span[@class="prc_wp"]/em')
+num_sum = 0
 for result in res:
     data = etree.tostring(result)
     html = etree.HTML(data)
     datas = html.xpath('//b')
     item_dict = {}
-    item_i_dict = {}
     num_str = ''
     for data in datas:
         data = etree.tostring(data)
         html = etree.HTML(data)
         num_list = html.xpath('//b/text()')
         num_i_list = html.xpath('//b/i/text()')
-        if num_list:
-            for num in num_list:
-                left = html.xpath('//b/@style')[0].replace('width:48px;left:', '').replace('px', '')\
-                    .replace('width: 16;left:', '')
-                item_dict[left] = num
-
         if num_i_list:
             i = 0
             for num in num_i_list:
                 left = html.xpath('//b/@style')[0].replace('width:48px;left:', '').replace('px', '') \
                     .replace('width: 16;left:', '')
                 left = str(int(left) + i)
-                item_i_dict[left] = num
+                item_dict[left] = num
                 i += 16
 
-    print(item_dict)
-    print(item_i_dict)
-    item_dict = sorted(item_dict.items(), key=lambda x: x[0])
-    print(item_dict)
-    exit()
+        if num_list:
+            for num in num_list:
+                left = html.xpath('//b/@style')[0].replace('width:48px;left:', '').replace('px', '') \
+                    .replace('width: 16;left:', '')
+                item_dict[left] = num
+
+    num_str = ''
+    for i in item_dict.values():
+        num_str = num_str + i
+
+    num_sum = num_sum + int(num_str)
+print(num_sum/20)
