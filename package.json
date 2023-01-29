@@ -5,6 +5,7 @@
     "cheerio": "^1.0.0-rc.10",
     "crypto-js": "^4.1.1",
     "express": "^4.17.3",
+    "node-fetch": "^2.6.0",
     "shelljs": "^0.8.5"
   },
   "devDependencies": {
