@@ -1,7 +1,5 @@
 import random
-
 from Crypto.Cipher import AES
-import json
 import time
 import requests
 import base64
@@ -37,23 +35,24 @@ def challenge14(page, uc):
     print(payload)
     session = requests.session()
     headers = {
-        'content-length': str(random.choice([40, 39, 38])),
-        'accept': 'application/json, text/javascript, */*; q=0.01',
         'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
     }
     session.headers = headers
     response = session.request("POST", url, data=payload)
     print(response.text)
-    return response.text
+    return response.json()
 
 
 def run():
     data_num = 0
-    for page in range(1, 101):
+    for page in range(7, 101):
         key = "wdf2ff*TG@*(F4)*YH)g430HWR(*)wse"
         timestamp = int(time.time())
-        uc = aesEncrypt(key, f'{timestamp}|{page}')
-        res_dict = json.loads(challenge14(page, uc))
+        time.sleep(1)
+        data = f'{timestamp}|{page}'
+        print(data)
+        uc = aesEncrypt(key, data)
+        res_dict = challenge14(page, uc)
         data_list = res_dict.get('data')
         for data in data_list:
             data_num += int(data.get('value'))
