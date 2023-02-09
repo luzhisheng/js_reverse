@@ -12,8 +12,8 @@ class RsaUtil(object):
                  company_pub_file=PUBLIC_KEY_PATH,
                  company_pri_file=PRIVATE_KEY_PATH):
 
-        if company_pub_file:
-            self.company_public_key = rsa.PublicKey.load_pkcs1_openssl_pem(open(company_pub_file).read())
+        # if company_pub_file:
+        #     self.company_public_key = rsa.PublicKey.load_pkcs1_openssl_pem(open(company_pub_file).read())
         if company_pri_file:
             self.company_private_key = rsa.PrivateKey.load_pkcs1(open(company_pri_file).read())
 

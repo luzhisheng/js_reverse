@@ -1,9 +1,17 @@
 import json
+
+from rsa_encrypt import RsaUtil
 import requests
 
 
-def challenge59(page):
-    url = "https://www.python-spider.com/api/challenge59"
+def decrypt_res(response_json):
+    rsa = RsaUtil()
+    decrypt_result = rsa.decrypt_by_private_key(response_json.get('result'))
+    return decrypt_result
+
+
+def challenge56(page):
+    url = "https://www.python-spider.com/api/challenge56"
     payload = f"page={page}"
     session = requests.session()
     headers = {
@@ -11,18 +19,15 @@ def challenge59(page):
     }
     session.headers = headers
     response = session.request("POST", url, data=payload)
-    return response.text
+    return response.json()
 
 
 def run():
     data_num = 0
     for page in range(1, 101):
-        res_dict = json.loads(challenge59(page))
-        data_list = res_dict.get('data')
-
-        if page == 51:
-            data_list[0]['value'] = '5734\r'
-
+        response_json = challenge56(page)
+        decrypt_result = decrypt_res(response_json)
+        data_list = json.loads(decrypt_result).get('data')
         data_list_num = []
         for data in data_list:
             data_list_num.append(int(data.get('value')))
