@@ -1,19 +1,5 @@
-import json
 import requests
-import base64
-from Crypto.Cipher import AES
-
-
-def decrypt_aes(key, data):
-    """AES解密"""
-    print(key)
-    print(data)
-    real_data = base64.b64decode(data)
-    my_aes = AES.new(str(key).encode('utf-8'), AES.MODE_ECB)
-    decrypt_data = my_aes.decrypt(real_data)
-    decrypt_data_str = str(decrypt_data, 'utf-8').replace('\\r', '').replace('', '').replace('', '')\
-        .replace('', '').replace('', '')
-    return json.loads(decrypt_data_str)
+from aes_encrypt import decrypt
 
 
 def challenge57(page):
@@ -25,18 +11,19 @@ def challenge57(page):
     }
     session.headers = headers
     response = session.request("POST", url, data=payload)
-    print(response.text)
-    return response.text
+    return response.json()
 
 
 def run():
     data_num = 0
     for page in range(1, 101):
-        response_text = challenge57(page)
-        result = json.loads(response_text).get('result')
+        response_json = challenge57(page)
+        print(response_json)
+        result = response_json.get('result')
         key = result[0:8]
         data = result[8:]
-        decrypt_data_dict = decrypt_aes(key, data)
+
+        decrypt_data_dict = decrypt(key, data)
         data_list = decrypt_data_dict.get('data')
         print(data_list)
         for data in data_list:
