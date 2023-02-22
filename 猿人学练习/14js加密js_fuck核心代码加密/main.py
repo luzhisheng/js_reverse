@@ -1,32 +1,16 @@
-import random
-from Crypto.Cipher import AES
+import execjs
 import time
 import requests
-import base64
 
 
-BLOCK_SIZE = 16  # Bytes
-pad = lambda s: s + (BLOCK_SIZE - len(s) % BLOCK_SIZE) * \
-                chr(BLOCK_SIZE - len(s) % BLOCK_SIZE)
-unpad = lambda s: s[:-ord(s[len(s) - 1:])]
+with open('./AES.js') as f:
+    Str_code = f.read()
+js = execjs.compile(Str_code)
 
 
-def aesEncrypt(key, data):
-    '''
-    AES的ECB模式加密方法
-    :param key: 密钥
-    :param data:被加密字符串（明文）
-    :return:密文
-    '''
-    key = key.encode('utf8')
-    # 字符串补位
-    data = pad(data)
-    cipher = AES.new(key, AES.MODE_ECB)
-    # 加密后得到的是bytes类型的数据，使用Base64进行编码,返回byte字符串
-    result = cipher.encrypt(data.encode())
-    encodestrs = base64.b64encode(result)
-    enctext = encodestrs.decode('utf8')
-    return enctext
+def aesEncrypt(data):
+    uc = js.call('AES_Encrypt', data)
+    return uc
 
 
 def challenge14(page, uc):
@@ -35,7 +19,16 @@ def challenge14(page, uc):
     print(payload)
     session = requests.session()
     headers = {
-        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        'Proxy-Connection': 'keep-alive',
+        'Pragma': 'no-cache',
+        'Cache-Control': 'no-cache',
+        'Accept': 'application/json, text/javascript, */*; q=0.01',
+        'X-Requested-With': 'XMLHttpRequest',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Origin': 'http://www.python-spider.com',
+        'Referer': 'http://www.python-spider.com/challenge/14',
+        'Accept-Language': 'zh-CN,zh;q=0.9',
     }
     session.headers = headers
     response = session.request("POST", url, data=payload)
@@ -45,19 +38,24 @@ def challenge14(page, uc):
 
 def run():
     data_num = 0
-    for page in range(7, 101):
-        key = "wdf2ff*TG@*(F4)*YH)g430HWR(*)wse"
+    page = 1
+    while True:
         timestamp = int(time.time())
         time.sleep(1)
         data = f'{timestamp}|{page}'
         print(data)
-        uc = aesEncrypt(key, data)
-        res_dict = challenge14(page, uc)
+        uc = aesEncrypt(data)
+        try:
+            res_dict = challenge14(page, uc)
+        except Exception:
+            continue
         data_list = res_dict.get('data')
         for data in data_list:
             data_num += int(data.get('value'))
         print(data_num)
-    print(data_num)
+        if page == 100:
+            break
+        page += 1
 
 
 if __name__ == '__main__':
