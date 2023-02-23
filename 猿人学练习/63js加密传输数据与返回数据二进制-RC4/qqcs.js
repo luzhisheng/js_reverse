@@ -80,9 +80,10 @@ function j(y) {
 }
 
 
-// code = s(j(64) + '1');
-// atob_code = atob(code);
-// console.log(atob_code);
+code = s(j(64) + '1');
+console.log(code);
+atob_code = atob(code);
+console.log(atob_code);
 
 function sign(data, types) {
     if (types == 'atob'){
