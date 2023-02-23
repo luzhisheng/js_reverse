@@ -21,10 +21,7 @@ def decrypt(data, key1):  # 解密
 
 
 if __name__ == "__main__":
-    data = 'yVRgZ6DVKwYwaqb3CsPFrqsanQvDUS/6MqHLTaztbqc+8nVQ26ZIwrEYViYNyLc7I7WTIkZgJGEUq0mtMVXnDajHnestfk' \
-           'Z7WoYTXFYbCVa8vghXgbj0EZzp6q7gKDf9Rd9HaxZxapX5GqqRf62dwiHxL3YRJ5LbIB/xSfO1GoEZR55TQHeEff3PwH4M0i' \
-           'p8aC8rX3K2PFOvCqpcj495OavfnlgT2otxLcqKHOnZyC1/cKvLpFjADDTbasbon42aCqcm116+2sNktwfo29ncTz7jawIZc4' \
-           'MR9DfYdA8aI/aZl5MbbKhLKHo='  # 需要加密的内容
+    data = 'yVRgZ6DVKwYwaqb3CsPFrqsanQvDUS/6MqHLTaztbqc+8nVQ26ZIwrEYViYNyLc7I7WTIkZgJGEUq0mtMVXnDajHnestfkZ7WoYTXFYbCVa8vghXgbj0EZzp6q7gKDf9Rd9HaxZxapX5GqqRf62dwiHxL3YRJ5LbIB/xSfO1GoEZR55TQHeEff3PwH4M0ip8aC8rX3K2PFOvCqpcj495OavfnlgT2otxLcqKHOnZyC1/cKvLpFjADDTbasbon42aCqcm116+2sNktwfo29ncTz7jawIZc4MR9DfYdA8aI/aZl5MbbKhLKHo='  # 需要加密的内容
     key = '12345678812345678912345678912345'  # 加密key
     print('解密后:')
     print(decrypt(data, key))  # 解密方法
