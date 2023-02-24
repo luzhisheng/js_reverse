@@ -11,6 +11,7 @@ var x = "div@Expires@@captcha@while@length@@reverse@0xEDB88320@substr@fromCharCo
     }).pop());
 while (z++) try {
     eval(y.replace(/\b\w+\b/g, function (y) {
+        console.log(x[f(y, z) - 1] || ("_" + y));
         return x[f(y, z) - 1] || ("_" + y)
     }));
     break
