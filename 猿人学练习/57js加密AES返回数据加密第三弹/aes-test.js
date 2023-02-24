@@ -1,23 +1,20 @@
 const CryptoJS = require("crypto-js");
-let secret_value = 'gRBuPrLd';
 
-let secret = CryptoJS.enc.Utf8.parse(secret_value);
+function I(X, l) {
+    var k = CryptoJS
+        , C = X
+        , q = k['enc']['Utf8']['parse'](C)
+        , v = k['AES']['decrypt'](l, q, {
+        'mode': k['mode']['ECB'],
+        'padding': k['pad']['Pkcs7']
+    });
+    console.log(q);
+    console.log(v);
+    return v['toString'](k['enc']['Utf8']);
+}
 
-// 将加密结果转换为字符串
-encrypted = "dQhIGlAcTdnWU456K3rsppWw0VNONWNuZC3Vm5+lvF8MGUUiQvGHMX6cRwlIgWM9K1Y+RU/AE9ZSin7zATIVEJK8A7spmboKSEA3833MZUOC/H+XmhrTVdwHDKpFhRlcUgaOTOqPql1X0im5TApZNgZDV0ZK3wT/FUxT9GGMT1545vFA0VmqQENhq94DtNiTivJP755tmpEjGCNMOCsPlC9LK51s4lEDBWVppHoUq1VolAhMmJH8+TKXTHbFXYbb1SVBIx2KNyPREP2/oeBv4KWXNiUUjseJK1Y+RU/AE9aoSPRsedoeBJK8A7spmboKOddnNI53/c5r+lQbS7KxsQ==";
 
-// 解密，传入密文，密钥盒向量设置加密与填充模式
-let decrypted = CryptoJS.AES.decrypt(encrypted, secret, {
-    // mode 支持 CBC, CFB,CTB,ECB,OFB,OFB, 默认CBC
-    mode: CryptoJS.mode.ECB,
-    // NoPadding, zeropadding 默认Pkcs7 即 pkcs5
-    padding: CryptoJS.pad.Pkcs7
-});
+X = "NoGUVXYc";
+L = "hPiHP8zbvCXWheyH1CyC0pqd9M+km4uxagKU9I+zJpdwNYyZSFCHAoCimE9qC4iwzQ8Wx78wtJRirE5X6mnG0qUezyWj+8naom/Oen7JfJKAP8fgyHFpUFWx0RoPbXojeTJ2W5UFw6obkOU+pmREaXRO9sbMAd7FSnd5jlXcQijvZwufSvN66NKYnBl6jXv1SUmpQq3lCrnZ8sjxtZqjcYT6mUwdKdKRVEdFm1yx63mnwxgG4YH46MFIXI6WR66SxpJzXC5Fen64rTc4R4S17oI2iZv9zwOnzQ8Wx78wtJTHaqqABL5LZKUezyWj+8na4NdY6EO/LduPLpuG/SohTQ==";
 
-console.log(secret);
-console.log(decrypted);
-
-// 将解密结果转换为utf8字符串
-d = CryptoJS.enc.Utf8.stringify(decrypted);
-
-console.log(d);
+console.log(I(X, L));
