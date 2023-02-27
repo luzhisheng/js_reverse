@@ -2,11 +2,11 @@
 
 ## 解题思路
 
-查看请求链接
+查看请求链接，审查元素会看到，采集的数字都是`둧 윹 왲  `
 
 ![请求](./img/1.png)
 
-查看元素会看到，采集的数字都是`둧 윹 왲  `
+`Response`返回地址中也是乱码
 
 ![请求](./img/2.png)
 
@@ -41,18 +41,18 @@
 
 ![请求](./img/7.png)
 
-这里发现`post`节点中的`extraNames.psName`下标和显示的数字一样
+这里发现`post`节点中的`extraNames.psName`排序和显示的数字一一对应
 
-      <psName name="unic381"/>  下标  1
-      <psName name="unic467"/>  下标  2
-      <psName name="unib516"/>  下标  3
-      <psName name="unib895"/>  下标  4
-      <psName name="unic132"/>  下标  5
-      <psName name="unic213"/>  下标  6
-      <psName name="unif579"/>  下标  7
-      <psName name="unie148"/>  下标  8
-      <psName name="unie197"/>  下标  9
-      <psName name="unic156"/>  下标  10 就是 0
+      <psName name="unic381"/>  排序  1
+      <psName name="unic467"/>  排序  2
+      <psName name="unib516"/>  排序  3
+      <psName name="unib895"/>  排序  4
+      <psName name="unic132"/>  排序  5
+      <psName name="unic213"/>  排序  6
+      <psName name="unif579"/>  排序  7
+      <psName name="unie148"/>  排序  8
+      <psName name="unie197"/>  排序  9
+      <psName name="unic156"/>  排序  10 就是 0
 
 接下来就是编写代码问题了
 
