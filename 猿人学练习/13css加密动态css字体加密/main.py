@@ -1,6 +1,5 @@
 from fontTools.ttLib import TTFont
 import requests
-import json
 
 
 def font_value(key):
@@ -8,20 +7,20 @@ def font_value(key):
     font.saveXML('./docs/movie.xml')
     font_dict = {}
     i = 1
-    for font_u_nie in font.getGlyphOrder()[1:]:
+    for font_u_nie in font['post'].extraNames[:-1]:
         font_dict[font_u_nie] = i
         i += 1
-    font_dict['unif712'] = 0
+    font_dict[font['post'].extraNames[-1]] = 0
     return font_dict[key]
 
 
 def get_ttf(woff):
+    import base64
     ttf_name = 'aiding'
-    url = "data:font/truetype;charset=utf-8;base64," + woff
-    session = requests.session()
-    response = session.request("GET", url)
-    with open('./docs/aiding.woff', "wb") as code:
-        code.write(response.content)
+    with open('./docs/aiding.ttf', 'wb') as f:
+        f.write(base64.b64decode(woff))
+    with open('./docs/aiding.woff', 'wb') as f:
+        f.write(base64.b64decode(woff))
     return ttf_name
 
 
@@ -51,7 +50,6 @@ def run():
                 data_value_num = font_value(data_value.replace('&#x', 'uni'))
                 data_num_join += str(data_value_num)
             data_num += int(data_num_join)
-            exit()
         print(data_num)
 
 
