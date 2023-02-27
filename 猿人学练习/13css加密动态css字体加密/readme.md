@@ -2,13 +2,13 @@
 
 ## 解题思路
 
-审查元素会看到，采集的数字都是`둧 윹 왲  `
-
-![请求](./img/1.png)
-
 查看请求链接，`Response`返回地址中也是乱码
 
 ![请求](./img/2.png)
+
+在审查元素会看到，采集的数字都是`둧 윹 왲  `
+
+![请求](./img/1.png)
 
 观察`css`部分会发现`font-family: "fonteditor" !important;`
 
@@ -18,13 +18,15 @@
 
 ![请求](./img/4.png)
 
-这里通过`$('.font').text('')`方法给`div class=font`设置`css`字体
+这里通过`$('.font').text('')`方法给`style class=font`设置`css`字体
 
 ![请求](./img/5.png)
 
-    data:font/truetype;charset=utf-8;base64,+字符串
+字体加载格式
 
-可以将字符串部分写入`woff/ttf`格式文件
+    src: url(data:font/truetype;charset=utf-8;base64,+字符串)
+
+接下来可以将字符串部分写入`woff/ttf`格式文件
 
     import base64
     with open('1.woff','wb') as f:
