@@ -1,5 +1,5 @@
 import requests
-from aes_encrypt import decrypt
+from des_encrypt import decrypt
 
 
 def challenge57(page):
@@ -24,6 +24,7 @@ def run():
         data = result[8:]
 
         decrypt_data_dict = decrypt(key, data)
+        print(decrypt_data_dict)
         data_list = decrypt_data_dict.get('data')
         print(data_list)
         for data in data_list:
