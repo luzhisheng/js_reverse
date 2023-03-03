@@ -18,11 +18,10 @@ function L(j) {
                 var S = 'aiding88';
                 continue;
             case '4':
-                var D = Y['AES']['encrypt'](j, d, {
+                var D = Y['DES']['encrypt'](j, d, {
                     'mode': Y['mode']['ECB'],
                     'padding': Y['pad']['Pkcs7']
                 });
-                console.log(D);
                 continue;
         }
         break;
@@ -31,3 +30,13 @@ function L(j) {
 
 
 console.log(L('1'));
+
+function sign(pageNum) {
+    return L(pageNum);
+}
+
+
+module.exports =
+    {
+        sign
+    };
