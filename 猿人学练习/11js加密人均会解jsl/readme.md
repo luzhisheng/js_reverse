@@ -61,4 +61,6 @@
         'createElement':createElement,
     };
 
+最后成功返回cookie值
+
 ![请求](./img/7.png)
