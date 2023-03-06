@@ -2,13 +2,13 @@
 
 ## 解题思路
 
-查看请求链接，`setInterval(function(){ debugger; }, 300)`,定时任务每3毫秒执行一次
+打开控制台，查看请求链接，程序执行`setInterval(function(){ debugger; }, 300)`,定时任务每3毫秒执行一次
 
 同时还存在另外一个`setInterval(function(){ console.log(binb2b64(a+'error')); }, 300)`
 
 ![请求](./img/1.png)
 
-这里利用`Tampermonkey`hook函数`setInterval`
+这里利用 Tampermonkey hook函数`setInterval`
 
 ![请求](./img/2.png)
 
@@ -45,12 +45,12 @@
 
 进入断点，就可以发现一断aa混淆，复制代码破解，解决方法：
 
-　　1：去掉代码最后一个符号 ('_') 后，放到浏览器里面去直接执行就可以看到源码
-　　2：在线调试，在 AAEncode 代码第一行下断点，然后一步一步执行，最终也会在虚拟机（VM）里看到源码
+.1：去掉代码最后一个符号 ('_') 后，放到浏览器里面去直接执行就可以看到源码
+.2：在线调试，在 AAEncode 代码第一行下断点，然后一步一步执行，最终也会在虚拟机（VM）里看到源码
 
 ![请求](./img/4.png)
 
-结合上下文可以发现aa混淆生成了然后又把`token`赋值给了`safe`，
+结合上下文可以发现aa混淆生成了`token`,然后又把`token`赋值给了`safe`，
 
     token = window.localStorage.getItem('token');
     request.setRequestHeader("safe", token);
@@ -75,11 +75,11 @@
 
 ![请求](./img/7.png)
 
-可以看到这段内容`jsjiami.com.v6`这就是`sojson`加密
+可以看到这段内容`jsjiami.com.v6`这就是sojson加密
 
 ![请求](./img/8.png)
 
-用谷歌插件`v_jstools`解密`sojson`
+用google插件v_jstools解`sojson
 
 ![请求](./img/9.png)
 
