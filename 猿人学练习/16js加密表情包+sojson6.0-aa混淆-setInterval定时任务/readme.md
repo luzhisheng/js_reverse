@@ -57,7 +57,7 @@
 
 ![请求](./img/5.png)
 
-通过控制可以顺利的打印出加密值
+通过控制台可以顺利的打印出加密值
 
 ![请求](./img/6.png)
 
@@ -79,11 +79,11 @@
 
 ![请求](./img/9.png)
 
-用google插件v_jstools解`sojson
+用google插件v_jstools解sojson
 
 ![请求](./img/10.png)
 
-最后赋值js尝试执行
+最后复制js尝试执行
 
     a = '1678067697';
     b64_sha1_a = b64_sha1(a);
