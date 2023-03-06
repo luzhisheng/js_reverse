@@ -3,8 +3,14 @@ var hexcase = 0;
 var b64pad = __Oxb76f0[0];
 var chrsz = 8;
 
-navigator = {};
-window = {};
+navigator = {
+    'userAgent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Safari/537.36',
+    'plugins': {
+        'length': 5
+    }
+};
+
+window = global;
 document = {
     'execCommand': function () {
         return true
@@ -325,3 +331,25 @@ function binl2b64(_0x1b98x38) {
     ;
     return _0x1b98x2d;
 }
+
+
+// rnns = 'tu2qmX';
+// rind = 12;
+// hex_1_str = hex_1('YCBR1vPi7L');
+// d31c713f16b0tu2qmXe008fa1c157ced
+// console.log(hex_1_str);
+
+
+function hex_1_str(rnns, rind, sct){
+    rnns = rnns;
+    rind = rind;
+    return hex_1(sct);
+}
+
+
+
+module.exports =
+    {
+        hex_1_str
+    };
+
