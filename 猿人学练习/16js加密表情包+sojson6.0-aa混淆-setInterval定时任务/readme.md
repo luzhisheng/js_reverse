@@ -67,21 +67,21 @@
 
 这里面
 
-    window.btoa(a)是base64
-    binb2b64(hex_sha1(window.btoa(core_sha1(a))))包含了函数core_sha1，hex_sha1，binb2b64
-    b64_sha1(a)是函数b64_sha1
+    window.btoa(a) -----------> 是函数 btoa
+    binb2b64(hex_sha1(window.btoa(core_sha1(a)))) -----------> 是函数 core_sha1，hex_sha1，binb2b64
+    b64_sha1(a) -----------> 是函数 b64_sha1
 
 进入函数体内
 
-![请求](./img/7.png)
+![请求](./img/8.png)
 
 可以看到这段内容`jsjiami.com.v6`这就是sojson加密
 
-![请求](./img/8.png)
+![请求](./img/9.png)
 
 用google插件v_jstools解`sojson
 
-![请求](./img/9.png)
+![请求](./img/10.png)
 
 最后赋值js尝试执行
 
@@ -119,4 +119,4 @@
 
 顺利打印出数据
 
-![请求](./img/10.png)
+![请求](./img/7.png)
