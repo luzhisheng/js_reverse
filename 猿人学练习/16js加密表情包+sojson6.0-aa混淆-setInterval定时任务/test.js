@@ -195,15 +195,15 @@ function binb2b64(iiiliI) {
 }
 
 
-// a = '1678067697';
-// b64_sha1_a = b64_sha1(a);
-// console.log(b64_sha1_a);
-//
-// binb2b64_a = binb2b64(hex_sha1(window.btoa(core_sha1(a))));
-// console.log(binb2b64_a);
-//
-// btoa_a = window.btoa(a);
-// console.log(btoa_a);
+a = '1678067697';
+b64_sha1_a = b64_sha1(a);
+console.log(b64_sha1_a);
+
+binb2b64_a = binb2b64(hex_sha1(window.btoa(core_sha1(a))));
+console.log(binb2b64_a);
+
+btoa_a = window.btoa(a);
+console.log(btoa_a);
 
 
 function safe(timestamp) {
