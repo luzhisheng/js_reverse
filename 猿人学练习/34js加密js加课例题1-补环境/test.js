@@ -23,5 +23,8 @@ rind=/*
 /*rind=
 242;*/
 
-console.log(rind);
-console.log(rnns);
+function rind_rnns() {
+    return [rind, rnns]
+}
+
+console.log(rind_rnns());

@@ -229,8 +229,7 @@ function binb2b64(_0x6a8ax39) {
     return _0x6a8ax34;
 }
 
-//37e4aa5f2e8fe43d0f6b061eb3383763eed96394
-// hex_2_str = escape(hex_2('d31c713f16b0tu2qmXe008fa1c157ced'));
+// hex_2_str = escape(hex_2('7adc214242f0ed39a8550b42bfa684cc98TN6w'));
 // console.log(hex_2_str);
 
 function hex_2_str(hex_1_str){

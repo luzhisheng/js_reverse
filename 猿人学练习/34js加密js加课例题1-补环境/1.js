@@ -333,17 +333,20 @@ function binl2b64(_0x1b98x38) {
 }
 
 
-// rnns = 'tu2qmX';
-// rind = 12;
-// hex_1_str = hex_1('YCBR1vPi7L');
-// d31c713f16b0tu2qmXe008fa1c157ced
+// rnns = '98TN6w';
+// rind = 49;
+// hex_1_str = hex_1('VX7nWYuMh5');
 // console.log(hex_1_str);
 
 
-function hex_1_str(rnns, rind, sct){
-    rnns = rnns;
-    rind = rind;
-    return hex_1(sct);
+var rnns;
+var rind;
+
+function hex_1_str(s, r, c){
+    // rnns, rind, sct
+    rnns = s;
+    rind = parseInt(r);
+    return hex_1(c);
 }
 
 
