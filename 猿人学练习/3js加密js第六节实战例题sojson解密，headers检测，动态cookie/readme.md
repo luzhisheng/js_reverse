@@ -84,9 +84,20 @@
     m = V(1678168607000);
     console.log(m);
 
-得到了`m`值，就可以模拟请求，发现返回的数据是不变的，为什么？
+得到了`m`值，就可以模拟请求，
 
-用charles代理拦截，查看请求体，最后猜测是`header`问题
+    def challenge3(page, m, timestamp):
+        url = "https://www.python-spider.com/api/challenge3"
+        payload = f"page={page}"
+        headers = {
+            'cookie': f'm={m}|{timestamp}'
+        }
+        response = requests.request("POST", url, headers=headers, data=payload)
+        return response.text
+
+但发现返回的数据是不变的，为什么？
+
+用charles代理拦截，对比查看请求体，最后猜测是`header`问题
 
 ![请求](./img/8.png)
 
