@@ -1,15 +1,14 @@
 const express = require('express');
 const app = express();
-const encryption = require("./aes-test");
+const pr = require("./pr");
 var bodyParser = require('body-parser');
 app.use(bodyParser());
 
 
-app.post('/sign_60', function (req, res) {
+app.post('/sign_5', function (req, res) {
     let result = '';
-    let pageNum = req.body.pageNum;
-    result = encryption.sign(pageNum);
-    res.send(result.toString());
+    result = pr.getCookie();
+    res.send(result);
 });
 
 

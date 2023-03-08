@@ -27,14 +27,28 @@ function RM4hZBv0dDon443M(pr, dada_time){
     return _0x29dd83['toString']()
 }
 
-pr = [
-    "b2148c31fb09c98f90ce78424d6cdd58",
-    "3be88c860ec6fc7e4e33fe7a167d02dd",
-    "0be14faf5221bbdefdede418b077ca60",
-    "9c2b5781ba44e92f5e4b3f4d7951b899",
-    "08aca52cf82f1e26cc1f4dd35db9795e"
-];
+// pr = [
+//     "b2148c31fb09c98f90ce78424d6cdd58",
+//     "3be88c860ec6fc7e4e33fe7a167d02dd",
+//     "0be14faf5221bbdefdede418b077ca60",
+//     "9c2b5781ba44e92f5e4b3f4d7951b899",
+//     "08aca52cf82f1e26cc1f4dd35db9795e"
+// ];
+// dada_time = "1678253268764";
+// console.log(RM4hZBv0dDon443M(pr, dada_time));
 
-dada_time = "1678253268764";
 
-console.log(RM4hZBv0dDon443M(pr, dada_time));
+function RM4hZBv0dDon443M_f(pr_list, dada_time) {
+    return{
+        "cookie_m": pr_list[4],
+        "cookie_RM4": RM4hZBv0dDon443M(pr_list, dada_time),
+        "m": _$yw,
+        "f": _$Wa
+    }
+}
+
+
+module.exports =
+    {
+        RM4hZBv0dDon443M_f
+    };
