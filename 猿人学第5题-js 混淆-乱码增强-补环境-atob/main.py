@@ -13,6 +13,8 @@ def sign():
 
 
 def challenge5(encrypt_params, page_num):
+    print(encrypt_params)
+    print(page_num)
     url = "https://match.yuanrenxue.com/api/match/5?page=%s" % page_num
     params = {
         "m": encrypt_params['m'],
@@ -22,10 +24,10 @@ def challenge5(encrypt_params, page_num):
     RM4hZBv0dDon443M = encrypt_params['cookie_RM4']
     session = requests.session()
     headers = {
+        "user-agent": "yuanrenxue.project",
         'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'cookie': f'sessionid=lrdqq6irmhyoy2ingpso9l3uzschqw1s; m={cookie_m}; RM4hZBv0dDon443M={RM4hZBv0dDon443M}'
+        'cookie': f'sessionid=3axwe2ne7zbkyzija9wcf7b8yha0sy6o; m={cookie_m}; RM4hZBv0dDon443M={RM4hZBv0dDon443M}'
     }
-    print(headers)
     session.headers = headers
     response = requests.get(url, headers=headers, params=params)
     return response.json()
@@ -33,14 +35,17 @@ def challenge5(encrypt_params, page_num):
 
 def run():
     data_num = 0
+    data_num_list = []
     for page in range(1, 6):
         res = sign()
         response_json = challenge5(res, page)
         data_list = response_json.get('data')
         print(data_list)
         for data in data_list:
-            data_num += int(data.get('value'))
-        print(data_num)
+            data_num_list.append(int(data.get('value')))
+    data_num_list.sort()
+    print(data_num_list)
+    print(sum(data_num_list[-5:]))
 
 
 if __name__ == '__main__':

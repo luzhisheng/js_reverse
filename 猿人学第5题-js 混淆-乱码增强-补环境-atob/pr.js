@@ -1501,7 +1501,6 @@ window.$_zw.push([]);
 window.$_zw.push(1678268345000);
 window.$_zw.push(1678268345000);
 window.$_zw.push(setInterval);
-console.log(window.$_zw.length);
 
 _0x4e96b4 = window;
 _0x4e96b4['_$tT'] = -172015004;
@@ -1683,7 +1682,7 @@ function _0x474032(_0x233f82, _0xe2ed33, _0x3229f9) {
     return _0xe2ed33 ? _0x3229f9 ? v(_0xe2ed33, _0x233f82) : y(_0xe2ed33, _0x233f82) : _0x3229f9 ? _0x41873d(_0x233f82) : _0x37614a(_0x233f82);
 }
 
-// _$Wa = 1678290902000;
+// _$Wa = 1;
 // console.log(_0x474032(_$Wa));
 
 function RM4hZBv0dDon443M(pr, dada_time){
@@ -1704,6 +1703,9 @@ function getCookie() {
         pr['push'](_0x474032(_$Wa))
     }
     _$yw = new Date()['valueOf']().toString();
+    _0x4e96b4['_$tT'] = -660478335;
+    _0x4e96b4['_$Jy'] = -405537848;
+    _0x4e96b4['_$6_'] = -389564586;
     pr['push'](_0x474032(_$yw));
     cookie_m = pr[4];
     cookie_RM4 = RM4hZBv0dDon443M(pr, _$yw);
