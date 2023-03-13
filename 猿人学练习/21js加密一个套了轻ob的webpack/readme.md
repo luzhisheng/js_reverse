@@ -1,4 +1,4 @@
-# 知识点：webpack4，魔改的md5，eval渗透,AC表转字符串
+# 知识点：webpack4，魔改的md5，eval渗透，AC表转字符串
 
 ## 解题思路
 
