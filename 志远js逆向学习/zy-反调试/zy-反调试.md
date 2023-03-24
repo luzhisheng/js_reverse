@@ -3,7 +3,7 @@
 
 debugger
 
-![debugger](../img/1.png)
+![debugger](../../img/1.png)
 
         非虚拟机 右键编辑当前断点的类型，置成 false，
         重写代码，谷歌内核默认提供
