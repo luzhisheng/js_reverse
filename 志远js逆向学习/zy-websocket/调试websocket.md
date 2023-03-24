@@ -28,23 +28,23 @@ websocket html5 不是v8引擎自带的，本身就是关键词
 
 ## 调试 onmessage
 
-![debugger](../img/34.png)
+![debugger](../../img/34.png)
 
 WebSocket 一但连接一值存在，向下的箭头是客户端发给服务器的，向上的箭头是服务器发给客户端的
 
 给 webSocket.onmessage 下断点
 
-![debugger](../img/35.png)
+![debugger](../../img/35.png)
 
 找到处理函数，这里一般都会存在解密函数，但这里没有做
 
-![debugger](../img/36.png)
+![debugger](../../img/36.png)
 
 ## 调试 send
 
-![debugger](../img/37.png)
+![debugger](../../img/37.png)
 
 这里就能直接断到发送的数据
 
-![debugger](../img/38.png)
+![debugger](../../img/38.png)
 
