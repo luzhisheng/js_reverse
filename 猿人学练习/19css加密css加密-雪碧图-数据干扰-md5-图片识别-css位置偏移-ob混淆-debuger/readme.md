@@ -16,6 +16,9 @@
 
 ![请求](./img/11.png)
 
+img标签内容`class="img_number 4a13ebc2e96b2381156dba12ff80cff7"`中的4a13ebc2e96b2381156dba12ff80cff7是一段加密字符串
+`style="left:-18px"`中的left:-18px就是偏移量
+
     <td class=\"info\">
         <img src="xxxx" class="img_number 4a13ebc2e96b2381156dba12ff80cff7" style="left:-18px">
         <img src="xxxx" class="img_number 752587204b02938c83c72e8417fe35b5" style="left:0px">
