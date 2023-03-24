@@ -1,6 +1,6 @@
 ## 知识点
 
-### f12 查看请求，发现响应的内容是存在加密的
+f12 查看请求，发现响应的内容是存在加密的
 
     data: "cRn/5JNpUsAgxg5GXz8NfWvRUi6szlsqCIqMjFRAOVLY2oCk7
     msg: ""
