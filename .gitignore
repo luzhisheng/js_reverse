@@ -5,6 +5,8 @@
 *.xlsx#
 *.zip
 *.pyc
+*.vscode
 venv/
+__MACOSX/
 setting.py
 node_modules/
