@@ -6,6 +6,8 @@
 *.zip
 *.pyc
 *.vscode
+package.json
+package-lock.json
 venv/
 __MACOSX/
 setting.py
