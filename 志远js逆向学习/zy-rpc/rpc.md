@@ -52,11 +52,11 @@ websockets 地址
 
     e.RSA.encrypt('111111111111111')
 
-![debugger](../img/61.png)
+![debugger](../../img/61.png)
 
 将js保存到本地替换
 
-![debugger](../img/62.png)
+![debugger](../../img/62.png)
 
 进行js注入
 
