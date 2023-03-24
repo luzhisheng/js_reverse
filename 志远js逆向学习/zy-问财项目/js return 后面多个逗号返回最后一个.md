@@ -6,4 +6,4 @@
     }
     console.log(aa());
     
-![debugger](../img/55.png)
+![debugger](../../img/55.png)
