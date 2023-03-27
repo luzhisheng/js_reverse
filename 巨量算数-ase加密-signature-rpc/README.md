@@ -12,11 +12,11 @@ f12 查看请求，发现响应的内容是存在加密的
 
 第一个断点位置
 
-![debugger](../img/87.png)
+![debugger](./img/87.png)
 
 进入断点
 
-![debugger](../img/88.png)
+![debugger](./img/88.png)
 
 大概率能判断是aes加密， 这里就很熟悉了 AES加密，贴一段加密代码
 
@@ -62,7 +62,7 @@ f12 查看请求，发现响应的内容是存在加密的
 
 既然判断是aes加密这里需要得到 密匙 16位secret_value， 初始向量 initial vector 16位 iv_value， mode
 
-![debugger](../img/89.png)
+![debugger](./img/89.png)
 
     let secret_value = 'anN2bXA2NjYsamlh'; //密匙 16位
     let iv_value = 'amlheW91LHFpYW53'; // 初始向量 initial vector 16位
@@ -106,7 +106,7 @@ f12 查看请求，发现响应的内容是存在加密的
 
 _signature 先全局搜索，貌似没有作用
 
-![debugger](../img/90.png)
+![debugger](./img/90.png)
 
 在 xhr signature 断点
 
@@ -131,6 +131,6 @@ _signature 先全局搜索，貌似没有作用
     h
         XMLHttpRequest {__sentry_xhr__: {…}, _url: "https://i.snssdk.com/log/sentry/v2/api/slardar/bat…y7QG.v1IYlUOqpTtglTibXzrFdkLV6o8Oqwk15zXRmHHn8X73", _method: "post", _byted_method: "POST", _byted_url: "https://i.snssdk.com/log/sentry/v2/api/slardar/bat…y7QG.v1IYlUOqpTtglTibXzrFdkLV6o8Oqwk15zXRmHHn8X73", …}
     
-![debugger](../img/21.png)
+![debugger](./img/21.png)
 
 ## 接下来进行代码编写
