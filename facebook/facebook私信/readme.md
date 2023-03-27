@@ -2,13 +2,13 @@ fb测试地址
 
     https://www.facebook.com/profile.php?id=100055837744229
 
-![debugger](./img107.png)
+![debugger](./img/107.png)
 
 打开f12，刷新页面，发现fb存在 `pending` 连接。
 
 先发送点内容测试一下 `”在最早在最早在最早在”`，单击 hex viewer 命令切换到utf-8显示格式
 
-![debugger](./img108.png)
+![debugger](./img/108.png)
 
 发送的内容有了。分别用以下变量进行全局搜索，发现 `version_id` 只存在一处
 
@@ -19,11 +19,11 @@ fb测试地址
     "app_id" : "2220391788200892"
     }
 
-![debugger](./img109.png)
+![debugger](./img/109.png)
 
 断点调试看看
 
-![debugger](./img110.png)
+![debugger](./img/110.png)
 
 果然内容在 `tasks` 中
 
