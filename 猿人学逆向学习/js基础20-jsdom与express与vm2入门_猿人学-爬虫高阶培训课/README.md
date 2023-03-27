@@ -24,7 +24,7 @@
 
 那么我们有以下几种方案
 
-### 1.对污染的全局变量进行一键缓存清理
+## 一.对污染的全局变量进行一键缓存清理
 
     function 缓存清理() {
         _env = ['global', 'clearInterval', 'clearTimeout', 'setInterval', 'setTimeout', 'queueMicrotask', 'performance', 'clearImmediate', 'setImmediate',]
@@ -45,7 +45,7 @@
 或者说没有赋值的时候，进行了下一次计算那么很有可能产生的结果就会混乱。导致我们传入的值跟我们输出的值发生不期待的错误。
 那么这个时候，缓存清理这种简单的方法就不行了
 
-### 2.所以就需要用更复杂的方案--->沙箱
+## 二.所以就需要用更复杂的方案--->沙箱
 
 什么是沙箱：
 
@@ -85,7 +85,9 @@
         res.send(沙箱运算(req.query.a).toString());
     })
 
-### 那么，nodejs，除了自己处理dom节点，是否有些办法能够用库去处理dom节点，让我们舒服一点呢，答案是，有的，这个库就是神奇的jsdom
+## 三.jsdom处理dom节点
+
+那么，nodejs，除了自己处理dom节点，是否有些办法能够用库去处理dom节点，让我们舒服一点呢，答案是，有的，这个库就是神奇的jsdom
 
 安装：
 
