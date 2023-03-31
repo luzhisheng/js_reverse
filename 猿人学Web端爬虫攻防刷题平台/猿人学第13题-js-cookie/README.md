@@ -1,4 +1,4 @@
-# 知识点，cookie在返回数据设置document.cookie
+# 知识点，cookie在返回数据中，通过document.cookie设置
 
 ## 解题
 
