@@ -23,4 +23,4 @@
 
 ## 伪造 worker
 
-[菜鸟教程](./伪造worker.js)
+[伪造worker](./伪造worker.js)
