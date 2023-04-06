@@ -1,10 +1,7 @@
-window = global;
-window.wp = '';
-
-
 var h = {
     "base64-js": 1,
     "buffer": 2,
+    "ieee754": 3,
     "ieee754": 3
 };
 var z = {
@@ -16,7 +13,6 @@ var B = {
 var V = {
     "whirlpool-js": 4
 };
-
 (function () {
     function G(F, W, c) {
         function L(D, q) {
@@ -243,7 +239,7 @@ var V = {
                 c.__proto__ = Uint8Array;
 
                 function N(XX) {
-                    if (typeof XX !== "number") throw new TypeError("\"size\" argument must be of type number"); else {
+                    if (typeof XX !== "number") throw new TypeError("\"size\" argument must be of type number");else {
                         if (XX < 0) throw new RangeError("The value \"" + XX + "\" is invalid for option \"size\"");
                     }
                 }
@@ -403,7 +399,7 @@ var V = {
                     if (!XV && XZ === 0) return 0;
                     var XK = ![];
 
-                    for (; ;) {
+                    for (;;) {
                         switch (Xh) {
                             case "ascii":
                             case "latin1":
@@ -590,7 +586,7 @@ var V = {
                         XF = XG;
                         XG = 0;
                     } else {
-                        if (XG > 2147483647) XG = 2147483647; else XG < -2147483648 && (XG = -2147483648);
+                        if (XG > 2147483647) XG = 2147483647;else XG < -2147483648 && (XG = -2147483648);
                     }
 
                     XG = +XG;
@@ -598,10 +594,10 @@ var V = {
                     if (XG < 0) XG = Xv.length + XG;
 
                     if (XG >= Xv.length) {
-                        if (XW) return -1; else XG = Xv.length - 1;
+                        if (XW) return -1;else XG = Xv.length - 1;
                     } else {
                         if (XG < 0) {
-                            if (XW) XG = 0; else return -1;
+                            if (XW) XG = 0;else return -1;
                         }
                     }
 
@@ -762,7 +758,7 @@ var V = {
                     if (!XL) XL = "utf8";
                     var Xq = ![];
 
-                    for (; ;) {
+                    for (;;) {
                         switch (XL) {
                             case "hex":
                                 return t(this, XW, Xc, XU);
@@ -1337,7 +1333,7 @@ var V = {
                     if (l5 > this.length) l5 = this.length;
                     l2.length - l3 < l5 - l4 && (l5 = l2.length - l3 + l4);
                     var l8 = l5 - l4;
-                    if (this === l2 && typeof Uint8Array.prototype.copyWithin === "function") this.copyWithin(l3, l4, l5); else {
+                    if (this === l2 && typeof Uint8Array.prototype.copyWithin === "function") this.copyWithin(l3, l4, l5);else {
                         if (this === l2 && l4 < l3 && l3 < l5) for (var l9 = l8 - 1; l9 >= 0; --l9) {
                             l2[l9 + l3] = this[l9 + l4];
                         } else Uint8Array.prototype.set.call(l2, this.subarray(l4, l5), l3);
@@ -1550,18 +1546,16 @@ var V = {
             N >>= -f;
             f += T;
 
-            for (; f > 0; D = D * 256 + O[Z + W], W += U, f -= 8) {
-            }
+            for (; f > 0; D = D * 256 + O[Z + W], W += U, f -= 8) {}
 
             q = D & (1 << -f) - 1;
             D >>= -f;
             f += v;
 
-            for (; f > 0; q = q * 256 + O[Z + W], W += U, f -= 8) {
-            }
+            for (; f > 0; q = q * 256 + O[Z + W], W += U, f -= 8) {}
 
-            if (D === 0) D = 1 - c; else {
-                if (D === L) return q ? NaN : (N ? -1 : 1) * Infinity; else {
+            if (D === 0) D = 1 - c;else {
+                if (D === L) return q ? NaN : (N ? -1 : 1) * Infinity;else {
                     q = q + Math.pow(2, v);
                     D = D - c;
                 }
@@ -1615,14 +1609,12 @@ var V = {
                 }
             }
 
-            for (; M >= 8; O[K + D] = P & 255, D += o, P /= 256, M -= 8) {
-            }
+            for (; M >= 8; O[K + D] = P & 255, D += o, P /= 256, M -= 8) {}
 
             r = r << M | P;
             L += M;
 
-            for (; L > 0; O[K + D] = r & 255, D += o, r /= 256, L -= 8) {
-            }
+            for (; L > 0; O[K + D] = r & 255, D += o, r /= 256, L -= 8) {}
 
             O[K + D - o] |= U * 128;
         };
@@ -1761,7 +1753,9 @@ var V = {
                             X0[Xh][0] ^= X4[Xh][0] ^ X3[Xh][0];
                             X0[Xh][1] ^= X4[Xh][1] ^ X3[Xh][1];
                         }
-                    };
+                    }
+
+                    ;
 
                     function X8(Xh) {
                         let Xz;
@@ -1963,21 +1957,18 @@ var V = {
         }).call(this, X("buffer").Buffer);
     }, B],
     6: [function (l, s, y) {
-        window.wp = l("whirlpool-js");
+        self.wp = l("whirlpool-js");
         result = wp.encSync("11111", "hex");
     }, V]
 }, {}, [6]);
 
-// onmessage = X => {
-//     for (var s = parseInt(X.data.split("|")[0]); s <= parseInt(X.data.split("|")[1]); s++) {
-//         result = self.wp.encSync(X.data.split("|")[2] + s.toString(), "hex");
-//
-//         if (result.slice(0, 10) === X.data.split("|")[3]) {
-//             self.postMessage(s);
-//             break;
-//         }
-//     };
-// };
+onmessage = X => {
+    for (var s = parseInt(X.data.split("|")[0]); s <= parseInt(X.data.split("|")[1]); s++) {
+        result = self.wp.encSync(X.data.split("|")[2] + s.toString(), "hex");
 
-result = window.wp.encSync('1', "hex");
-console.log(result);
+        if (result.slice(0, 10) === X.data.split("|")[3]) {
+            self.postMessage(s);
+            break;
+        }
+    };
+};
