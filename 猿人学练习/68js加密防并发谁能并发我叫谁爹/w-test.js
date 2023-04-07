@@ -11,11 +11,11 @@ function hex_1_str(data){
     return s;
 }
 
-// const data = {"uuid": "e4c958f2d45611eda02c52540078cc4c", "c": "787aaa89c8", "r": "UCHQwxAwjX", "t": "eCOZi8Zg31uZsXxm3WKyeKSNRhrHh5RGCd+XifzvIwM="}
+// const data = {"uuid": "caa26ad8d4e011edb2255254006d01b8", "c": "c05d8d4bdd", "r": "zvBrJDiBzH", "t": "eSaajsdg8G6TkkFa9VeiaKWIRR/Gh5RGCd+YjPXtJg4="}
 //
 // a = hex_1_str(data);
 // console.log(a);
-
+//
 
 module.exports =
     {

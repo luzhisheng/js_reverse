@@ -18,8 +18,6 @@ def challenge68(page, data):
         import urllib
         urllib.parse.quote(data['t'])
         payload = f"page={page}&c={data['c']}&r={data['r']}&t={urllib.parse.quote(data['t'])}&uuid={data['uuid']}&a={data['a']}"
-        print(payload)
-        print(len(payload))
         headers = {
             'content-length': f'{len(payload)}',
             'pragma': 'no-cache',
@@ -37,7 +35,8 @@ def challenge68(page, data):
             'sec-fetch-dest': 'empty',
             'referer': 'https://www.python-spider.com/challenge/68',
             'accept-encoding': 'gzip, deflate, br',
-            'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8'
+            'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
+            'cookie': 'Hm_lvt_337e99a01a907a08d00bed4a1a52e35d=1679292698,1679332474,1679672673,1679888049; no-alert=true; sessionid=xxxxxxxxxxxxxxxxxxxxxxxxxx; Hm_lpvt_337e99a01a907a08d00bed4a1a52e35d=1680829731'
         }
     else:
         payload = ''
@@ -57,7 +56,8 @@ def challenge68(page, data):
             'sec-fetch-dest': 'empty',
             'referer': 'https://www.python-spider.com/challenge/68',
             'accept-encoding': 'gzip, deflate, br',
-            'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8'
+            'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
+            'cookie': 'Hm_lvt_337e99a01a907a08d00bed4a1a52e35d=1679292698,1679332474,1679672673,1679888049; no-alert=true; sessionid=xxxxxxxxxxxxxxxxxxxxxxxxxx; Hm_lpvt_337e99a01a907a08d00bed4a1a52e35d=1680829731'
         }
     session = requests.session()
     session.headers = headers
@@ -74,16 +74,13 @@ def run():
         res_dict['a'] = a
         print(res_dict)
         res_dict = challenge68(page, res_dict)
-        print(res_dict)
-        exit()
-
-    #     data_list_num = []
-    #     for data in data_list:
-    #         data_list_num.append(int(data.get('value')))
-    #         data_num += int(data.get('value'))
-    #     print(data_list_num, page)
-    #     print(data_num)
-    # print(data_num)
+        data_list = res_dict.get('data')
+        data_list_num = []
+        for data in data_list:
+            data_list_num.append(int(data.get('value')))
+            data_num += int(data.get('value'))
+        print(data_list_num, page)
+        print(data_num)
 
 
 if __name__ == '__main__':
