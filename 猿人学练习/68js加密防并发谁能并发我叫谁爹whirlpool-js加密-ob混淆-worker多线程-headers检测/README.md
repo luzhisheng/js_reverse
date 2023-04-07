@@ -1,5 +1,7 @@
 # 知识点： whirlpool-js加密，ob混淆，worker多线程，headers检测
 
+worker多线程在js基础课21有讲解
+
 ## 解题思路
 
 看控制台返回的内容
@@ -10,7 +12,7 @@
 
 ![请求](./img/2.png)
 
-通过搜索发现找到了c,r,t,uuid,但是a是什么目前不清楚
+通过搜索发现找到了c,r,t,uuid,但是a是什么,目前不清楚
 
 ![请求](./img/3.png)
 
@@ -18,7 +20,7 @@
 
 ![请求](./img/4.png)
 
-发现一段可疑代码是`Worker`，和`call2(window.num, window.c, window.r, window.t, window.uuid, e.data)`
+发现一段可疑代码是`Worker`和`call2(window.num, window.c, window.r, window.t, window.uuid, e.data)`
 
 ![请求](./img/5.png)
 
