@@ -1,4 +1,4 @@
-# 知识点：无限debuger,websocket,环境检测，CryptoJS.AES加密，ob混淆，browserify打包
+# 知识点：无限debuger，websocket，环境检测，CryptoJS.AES加密，ob混淆，browserify打包
 
 ## 解题思路
 
