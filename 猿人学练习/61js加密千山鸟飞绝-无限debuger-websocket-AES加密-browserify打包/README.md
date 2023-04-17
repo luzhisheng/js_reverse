@@ -6,6 +6,11 @@ js无限debugger学习总结
 
     https://www.cnblogs.com/re-is-good/p/16631913.html
 
+browserify学习
+    
+    browserify源码解析1——打包后文件解析
+    https://juejin.cn/post/6844903657784377351
+
 如果出现debugger直接上油候插件
 
 ![请求](./img/2.png)
