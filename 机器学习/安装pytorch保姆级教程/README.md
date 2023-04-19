@@ -66,6 +66,13 @@
 
 复制命令执行，等待执行结束
 
+最后测试
+
+    import torch
+    print(torch.cuda.is_available())
+
+返回 True 就证明安装成功了
+
 ## 注意点
 
 出现报错：找不到指定模块
