@@ -45,6 +45,8 @@
     conda create --prefix=e:\anaconda3_env python=3.7
     # 进入虚拟环境
     activate e:\anaconda3_env
+    # 列出虚拟环境
+    conda env list
 
     # 其他语法
     # 退出虚拟环境
