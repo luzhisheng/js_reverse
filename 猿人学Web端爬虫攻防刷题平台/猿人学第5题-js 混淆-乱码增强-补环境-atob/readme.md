@@ -1,8 +1,8 @@
-## 知识点 atob，魔改的md5，环境指纹，crypto-js，hook cookie，md5加盐
+# 知识点 atob，魔改的md5，环境指纹，crypto-js，hook cookie，md5加盐
 
 网上有2篇介绍的文章，但最最关键的点都没有写出来，直接说明了主要破解cookie中的`RM4hZBv0dDon443M=`
 
-### 解题一：RM4hZBv0dDon443M的值是怎么来的
+## 解题一：RM4hZBv0dDon443M的值是怎么来的
 
 ![图片](./img/2.png)
 
@@ -57,7 +57,7 @@
 
 ![图片](./img/8.png)
 
-### 解题二：_0x4e96b4['_$pr']生成
+## 解题二：_0x4e96b4['_$pr']生成
 
 全局搜索`_0x4e96b4['_$pr']`所有涉及的地方都打上断点
 
@@ -70,6 +70,8 @@
 接下来的逻辑复制代码缺啥补啥，从这段代码开始
 
     _0x474032(_$Wa)
+
+## 注意点
 
 注意点一：报错`ReferenceError: history is not defined`
 
