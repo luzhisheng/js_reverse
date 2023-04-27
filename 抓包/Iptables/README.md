@@ -2,12 +2,12 @@
 
 1. 【Linux运维必学之Iptables防火墙】从基础介绍到实战应用，小白可入，轻松上手
    https://www.bilibili.com/video/BV1Y94y1y7M2?p=1
-
 2. 超级详细的iptable教程文档
    https://www.cnblogs.com/Dicky-Zhang/p/5904429.html
-
 3. iptables包过滤与网络地址转换
    https://www.bilibili.com/video/BV1Vy4y1a7Rd/
+4. 透明代理
+   https://docs.mitmproxy.org/archive/v8/howto-transparent/
 
 ## 防火墙常用命令行
 
@@ -59,3 +59,32 @@
 
     # 通过目标网卡eth1进入公网ip（公司固定ip）端口是80，转发到内网
     iptables -t nat -A PREROUTING -i eth1 -d 12.34.56.80 -p tcp --dport 80 -j DNAT --to-destination 192.168.1.1:8000
+
+## 抓包
+
+首先将手机上网功能配置成静态获取ip地址
+
+![请求](./img/1.jpg)
+
+查看本地的ip地址，我这边用的是无线网络所有，直接拿无线网络的参数配置
+
+![请求](./img/2.png)
+
+开启iptables流量重定向到mitmproxy
+
+    # 启用IP转发
+    sysctl -w net.ipv4.ip_forward=1
+    sysctl -w net.ipv6.conf.all.forwarding=1
+
+    # 禁用 ICMP 重定向
+    sysctl -w net.ipv4.conf.all.send_redirects=0
+
+    # 创建一个 iptables 规则集，将所需的流量重定向到 mitmproxy
+    iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 9999
+    iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 9999
+    ip6tables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 9999
+    ip6tables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 9999
+
+启动mitmproxy
+
+   mitmproxy --mode transparent --showhost -p 9999 --set block_global=false
