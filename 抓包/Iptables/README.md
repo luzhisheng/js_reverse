@@ -44,7 +44,7 @@
 内网访问外网网络地址转换
 
                 表     链           请求协议 出口网卡  本地网段             地址转换    外网ip
-    iptables -t nat -A POSTROUTING -P tcp -o eth1 -s 192.168.1.0/24 -j SNAT --to-source 12.34.56.78
+    iptables -t nat -A POSTROUTING -p tcp -o eth1 -s 192.168.1.0/24 -j SNAT --to-source 12.34.56.78
 
     # 如何看某个表中有哪些链和规则
     iptables -t nat -nvL
@@ -53,7 +53,7 @@
     ifup eth1
 
     # 外网ip不是固定的（网络地址转换）
-    iptables -t nat -A POSTROUTING -P tcp -o eth1 -s 192.168.1.0/24 -j MASQUERADE
+    iptables -t nat -A POSTROUTING -p tcp -o eth1 -s 192.168.1.0/24 -j MASQUERADE
 
 外网访问内网目标地址转换
 
@@ -71,6 +71,9 @@
 ![请求](./img/2.png)
 
 开启iptables流量重定向到mitmproxy
+    
+    # 重启iptables
+    systemctl start iptables
 
     # 启用IP转发
     sysctl -w net.ipv4.ip_forward=1
@@ -80,11 +83,13 @@
     sysctl -w net.ipv4.conf.all.send_redirects=0
 
     # 创建一个 iptables 规则集，将所需的流量重定向到 mitmproxy
-    iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 9999
-    iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 9999
-    ip6tables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 9999
-    ip6tables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 9999
+   iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 80 -j REDIRECT --to-port 8080
+   iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 443 -j REDIRECT --to-port 8080
+   ip6tables -t nat -A PREROUTING -i wlan0 -p tcp --dport 80 -j REDIRECT --to-port 8080
+   ip6tables -t nat -A PREROUTING -i wlan0 -p tcp --dport 443 -j REDIRECT --to-port 8080
 
 启动mitmproxy
 
-   mitmproxy --mode transparent --showhost -p 9999 --set block_global=false
+   mitmproxy --mode transparent --showhost --set block_global=false
+   mitmdump --mode transparent --showhost --set block_global=false
+   mitmweb --mode transparent --showhost --set block_global=false
