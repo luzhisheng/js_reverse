@@ -6,6 +6,7 @@
 *.zip
 *.pyc
 *.vscode
+*.pdf
 package.json
 package-lock.json
 venv/
