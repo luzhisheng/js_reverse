@@ -36,7 +36,7 @@ def get_cityjson():
         'referer': 'https://www.python-spider.com/challenge/15',
         'accept-encoding': 'gzip, deflate, br',
         'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
-        'cookie': 'sessionid=xxxx'
+        'cookie': 'sessionid=pdsh5qmiyd2u4zcgf9ay7tuxfty1mf9f'
     }
     session.headers = headers
     response = session.request("GET", url)
@@ -64,7 +64,7 @@ def get_challenge15_js(timestamp):
         'referer': 'https://www.python-spider.com/challenge/15',
         'accept-encoding': 'gzip, deflate, br',
         'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
-        'cookie': 'sessionid=xxx'
+        'cookie': 'sessionid=pdsh5qmiyd2u4zcgf9ay7tuxfty1mf9f'
     }
     session.headers = headers
     response = session.request("GET", url)
@@ -90,7 +90,7 @@ def challenge15(page, sign):
         'referer': 'https://www.python-spider.com/challenge/15',
         'accept-encoding': 'gzip, deflate, br',
         'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
-        'cookie': 'sessionid=xxx'
+        'cookie': 'sessionid=pdsh5qmiyd2u4zcgf9ay7tuxfty1mf9f'
     }
     session.headers = headers
     response = session.request("POST", url, data=payload)
@@ -109,8 +109,6 @@ def run():
 
         # 第二个返回js数据
         challenge15_js = get_challenge15_js(timestamp)
-        # [_0xd85f13+0xe],0x11,0x3bdacb0e8f70c800),
-        # 0xe)], 0x11
         try:
             num_sign = re.findall(r'0xe\)],0x11,(.*?)\),_', challenge15_js)[0]
         except Exception as a:
