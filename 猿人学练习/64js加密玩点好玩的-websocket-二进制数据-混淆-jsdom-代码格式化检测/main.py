@@ -4,6 +4,8 @@ try:
 except ImportError:
     import _thread as thread
 from websocket import _handshake
+import requests
+import json
 
 
 def get_handshake_headers(resource, url, host, port, options):
@@ -13,7 +15,7 @@ def get_handshake_headers(resource, url, host, port, options):
                ' Chrome/113.0.0.0 Safari/537.36',
                'Upgrade: websocket', 'Origin: https://www.python-spider.com', 'Sec-WebSocket-Version: 13',
                'Accept-Encoding: gzip, deflate, br', 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8',
-               'Cookie: sessionid=sm85gembpmofo5mhzustgiwgcwkgk5dm;', 'Sec-WebSocket-Key: y1H/4iwgf/4st9XYL0j+mg==',
+               'Cookie: sessionid=xxxxxxxxxx;', 'Sec-WebSocket-Key: y1H/4iwgf/4st9XYL0j+mg==',
                'Sec-WebSocket-Extensions: permessage-deflate; client_max_window_bits', '', '']
     key = 'y1H/4iwgf/4st9XYL0j+mg=='
     return headers, key
@@ -22,8 +24,20 @@ def get_handshake_headers(resource, url, host, port, options):
 _handshake._get_handshake_headers = get_handshake_headers
 
 
+def get_decrypt(data):
+    data = {"data": data}
+    url = f"http://127.0.0.1:3005/sign_64"
+    session = requests.session()
+    headers = {
+        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    }
+    session.headers = headers
+    response = session.request("POST", url, data=data)
+    return response.text
+
+
 def run_thread(ws):
-    for page in range(1, 10):
+    for page in range(1, 101):
         ws.send(str(page))
 
 
@@ -35,13 +49,12 @@ data_num = 0
 
 
 def on_message(ws, message):
-    print(message)
-    # global data_num
-    # data_list = json.loads(message).get('data')
-    # print(data_list)
-    # for data in data_list:
-    #     data_num += int(data.get('value'))
-    # print(data_num)
+    res = get_decrypt(list(message))
+    global data_num
+    data_list = json.loads(res).get('data')
+    for data in data_list:
+        data_num += int(data.get('value'))
+    print(data_num)
 
 
 def challenge61():
