@@ -30,7 +30,7 @@
 
 ## 安装Anaconda
 
-去官方网站下载exe文件
+去官方网站下载exe文件，这里一定要先清理干净原先的py环境，否则可能会出现python环境冲突
 
 ![请求](./img/5.png)
 
@@ -44,13 +44,11 @@
     # 创建虚拟环境并安装基础工具
     conda create --prefix=e:\anaconda3_env python=3.7
     # 进入虚拟环境
-    activate e:\anaconda3_env
+    conda activate e:\anaconda3_env
     # 列出虚拟环境
     conda env list
-
-    # 其他语法
     # 退出虚拟环境
-    deactivate
+    conda deactivate
     # 删除虚拟环境
     conda remove --all --prefix "e:\anaconda3_env"
 
@@ -68,6 +66,31 @@
 
 复制命令执行，等待执行结束
 
+这个时候可能出现的报错`failed with initial frozen solve. Retrying with flexible solve`
+
+![请求](./img/9.png)
+
+更新conda环境
+
+    # 查看版本
+    conda -V
+    # 更新conda环境
+    conda update -n base conda
+    # 更新conda的所有包
+    conda update -n base -c defaults conda
+
+在更新的过程中报错`ImportError: DLL load failed while importing _ctypes`
+
+![请求](./img/10.png)
+
+网上找了很多方法，最后发现是anaconda2023版本问题，我直接降低版本安装
+
+    https://repo.anaconda.com/archive/
+
+我测试很多个版本，发现版本之间确实存在兼容问题，选择合适自己本机版本才是上策
+
+做完这些之后，再用conda install xxx就不会有上面的问题了。
+
 最后测试
 
     import torch
@@ -75,9 +98,7 @@
 
 返回 True 就证明安装成功了
 
-## 注意点
-
-出现报错：找不到指定模块
+这里再次出现报错：找不到指定模块
 
 我这里直接下载Visual Studio Community软件
 
