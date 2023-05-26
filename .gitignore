@@ -7,9 +7,11 @@
 *.pyc
 *.vscode
 *.pdf
+*.pt
 package.json
 package-lock.json
 venv/
+runs/
 __MACOSX/
 setting.py
 node_modules/

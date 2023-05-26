@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<annotation>
+<folder>JPEGImages</folder>
+<filename>16329967796625037.jpg</filename>
+<path>E:\code\js_reverse\ayf_ocr\yolo_databases\VOC2012\JPEGImages\16329967796625037.jpg</path>
+<source>
+    <database>Unknown</database>
+</source>
+<size>
+    <width>150</width>
+    <height>150</height>
+    <depth>3</depth>
+</size>
+
+<segmented>0</segmented>
+    <object>
+    <name>缺口</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <difficult>0</difficult>
+    <bndbox>
+        <xmin>55</xmin>
+        <ymin>82</ymin>
+        <xmax>100</xmax>
+        <ymax>130</ymax>
+    </bndbox>
+</object>
+</annotation>

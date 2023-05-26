@@ -1,0 +1,5 @@
+E:/code/js_reverse/ayf_ocr/yolo_databases/VOC2012/images/train/16329967796329784.jpg
+E:/code/js_reverse/ayf_ocr/yolo_databases/VOC2012/images/train/16329967796409855.jpg
+E:/code/js_reverse/ayf_ocr/yolo_databases/VOC2012/images/train/16329967796494925.jpg
+E:/code/js_reverse/ayf_ocr/yolo_databases/VOC2012/images/train/16329967796625037.jpg
+E:/code/js_reverse/ayf_ocr/yolo_databases/VOC2012/images/train/16329967796715117.jpg
