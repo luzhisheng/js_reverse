@@ -30,15 +30,15 @@ http://www.jinglingbiaozhu.com/
 
 创建标注项目
 
-![属性文本](./img/1.png)
+![属性文本](../../img/1.png)
 
 手动标注
 
-![属性文本](./img/2.png)
+![属性文本](../../img/2.png)
 
 导出voc数据，导出数据到Annotations文件夹
 
-![属性文本](./img/3.png)
+![属性文本](../../img/3.png)
 
 查看导出的xml数据信息
 
@@ -119,11 +119,11 @@ Python>=3.7.0和PyTorch>=1.7
 
 训练集/验证集图片数据
 
-![属性文本](./img/5.png)
+![属性文本](../../img/5.png)
 
 训练集/验证集标签数据（坐标数据归一化）
 
-![属性文本](./img/6.png)
+![属性文本](../../img/6.png)
 
 ## 生成yolov5所需要的训练数据
 
@@ -145,7 +145,7 @@ Python>=3.7.0和PyTorch>=1.7
 
 生成的数据如下
 
-![属性文本](./img/7.png)
+![属性文本](../../img/7.png)
 
 ## 开始训练yolov5
 
@@ -157,13 +157,13 @@ Python>=3.7.0和PyTorch>=1.7
 
 github可以下载weights
 
-![属性文本](./img/4.png)
+![属性文本](../../img/4.png)
 
 2.训练数据`data`
 
     parser.add_argument('--data', type=str, default=ROOT / 'data/my.yaml', help='dataset.yaml path')
 
-![属性文本](./img/8.png)
+![属性文本](../../img/8.png)
 
 my.yaml文件
 
@@ -189,11 +189,11 @@ my.yaml文件
 
 **三、启动训练 yolov5\train.py**
 
-![属性文本](./img/9.png)
+![属性文本](../../img/9.png)
 
 会生成一个run文件
 
-![属性文本](./img/10.png)
+![属性文本](../../img/10.png)
 
 **四、启动推理 yolov5\detect.py**
 
@@ -211,8 +211,8 @@ my.yaml文件
 
 生成的文件夹
 
-![属性文本](./img/11.png)
+![属性文本](../../img/11.png)
 
 推理效果
 
-![属性文本](./img/12.png)
+![属性文本](../../img/12.png)
