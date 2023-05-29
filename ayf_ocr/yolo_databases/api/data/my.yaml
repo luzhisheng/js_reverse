@@ -1,0 +1,7 @@
+train: E:\code\js_reverse\ayf_ocr\yolo_databases\slide\Annotations\train.txt
+val: E:\code\js_reverse\ayf_ocr\yolo_databases\slide\Annotations\val.txt
+
+
+# Classes
+names:
+  0: 0
