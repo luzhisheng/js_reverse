@@ -42,10 +42,10 @@
     
     # 先在e盘下创建一个anaconda3_env文件夹
     # 创建虚拟环境并安装基础工具
-    conda create --prefix=e:\anaconda3_env python=3.7
-    # 进入虚拟环境
-    windows: conda activate e:\anaconda3_env
+    windows: conda create --prefix=e:\anaconda3_env python=3.7
     ubuntu: conda create -n 环境名称 python=3.8
+    # 进入虚拟环境
+    conda activate e:\anaconda3_env
     # 列出虚拟环境
     conda env list
     # 退出虚拟环境
