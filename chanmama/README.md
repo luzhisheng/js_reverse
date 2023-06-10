@@ -20,7 +20,11 @@
 
 ![debugger](./img/5.png)
 
-以此类推`r`是`i(t)`生成了，`t`怎么来的呢？是通过`He(t)`传入的
+以此类推`r`是`i(t)`生成了
+
+![debugger](./img/8.png)
+
+`t`怎么来的呢？是通过`He(t)`传入的
 
 ![debugger](./img/6.png)
 
