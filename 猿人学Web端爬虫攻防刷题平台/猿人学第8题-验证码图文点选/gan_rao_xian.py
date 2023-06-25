@@ -1,5 +1,6 @@
 from PIL import Image
 import numpy as np
+import ddddocr
 import cv2
 
 
@@ -58,7 +59,6 @@ def interference(img_file):
         g = line[1]
         b = line[2]
         if not (r == 255 and g == 255 and b == 255):
-            print(r, g, b)
             turn_white(img, r, g, b)
     return img
 
@@ -79,6 +79,18 @@ def binary(img_file, standard=205):
 
 def enhance(img_file):
     """增强字体显示效果"""
+    img = cv2.imread(img_file, 0)
+    kernel = np.ones((2, 3), 'uint8')
+    img = cv2.erode(img, kernel, iterations=2)
+    return img
+
+
+def ocr(img_file):
+    ocr = ddddocr.DdddOcr()
+    with open(img_file, 'rb') as f:
+        image = f.read()
+    res = ocr.classification(image)
+    return res
 
 
 def run():
@@ -88,6 +100,10 @@ def run():
     image_b.save('./img/2-test.png')
     image_c = binary('./img/2-test.png')
     image_c.save('./img/3-test.png')
+    image_d = enhance('./img/3-test.png')
+    cv2.imwrite('./img/4-test.png', image_d)
+    res = ocr('./img/4-test.png')
+    print(res)
 
 
 if __name__ == '__main__':
