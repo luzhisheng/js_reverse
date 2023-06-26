@@ -1,6 +1,5 @@
 from PIL import Image
 import numpy as np
-import ddddocr
 import cv2
 
 
@@ -85,25 +84,31 @@ def enhance(img_file):
     return img
 
 
-def ocr(img_file):
-    ocr = ddddocr.DdddOcr()
-    with open(img_file, 'rb') as f:
-        image = f.read()
-    res = ocr.classification(image)
-    return res
+def image_clip(img_file):
+    """图片切割成单个字体便于识别"""
+    img = cv2.imread(img_file, 0)
+    clip_imgs = []
+    num = 1
+    for y in range(0, 300, 100):
+        for x in range(10, 300, 100):
+            # 裁剪坐标为[y0:y1, x0:x1]
+            cropped = img[y:y + 100, x:x + 100]
+            clip_imgs.append(cropped)
+            cv2.imwrite(f"./img_a/f-{num}.jpg", cropped)
+            num += 1
+    return clip_imgs
 
 
 def run():
-    image_a = noise_image('./img/1.png')
-    image_a.save('./img/1-test.png')
-    image_b = interference('./img/1-test.png')
-    image_b.save('./img/2-test.png')
-    image_c = binary('./img/2-test.png')
-    image_c.save('./img/3-test.png')
-    image_d = enhance('./img/3-test.png')
-    cv2.imwrite('./img/4-test.png', image_d)
-    res = ocr('./img/4-test.png')
-    print(res)
+    image_a = noise_image('img_a/a.png')
+    image_a.save('./img_a/a-test.png')
+    image_b = interference('./img_a/a-test.png')
+    image_b.save('./img_a/b-test.png')
+    image_c = binary('./img_a/b-test.png')
+    image_c.save('./img_a/c-test.png')
+    image_d = enhance('./img_a/c-test.png')
+    cv2.imwrite('./img_a/d-test.png', image_d)
+    image_clip('./img_a/d-test.png')
 
 
 if __name__ == '__main__':
