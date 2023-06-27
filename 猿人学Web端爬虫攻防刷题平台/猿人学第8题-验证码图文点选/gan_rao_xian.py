@@ -1,4 +1,7 @@
+import random
+
 from PIL import Image
+from xin_fei_ocr import run_ocr
 import numpy as np
 import cv2
 
@@ -87,16 +90,32 @@ def enhance(img_file):
 def image_clip(img_file):
     """图片切割成单个字体便于识别"""
     img = cv2.imread(img_file, 0)
-    clip_imgs = []
+    clip_imgs = {}
     num = 1
     for y in range(0, 300, 100):
         for x in range(10, 300, 100):
             # 裁剪坐标为[y0:y1, x0:x1]
             cropped = img[y:y + 100, x:x + 100]
-            clip_imgs.append(cropped)
             cv2.imwrite(f"./img_a/f-{num}.jpg", cropped)
+            res = run_ocr(f"./img_a/f-{num}.jpg")
+            clip_imgs[res.rstrip()] = coordinate(num)
             num += 1
     return clip_imgs
+
+
+def coordinate(num):
+    coordinate_dict = {
+        1: random.randint(0, 9),
+        2: random.randint(10, 19),
+        3: random.randint(20, 29),
+        4: random.randint(300, 309),
+        5: random.randint(310, 319),
+        6: random.randint(320, 329),
+        7: random.randint(600, 609),
+        8: random.randint(610, 619),
+        9: random.randint(620, 629)
+    }
+    return coordinate_dict.get(num)
 
 
 def run():
@@ -108,8 +127,10 @@ def run():
     image_c.save('./img_a/c-test.png')
     image_d = enhance('./img_a/c-test.png')
     cv2.imwrite('./img_a/d-test.png', image_d)
-    image_clip('./img_a/d-test.png')
+    text_dict = image_clip('./img_a/d-test.png')
+    return text_dict
 
 
 if __name__ == '__main__':
-    run()
+    res = run()
+    print(res)
