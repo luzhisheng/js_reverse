@@ -1,4 +1,4 @@
-# 知识点:图像识别、去除干扰线、降噪、机器学习
+# 知识点:图像识别、去除干扰线、降噪、机器学习、headers请求顺序
 
 ## 一、解决点选坐标问题
 
@@ -22,7 +22,7 @@
 
 ![debugger](./img/3.png)
 
-由此推断
+由此推断，坐标和对应的值
 
     第1个图片坐标值可以是（0～9）
     第2个图片坐标值可以是（10～19）
@@ -33,6 +33,22 @@
     第7个图片坐标值可以是（600～609）
     第8个图片坐标值可以是（610～619）
     第9个图片坐标值可以是（620～629）
+
+这里就可以写一个python方法作为调用
+
+    def coordinate(num):
+        coordinate_dict = {
+            1: random.randint(0, 9),
+            2: random.randint(10, 19),
+            3: random.randint(20, 29),
+            4: random.randint(300, 309),
+            5: random.randint(310, 319),
+            6: random.randint(320, 329),
+            7: random.randint(600, 609),
+            8: random.randint(610, 619),
+            9: random.randint(620, 629)
+        }
+        return coordinate_dict.get(num)
 
 ## 二、图像去噪点处理
 
@@ -145,3 +161,26 @@
 ![debugger](./img/f-2.jpg)
 
 ## 三、图像识别/机器学习
+
+测试百度ocr、ddddocr、还尝试了自己训练模型，效果都不是很好，菜是原罪啊！最后发现科大讯飞ocr对这些生僻字识别效果还是不错的。
+
+![debugger](./img/6.png)
+
+效果
+
+![debugger](./img/7.png)
+
+## headers请求顺序
+
+    HEADERS = {
+        'Proxy-Connection': 'keep-alive',
+        'Accept': 'application/json, text/javascript, */*; q=0.01',
+        'User-Agent': 'yuanrenxue.project',
+        'X-Requested-With': 'XMLHttpRequest',
+        'Referer': 'http://match.yuanrenxue.com/match/8',
+        'Accept-Language': 'zh-CN,zh;q=0.9'
+    }
+    SESSION = requests.session()
+    SESSION.headers = HEADERS
+
+    req = SESSION.get(self.url)

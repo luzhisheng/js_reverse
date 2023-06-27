@@ -106,9 +106,9 @@ def get_result(universal_ocr, file_path):
 
 
 def run_ocr(file_path):
-    appid = "xxxx"
+    appid = "zzzz"
     apisecret = "xxxx"
-    apikey = "xxxxx"
+    apikey = "xxxx"
     universal_ocr = UniversalOcr(appid, apikey, apisecret)
     res = get_result(universal_ocr, file_path)
     return res.get('whole_text')

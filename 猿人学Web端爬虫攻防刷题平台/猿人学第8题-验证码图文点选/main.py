@@ -3,6 +3,17 @@ import requests
 import re
 import base64
 
+HEADERS = {
+    'Proxy-Connection': 'keep-alive',
+    'Accept': 'application/json, text/javascript, */*; q=0.01',
+    'User-Agent': 'yuanrenxue.project',
+    'X-Requested-With': 'XMLHttpRequest',
+    'Referer': 'http://match.yuanrenxue.com/match/8',
+    'Accept-Language': 'zh-CN,zh;q=0.9'
+}
+SESSION = requests.session()
+SESSION.headers = HEADERS
+
 
 class YuanrenXuan(object):
 
@@ -11,7 +22,7 @@ class YuanrenXuan(object):
         self.sum_value = 0
 
     def get_task(self):
-        req = requests.get(self.url)
+        req = SESSION.get(self.url)
         text = re.findall(r'请依次点击：---<p>(.*)</p>--- <br>提示', req.json().get('html'))[0]
         text_list = text.split('</p>---<p>')
         img = re.findall(r'<img src="(.*)" alt="">', req.json().get('html'))[0]
@@ -22,16 +33,18 @@ class YuanrenXuan(object):
         return text_list
 
     def get_match(self, page, answer):
-        url = f"https://match.yuanrenxue.cn/api/match/8?page={page}&answer={answer}"
-        payload = {}
-        headers = {
-            'cookie': 'sessionid=iikaj9bo7vzqv4mz1xvryl13o7z98l13;'
-        }
-        response = requests.request("GET", url, headers=headers, data=payload)
-        print(response.json())
+        url = f"https://match.yuanrenxue.cn/api/match/8"
+        print(answer)
+        params = (
+            ('page', str(page)),
+            ('answer', answer)
+        )
+        response = SESSION.get(url, params=params)
+        return response.json()
 
     def run(self):
         num = 1
+        data_num_list = []
         while True:
             text_list = self.get_task()
             print(text_list)
@@ -43,14 +56,14 @@ class YuanrenXuan(object):
             answer = '|'.join(answer_list)
             if 'None' in answer:
                 continue
-            print(num, answer)
-            self.get_match(num, answer)
+            data_list = self.get_match(num, answer).get('data')
+            for data in data_list:
+                data_num_list.append(int(data.get('value')))
             num += 1
 
             if num == 5:
                 break
-
-            exit()
+        print(data_num_list)
 
 
 if __name__ == '__main__':
