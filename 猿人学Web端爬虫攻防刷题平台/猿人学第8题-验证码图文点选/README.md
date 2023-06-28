@@ -172,6 +172,8 @@
 
 ## headers请求顺序
 
+验证码处理完了你会发现，还是不能正常返回数据，这大概率就是`headers`问题
+
     HEADERS = {
         'Proxy-Connection': 'keep-alive',
         'Accept': 'application/json, text/javascript, */*; q=0.01',
