@@ -83,7 +83,11 @@ print(p.logId)
     1000
     2000
 
-## 二、数据流过程
+## 二、websocket 连接
+
+直播间弹幕是实时响应的，这样数据显示方式大概率就是websocket协议
+
+## 三、数据流过程
 
 ![debugger](./img/3.png)
 
