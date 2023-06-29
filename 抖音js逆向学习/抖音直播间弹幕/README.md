@@ -1,5 +1,11 @@
 # 抖音直播间弹幕
 
+打开抖音直播间（测试地址https://live.douyin.com/80017709309）如何抓取评论弹幕，通过分析可以看到这样一个二进制文件。
+
+![debugger](./img/4.png)
+
+再破解二进制文件前先了解一下什么是`.proto`文件
+
 ## 一、`.proto`文件编译成`.py`文件
 
 安装`protobuf`
@@ -80,6 +86,5 @@ print(p.logId)
 ## 二、数据流过程
 
 ![debugger](./img/3.png)
-
 
 
