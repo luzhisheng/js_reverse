@@ -1,4 +1,4 @@
-from douyin_pb2 import PushFrame, Response, ChatMessage
+from 抖音直播间弹幕.extractors.douyin_pb2 import PushFrame, Response, ChatMessage
 from urllib.parse import unquote_plus
 from websocket import WebSocketApp
 import requests
@@ -67,8 +67,7 @@ def on_message(ws, content):
 
         ws.send(s.SerializeToString())
 
-    # 获取数据内容（需根据不同method，使用不同的结构对象对 数据 进行解析）
-    #   注意：此处只处理 WebcastChatMessage ，其他处理方式都是类似的。
+    # 获取数据内容（需根据不同method，使用不同的结构对象对 数据 进行解析）注意：此处只处理 WebcastChatMessage ，其他处理方式都是类似的。
     for item in response.messagesList:
         if item.method != "WebcastChatMessage":
             continue
