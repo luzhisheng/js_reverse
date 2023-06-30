@@ -1,6 +1,7 @@
 from 抖音直播间弹幕.extractors.douyin_pb2 import PushFrame, Response, ChatMessage
 from urllib.parse import unquote_plus
 from websocket import WebSocketApp
+import binascii
 import requests
 import json
 import re
@@ -28,7 +29,7 @@ def fetch_live_room_info(url):
 
     wss_url = f"wss://webcast3-ws-web-lq.douyin.com/webcast/im/push/v2/?app_name=douyin_web&version_code=180800&" \
               f"webcast_sdk_version=1.3.0&update_version_code=1.3.0&compress=gzip&" \
-              f"internal_ext=internal_src:dim|wss_push_room_id:7249886940391033659|wss_push_did:7241108041709241917|" \
+              f"internal_ext=internal_src:dim|wss_push_room_id:{room_id}|wss_push_did:7241108041709241917|" \
               f"dim_log_id:2023062917400283AC7BE0CC82F20C1E37|fetch_time:1688031602253|seq:1|wss_info:" \
               f"0-1688031602253-0-0|wrds_kvs:InputPanelComponentSyncData-1687995896455064872_WebcastRoomStatsMessage" \
               f"-1688031596235825690_WebcastRoomRankMessage-1688031596293918081&cursor=u-1_h-1_t-1688031602253_r" \
@@ -39,7 +40,7 @@ def fetch_live_room_info(url):
               f"browser_version=5.0%20(X11;%20Linux%20x86_64)%20AppleWebKit" \
               f"/537.36%20(KHTML,%20like%20Gecko)%20Chrome/114.0.0.0%20Safari/537.36&" \
               f"browser_online=true&tz_name=Asia/Shanghai&identity=audience&" \
-              f"room_id=7249886940391033659&heartbeatDuration=0&signature=RBC/E3IffRZOBAFJ"
+              f"room_id={room_id}&heartbeatDuration=0&signature=R/4N4c1fR5u9h0PT"
     ttwid = res.cookies.get_dict()['ttwid']
     return room_id, room_title, room_user_count, wss_url, ttwid
 
@@ -49,6 +50,8 @@ def on_open(ws, content):
 
 
 def on_message(ws, content):
+    # s = binascii.b2a_hex(content)
+    # print(s)
     frame = PushFrame()
     frame.ParseFromString(content)
 
@@ -86,7 +89,7 @@ def on_close(ws, content):
 
 
 def run():
-    web_url = "https://live.douyin.com/80017709309"
+    web_url = "https://live.douyin.com/22830168665"
     room_id, room_title, room_user_count, wss_url, ttwid = fetch_live_room_info(web_url)
     ws = WebSocketApp(
         url=wss_url,
