@@ -11,7 +11,8 @@
     
 ### 下载到本地之后安装依赖：
     
-    npm install -g anyproxy
+    sudo npm install -g anyproxy
+    sudo npm install anyproxy
     npm install shelljs
     npm install cheerio
     npm install '@babel/core'
@@ -26,6 +27,12 @@
 要用anyproxy抓取https请求需要信任它的证书，在运行这个文件之前，先用anyproxy ca选项启动，访问它的web管理界面：
     
     http://localhost:8002/
+
+![debugger](./img/1.png)
+
+接下来就是浏览器安装
+
+![debugger](./img/2.png)
 
 ### 启动项目
 
