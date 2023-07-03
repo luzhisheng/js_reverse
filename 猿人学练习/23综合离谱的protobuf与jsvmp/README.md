@@ -47,7 +47,13 @@
     String.prototype.match = function(val){
         var str = this.toString();
         console.log(str);
-        debugger;
+        console.log(val);
+        if(str.indexOf("function") != -1){
+            console.log(str);
+            console.log(val);
+            debugger;
+            return null;
+        }
         return str.match_(val);
     }
     // 过检测
