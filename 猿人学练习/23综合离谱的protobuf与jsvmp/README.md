@@ -66,3 +66,23 @@
 刷新浏览器运行网页，看看我发现了什么内容！
 
 ![请求](./img/7.png)
+
+```javascript
+1.添加属性
+Object['defineProperty']['apply'](We, (cs = arguments) && cs[Ge[re]][Ge[O]] === b && e(te)(cs) || cs);
+
+2.将函数function(e, s, c, n, f) {转成字符串
+We['toString']['apply'](We, (cs = arguments) && cs[Ge[re]][Ge[O]] === b && e(te)(cs) || cs)
+
+3.去除字符串空格 We.replace(/\s+/g, '')
+We['replace']['apply'](We, (cs = arguments) && cs[Ge[re]][Ge[O]] === b && e(te)(cs) || cs)
+
+4.去除字符串=号 We.replace(/=/g, '')
+We['replace']['apply'](We, (cs = arguments) && cs[Ge[re]][Ge[O]] === b && e(te)(cs) || cs);
+
+5.检测jsvmpzl:ver.1.3.3是否存在
+'jsvmpzl:ver.1.3.3'.indexOf['apply']('jsvmpzl:ver.1.3.3', (ﱢﱠۥ = arguments) && ﱢﱠۥ[ۦﱞۥ[ﱢﱢ]][ۦﱞۥ[ﱡﱠ]] === ﱡ && ۥ(ۥﱣ)(ﱢﱠۥ) || ﱢﱠۥ)
+
+6.We是原始字符串，换行符（\n），如果未找到匹配则为null
+We['match']['apply'](ۦﱠۥ, (ﱢﱠۥ = arguments) && ﱢﱠۥ[ۦﱞۥ[ﱢﱢ]][ۦﱞۥ[ﱡﱠ]] === ﱡ && ۥ(ۥﱣ)(ﱢﱠۥ) || ﱢﱠۥ)
+```
