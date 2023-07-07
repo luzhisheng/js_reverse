@@ -24,4 +24,6 @@
 | Base64编码转换                     | [https://www.qqxiuzi.cn/bianma/base64.htm](https://www.qqxiuzi.cn/bianma/base64.htm)
 | 爬虫工具-爬虫分析工具-猿人学爬虫工具            | [http://tool.yuanrenxue.com/](http://tool.yuanrenxue.com/)
 | JS代码混淆与还原                      | [http://www.cnlans.com:8887/](http://www.cnlans.com:8887/)
-| JavaScript反混淆器   | [https://deobfuscate.io/](https://deobfuscate.io/)
+| JavaScript反混淆器                 | [https://deobfuscate.io/](https://deobfuscate.io/)
+| JStillery反混淆器                  | [https://mindedsecurity.github.io/jstillery/](https://mindedsecurity.github.io/jstillery/)
+| jsdec反混淆器                      | [https://jsdec.js.org/](https://jsdec.js.org/)
