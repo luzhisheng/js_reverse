@@ -10,6 +10,7 @@
 *.pt
 chromedriver
 package.json
+LICENSE.chromedriver
 package-lock.json
 venv/
 runs/
