@@ -9,6 +9,9 @@ class BrowserBaiyin(Base):
     def __init__(self, **kwargs):
         super(BrowserBaiyin, self).__init__()
         self.queue_list = Queue()
+        self.flag = 0
+        self.project_table = 'project_buyin_authorStatData'
+        self.table = 'buyin_authorStatData_authorOverviewV2'
         self.status_type = "status"
         executablePath = r"../file/chromedriver"
         self.executablePath = kwargs.get("executablePath", executablePath)
@@ -25,23 +28,62 @@ class BrowserBaiyin(Base):
         if self.executablePath is not None:
             self.options["executablePath"] = self.executablePath
         self.browser = webdriver.Chrome(executable_path=self.executablePath, chrome_options=options)
-        self.browser.get('https://buyin.jinritemai.com/dashboard/servicehall/daren-profile?'
-                         'log_id=20230711105437315B137C5F87A4BE6336&uid=v2_0a2773177a04f52dbfb23f61609cd2843a31e9'
-                         '22c1355db72de16fe32292f85d99c03dccc7e02117d81a4b0a3cb4d3fab4e8644e5431d4dab3370b9ab0092'
-                         '5112a189a90e5d239f9b2a2e4b688f3db83682da9c158e6903c09d6b97e7f6cc1cea0defaf6c57672a72510'
-                         'da95b60d18e5ade4c90120012201039e3ecc30')
 
-    def get_sign_url(self, keywords):
+    def put_item(self):
         try:
-            pass
-        except Exception:
+            sql = f"SELECT task_id, payload_get, payload_post, deduplication FROM {self.project_table} " \
+                  f"WHERE status = 0 ORDER BY weight DESC limit 10"
+            msg = self.eb_supports.query(sql)
+            if msg:
+                for i in msg:
+                    sql = f'update {self.project_table} set status = 1 ' \
+                          f'where task_id="{i[0]}" and deduplication = "{i[3]}";'
+                    self.eb_supports.do(sql)
+                    self.queue_list.put(i)
+            elif not msg:
+                sql = f"update {self.project_table} set status = 0 where status = 1;"
+                row_cnt = self.eb_supports.do(sql)
+                self.log(f"重置任务-{self.project_table}-{row_cnt}个")
+                return '找不到资源'
+        except (Exception, ValueError) as e:
+            return "put_item 握手失败"
+
+    def get_sign_url(self, project_item):
+        try:
+            task_id = project_item[0]
+            payload_get = project_item[1]
+            payload_post = project_item[2]
+            deduplication = project_item[3]
+            self.browser.get(payload_get)
+            sql = f"SELECT task_id FROM {self.table} where deduplication = '{deduplication}' limit 1"
+            msg = self.eb_supports.query(sql)
+            time.sleep(15)
+            if msg:
+                sql = f"update {self.project_table} set status = 2 WHERE task_id='{task_id}'" \
+                      f" and deduplication = '{deduplication}';"
+                self.eb_supports.do(sql)
+                self.log(f"入库成功 {task_id}-{deduplication}")
+        except (Exception, ValueError) as e:
             pass
 
     def run(self):
         while True:
-            self.log(f"等待 2 秒")
-            time.sleep(2)
-            self.get_sign_url('JY20220616004390')
+            time.sleep(0.2)
+            if self.queue_list.qsize() > 0:
+                try:
+                    self.get_sign_url(self.queue_list.get())
+                    self.flag = 0
+                except (Exception, ValueError) as e:
+                    raise ValueError(e)
+            else:
+                res = self.put_item()
+                if "找不到资源" == res:
+                    self.flag += 1
+                    self.log(f"找不到资源-{self.flag}")
+                    if self.flag == 2:
+                        break
+                elif "put_item 握手失败" == res:
+                    raise ValueError(f"init_requests 握手失败")
 
     def close(self):
         self.browser.close()
