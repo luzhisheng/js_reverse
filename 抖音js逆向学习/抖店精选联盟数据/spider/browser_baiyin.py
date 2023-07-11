@@ -1,7 +1,7 @@
 from multiprocessing import Queue
 from selenium.webdriver.common.by import By
 from selenium import webdriver
-from spider.base import Base
+from base import Base
 import time
 
 

@@ -1,4 +1,4 @@
-from spider.base import Base
+from base import Base
 from urllib.parse import parse_qsl, urlsplit
 import json
 

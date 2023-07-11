@@ -1,4 +1,4 @@
-from dispatch.base import Base
+from base import Base
 import datetime
 import json
 
