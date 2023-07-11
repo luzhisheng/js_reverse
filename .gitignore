@@ -16,4 +16,5 @@ runs/
 __MACOSX/
 setting.py
 node_modules/
+cn/
 ast-hook-for-js-RE/
