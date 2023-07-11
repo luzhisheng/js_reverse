@@ -1,4 +1,5 @@
 from multiprocessing import Queue
+from selenium.webdriver.common.by import By
 from selenium import webdriver
 from spider.base import Base
 import time
@@ -55,15 +56,28 @@ class BrowserBaiyin(Base):
             payload_post = project_item[2]
             deduplication = project_item[3]
             self.browser.get(payload_get)
+            time.sleep(15)
+            elements_img = self.browser.find_elements(By.XPATH, '//div[@class="contact_way_info_block_item"]'
+                                                                '//img[@elementtiming="element-timing"]')
+            elements_img[0].click()
+            time.sleep(5)
+            elements_ck = self.browser.find_elements(By.XPATH, '//button[@class="auxo-btn auxo-btn-primary"]'
+                                                               '/span[text()="查看"]')
+            if elements_ck:
+                elements_ck[0].click()
+
+            if len(elements_img) > 1:
+                elements_img[1].click()
+            time.sleep(5)
             sql = f"SELECT task_id FROM {self.table} where deduplication = '{deduplication}' limit 1"
             msg = self.eb_supports.query(sql)
-            time.sleep(15)
             if msg:
                 sql = f"update {self.project_table} set status = 2 WHERE task_id='{task_id}'" \
                       f" and deduplication = '{deduplication}';"
                 self.eb_supports.do(sql)
                 self.log(f"入库成功 {task_id}-{deduplication}")
         except (Exception, ValueError) as e:
+            print(e)
             pass
 
     def run(self):
