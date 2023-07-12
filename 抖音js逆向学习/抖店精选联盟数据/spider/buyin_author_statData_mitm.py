@@ -24,7 +24,7 @@ class BuyinAuthorStatDataMitm(Base):
                 }
                 list_dicts.append(item)
             db_res = self.eb_supports.insert_many(self.达人广场搜索列表, list_dicts)
-            print(db_res)
+            self.log(f"入库成功 {self.达人广场搜索列表}-{db_res}")
 
         # 作者概述V2
         if "https://buyin.jinritemai.com/api/authorStatData/authorOverviewV2" in flow.request.url:
@@ -38,7 +38,7 @@ class BuyinAuthorStatDataMitm(Base):
             }
             list_dicts.append(item)
             db_res = self.eb_supports.insert_many(self.作者概述V2, list_dicts)
-            print(db_res)
+            self.log(f"入库成功 {self.作者概述V2}-{db_res}")
 
         # 联系方式
         if "https://buyin.jinritemai.com/api/contact/contact_info" in flow.request.url:
@@ -54,4 +54,4 @@ class BuyinAuthorStatDataMitm(Base):
                 }
                 list_dicts.append(item)
                 db_res = self.eb_supports.insert_many(self.联系方式, list_dicts)
-                print(db_res)
+                self.log(f"入库成功 {self.联系方式}-{db_res}")

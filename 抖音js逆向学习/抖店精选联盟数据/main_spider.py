@@ -1,4 +1,6 @@
-from spider.buyin_author_statData_mitm import BuyinAuthorStatDataMitm
+from spider.browser_baiyin import BrowserBaiyin
 
-
-addons = [BuyinAuthorStatDataMitm()]
+if __name__ == "__main__":
+    browser = BrowserBaiyin()
+    browser.run()
+    browser.close()
