@@ -7,8 +7,9 @@ class BuyinAuthorStatDataMitm(Base):
     def __init__(self):
         super(BuyinAuthorStatDataMitm, self).__init__()
         self.达人广场搜索列表 = 'buyin_authorStatData_seekAuthor'
-        self.作者概述V2 = 'buyin_authorStatData_authorOverviewV2'
+        self.作者核心数据V2 = 'buyin_authorStatData_authorOverviewV2'
         self.联系方式 = 'buyin_contact_info'
+        self.作者简介 = 'buyin_authorStatData_authorProfile'
 
     def response(self, flow):
         # 达人广场搜索列表
@@ -26,7 +27,7 @@ class BuyinAuthorStatDataMitm(Base):
             db_res = self.eb_supports.insert_many(self.达人广场搜索列表, list_dicts)
             self.log(f"入库成功 {self.达人广场搜索列表}-{db_res}")
 
-        # 作者概述V2
+        # 作者核心数据V2
         if "https://buyin.jinritemai.com/api/authorStatData/authorOverviewV2" in flow.request.url:
             uid = dict(parse_qsl(urlsplit(flow.request.url).query)).get('uid')
             list_dicts = []
@@ -37,8 +38,8 @@ class BuyinAuthorStatDataMitm(Base):
                 "deduplication": f"uid={uid[0:30]}"
             }
             list_dicts.append(item)
-            db_res = self.eb_supports.insert_many(self.作者概述V2, list_dicts)
-            self.log(f"入库成功 {self.作者概述V2}-{db_res}")
+            db_res = self.eb_supports.insert_many(self.作者核心数据V2, list_dicts)
+            self.log(f"入库成功 {self.作者核心数据V2}-{db_res}")
 
         # 联系方式
         if "https://buyin.jinritemai.com/api/contact/contact_info" in flow.request.url:
@@ -55,3 +56,18 @@ class BuyinAuthorStatDataMitm(Base):
                 list_dicts.append(item)
                 db_res = self.eb_supports.insert_many(self.联系方式, list_dicts)
                 self.log(f"入库成功 {self.联系方式}-{db_res}")
+
+        # 作者简介
+        if "https://buyin.jinritemai.com/api/authorStatData/authorProfile" in flow.request.url:
+            uid = dict(parse_qsl(urlsplit(flow.request.url).query)).get('uid')
+            list_dicts = []
+            data = json.loads(flow.response.content).get('data')
+            if data:
+                item = {
+                    "task_id": 'project_test',
+                    "data": json.dumps(data),
+                    "deduplication": f"uid={uid[0:30]}"
+                }
+                list_dicts.append(item)
+                db_res = self.eb_supports.insert_many(self.作者简介, list_dicts)
+                self.log(f"入库成功 {self.作者简介}-{db_res}")
