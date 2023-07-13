@@ -1,6 +1,5 @@
 from base import Base
 import datetime
-import json
 
 
 class 创建巨量百应主播详情爬虫(Base):
@@ -44,17 +43,17 @@ if __name__ == '__main__':
     while True:
         sql = f"""
             SELECT
-                data, deduplication
+                uid,
+                log_id
             FROM
-                buyin_authorStatData_seekAuthor 
+                clean_buyin_authorStatData_seekAuthor 
+            WHERE
+                author_base_uid NOT IN (SELECT uid FROM clean_buyin_contact_info)
             LIMIT 1000 OFFSET {offset}
         """
         msg = d.eb_supports.query(sql)
         list_dict = []
-        for data, deduplication in msg:
-            data = json.loads(data)
-            log_id = deduplication.split('&')[0]
-            uid = data.get('author_base').get('uid')
+        for uid, log_id in msg:
             item = {"task_id": task_id, "uid": uid, "log_id": log_id}
             list_dict.append(item)
         if list_dict:

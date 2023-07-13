@@ -34,6 +34,24 @@ CREATE TABLE `buyin_authorStatData_authorOverviewV2` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `buyin_authorStatData_authorProfile`
+--
+
+DROP TABLE IF EXISTS `buyin_authorStatData_authorProfile`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `buyin_authorStatData_authorProfile` (
+  `task_id` varchar(100) DEFAULT NULL COMMENT '项目id',
+  `data` mediumtext COMMENT '数据结果',
+  `deduplication` varchar(100) DEFAULT '' COMMENT '去重字段',
+  `status` smallint(6) DEFAULT '0' COMMENT '状态',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  KEY `task_id` (`task_id`,`deduplication`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `buyin_authorStatData_seekAuthor`
 --
 
@@ -70,6 +88,118 @@ CREATE TABLE `buyin_contact_info` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `clean_buyin_authorStatData_authorOverviewV2`
+--
+
+DROP TABLE IF EXISTS `clean_buyin_authorStatData_authorOverviewV2`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `clean_buyin_authorStatData_authorOverviewV2` (
+  `task_id` varchar(100) DEFAULT NULL COMMENT '项目id',
+  `uid` varchar(100) DEFAULT '' COMMENT '唯一标识符',
+  `live_data_percentage` int(11) DEFAULT '0',
+  `live_data_count` int(11) DEFAULT '0',
+  `live_data_watching_num` int(11) DEFAULT '0',
+  `live_data_sale_low` int(11) DEFAULT '0',
+  `live_data_sale_high` int(11) DEFAULT '0',
+  `live_data_sale_value` int(11) DEFAULT '0',
+  `live_data_GPM_low` int(11) DEFAULT '0',
+  `live_data_GPM_high` int(11) DEFAULT '0',
+  `live_data_GPM_value` int(11) DEFAULT '0',
+  `live_data_sale_status` int(11) DEFAULT '0',
+  `live_data_GPM_status` int(11) DEFAULT '0',
+  `live_data_recommend_rate` int(11) DEFAULT '0',
+  `live_data_high_recommend_rate` int(11) DEFAULT '0',
+  `live_data_high_live_day` int(11) DEFAULT '0',
+  `live_data_high_live_product_num` int(11) DEFAULT '0',
+  `live_data_high_avg_live_online_dur` int(11) DEFAULT '0',
+  `live_data_high_avg_live_avg_peru_watch_dur` int(11) DEFAULT '0',
+  `live_data_high_avg_live_med_peru_watch_dur` int(11) DEFAULT '0',
+  `live_data_high_avg_live_avg_price` int(11) DEFAULT '0',
+  `video_data_percentage` int(11) DEFAULT '0',
+  `video_data_count` int(11) DEFAULT '0',
+  `video_data_watching_num` int(11) DEFAULT '0',
+  `video_data_sale_low` int(11) DEFAULT '0',
+  `video_data_sale_high` int(11) DEFAULT '0',
+  `video_data_sale_value` int(11) DEFAULT '0',
+  `video_data_GPM_low` int(11) DEFAULT '0',
+  `video_data_GPM_high` int(11) DEFAULT '0',
+  `video_data_GPM_value` int(11) DEFAULT '0',
+  `video_data_sale_status` int(11) DEFAULT '0',
+  `video_data_GPM_status` int(11) DEFAULT '0',
+  `video_data_recommend_rate` int(11) DEFAULT '0',
+  `video_data_high_recommend_rate` int(11) DEFAULT '0',
+  `video_data_live_day` int(11) DEFAULT '0',
+  `video_data_live_product_num` int(11) DEFAULT '0',
+  `video_data_avg_live_online_dur` int(11) DEFAULT '0',
+  `video_data_live_avg_peru_watch_dur` int(11) DEFAULT '0',
+  `video_data_live_med_peru_watch_dur` int(11) DEFAULT '0',
+  `video_data_live_avg_price` int(11) DEFAULT '0',
+  `deduplication` varchar(100) DEFAULT '' COMMENT '去重字段',
+  `spider_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '爬虫抓取时间',
+  UNIQUE KEY `deduplication` (`deduplication`) USING BTREE,
+  KEY `uid` (`uid`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `clean_buyin_authorStatData_authorProfile`
+--
+
+DROP TABLE IF EXISTS `clean_buyin_authorStatData_authorProfile`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `clean_buyin_authorStatData_authorProfile` (
+  `task_id` varchar(100) DEFAULT NULL COMMENT '项目id',
+  `uid` varchar(100) DEFAULT '' COMMENT '唯一标识符',
+  `level` smallint(1) DEFAULT '0' COMMENT '等级',
+  `account_douyin` varchar(50) DEFAULT '' COMMENT 'douyin_id',
+  `gender` smallint(1) DEFAULT '0' COMMENT '性别',
+  `city` varchar(50) DEFAULT '' COMMENT '城市',
+  `bind_lark_status` smallint(1) DEFAULT '0',
+  `nickname` varchar(50) DEFAULT '' COMMENT '昵称',
+  `fans_sum` varchar(50) DEFAULT '' COMMENT '粉丝',
+  `works_type` varchar(100) DEFAULT '' COMMENT '工作类别',
+  `agency` varchar(100) DEFAULT '',
+  `product_main_type` varchar(255) DEFAULT '' COMMENT '类别',
+  `product_main_type_array` varchar(255) DEFAULT '' COMMENT '主类别',
+  `score` varchar(10) DEFAULT '',
+  `reputation_level` smallint(1) DEFAULT '0',
+  `special_price` varchar(10) DEFAULT '',
+  `join_price` varchar(10) DEFAULT '',
+  `bargaining` int(11) DEFAULT '0',
+  `duration` int(11) DEFAULT '0',
+  `in_business` int(11) DEFAULT '0',
+  `introduction` varchar(100) DEFAULT '',
+  `sale_type` varchar(100) DEFAULT '',
+  `rec_reason` varchar(255) DEFAULT '',
+  `daren_plaza_rec_reason` varchar(255) DEFAULT '',
+  `avatar` varchar(255) DEFAULT '',
+  `error_msg` varchar(50) DEFAULT '',
+  `share_url_douyin` varchar(50) DEFAULT '',
+  `recommend_reasons` varchar(255) DEFAULT '',
+  `credit_score` int(11) DEFAULT '0',
+  `intention_catgory` varchar(255) DEFAULT '',
+  `cooperate_mode` varchar(255) DEFAULT '',
+  `commission_ratio` varchar(255) DEFAULT '',
+  `sell_requirement` varchar(255) DEFAULT '',
+  `dark_horses` varchar(255) DEFAULT '',
+  `high_online_reply_rate` smallint(1) DEFAULT '0',
+  `high_invitation_reply_rate` smallint(1) DEFAULT '0',
+  `insitution_id` varchar(255) DEFAULT '',
+  `web_homepage_url` varchar(255) DEFAULT '',
+  `high_cooperation` smallint(1) DEFAULT '0',
+  `is_star` smallint(1) DEFAULT '0',
+  `tags` varchar(255) DEFAULT '',
+  `act_info` varchar(255) DEFAULT '',
+  `deduplication` varchar(100) DEFAULT '' COMMENT '去重字段',
+  `spider_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '爬虫抓取时间',
+  UNIQUE KEY `task_id` (`deduplication`) USING BTREE,
+  KEY `uid` (`uid`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `clean_buyin_authorStatData_seekAuthor`
 --
 
@@ -78,6 +208,8 @@ DROP TABLE IF EXISTS `clean_buyin_authorStatData_seekAuthor`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `clean_buyin_authorStatData_seekAuthor` (
   `task_id` varchar(100) DEFAULT NULL COMMENT '项目id',
+  `uid` text COMMENT 'uid',
+  `log_id` varchar(100) DEFAULT '',
   `author_base_uid` varchar(100) DEFAULT '' COMMENT '唯一标识符',
   `author_base_nickname` varchar(100) DEFAULT '' COMMENT '昵称',
   `author_base_avatar` varchar(100) DEFAULT '' COMMENT '头像',
@@ -151,4 +283,4 @@ CREATE TABLE `project_buyin_authorStatData` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-12 17:09:39
+-- Dump completed on 2023-07-13 12:09:55

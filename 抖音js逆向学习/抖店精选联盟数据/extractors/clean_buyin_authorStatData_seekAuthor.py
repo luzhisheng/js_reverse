@@ -20,8 +20,11 @@ class CleanBuyinAuthorStatDataSeekAutho(Base):
             author_base = json.loads(data).get('author_base')
             author_tag = json.loads(data).get('author_tag')
             uid = deduplication.split('&')[1]
+            log_id = deduplication.split('&')[0]
             item = {
                 "task_id": task_id,
+                "uid": author_base.get('uid'),
+                "log_id": log_id,
                 "author_base_uid": uid.replace("uid=", ""),
                 "author_base_nickname": author_base.get('nickname'),
                 "author_base_avatar": author_base.get('avatar'),
@@ -47,7 +50,7 @@ class CleanBuyinAuthorStatDataSeekAutho(Base):
         db_res = self.eb_supports.insert_many(self.clean_table,
                                               list_res,
                                               conflict=[
-                                                  "task_id", "author_base_uid", "author_base_nickname",
+                                                  "task_id", "uid", "log_id", "author_base_uid", "author_base_nickname",
                                                   "author_base_avatar", "author_base_fans_num",
                                                   "author_base_gender", "author_base_city",
                                                   "author_base_author_level", "author_base_avatar_big",
