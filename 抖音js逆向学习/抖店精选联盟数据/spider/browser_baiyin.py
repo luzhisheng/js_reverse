@@ -57,17 +57,16 @@ class BrowserBaiyin(Base):
             deduplication = project_item[3]
             self.browser.get(payload_get)
             time.sleep(15)
-            elements_img = self.browser.find_elements(By.XPATH, '//div[@class="contact_way_info_block_item"]'
-                                                                '//img[@elementtiming="element-timing"]')
-            elements_img[0].click()
-            time.sleep(5)
-            elements_ck = self.browser.find_elements(By.XPATH, '//button[@class="auxo-btn auxo-btn-primary"]'
-                                                               '/span[text()="查看"]')
-            if elements_ck:
-                elements_ck[0].click()
+            elements_img_list = self.browser.find_elements(By.XPATH, '//div[@class="contact_way_info_block_item"]'
+                                                                     '//img[@elementtiming="element-timing"]')
+            for elements_img in elements_img_list:
+                elements_img.click()
+                time.sleep(5)
+                elements_ck = self.browser.find_elements(By.XPATH, '//button[@class="auxo-btn auxo-btn-primary"]'
+                                                                   '/span[text()="查看"]')
+                if elements_ck:
+                    elements_ck[0].click()
 
-            if len(elements_img) > 1:
-                elements_img[1].click()
             time.sleep(5)
             sql = f"SELECT task_id FROM {self.table} where deduplication = '{deduplication}' limit 1"
             msg = self.eb_supports.query(sql)

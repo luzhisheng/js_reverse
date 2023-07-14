@@ -16,7 +16,7 @@ class 精选联盟达人清单(Base):
         pf = pd.DataFrame(list(export))
         columns = ['抖音账户', '抖音ID', '等级LV', '粉丝数', '地址', '主推类目', '直播带货销售占比', '带货直播场次',
                    '带货直播观看人数', '场均销售额', '直播GPM', '视频带货销售额占比', '带货视频数量', '带货视频播放量',
-                   '单视频销售额', '视频GPM']
+                   '单视频销售额', '视频GPM', '手机号', '微信号']
         pf.columns = columns
         file_path = pd.ExcelWriter('../file/name.xlsx')
         # 替换空单元格
@@ -29,12 +29,12 @@ class 精选联盟达人清单(Base):
     def get_res(self):
         sql = f"""
             SELECT
-                nickname as '抖音账户',
-                account_douyin as '抖音ID',
-                LEVEL as '等级LV',
-                fans_sum as '粉丝数',
-                city as '地址',
-                product_main_type  as '主推类目',
+                nickname AS '抖音账户',
+                account_douyin AS '抖音ID',
+                LEVEL AS '等级LV',
+                fans_sum AS '粉丝数',
+                city AS '地址',
+                product_main_type AS '主推类目',
                 b.`直播带货销售占比`,
                 b.`带货直播场次`,
                 b.`带货直播观看人数`,
@@ -44,24 +44,37 @@ class 精选联盟达人清单(Base):
                 b.`带货视频数量`,
                 b.`带货视频播放量`,
                 b.`单视频销售额`,
-                b.`视频GPM`
+                b.`视频GPM`,
+                b.`手机号`,
+                b.`微信号` 
             FROM
                 clean_buyin_authorStatData_authorProfile c
-                RIGHT JOIN (
+                LEFT JOIN (
                 SELECT
-                    uid,
-                    live_data_percentage as '直播带货销售占比',
-                    live_data_count as '带货直播场次',
-                    live_data_watching_num as '带货直播观看人数',
-                    concat_ws('-', live_data_sale_low, live_data_sale_high) as '场均销售额',
-                    concat_ws('-', live_data_GPM_low, live_data_GPM_high) as '直播GPM',
-                    video_data_percentage as '视频带货销售额占比',
-                    video_data_count as '带货视频数量',
-                    video_data_watching_num as '带货视频播放量',
-                    concat_ws('-', video_data_sale_low, video_data_sale_high) as '单视频销售额',
-                    concat_ws('-', video_data_GPM_low, video_data_sale_high) as '视频GPM'
+                    k.uid AS uid,
+                    live_data_percentage AS '直播带货销售占比',
+                    live_data_count AS '带货直播场次',
+                    live_data_watching_num AS '带货直播观看人数',
+                    concat_ws( '-', live_data_sale_low, live_data_sale_high ) AS '场均销售额',
+                    concat_ws( '-', live_data_GPM_low, live_data_GPM_high ) AS '直播GPM',
+                    video_data_percentage AS '视频带货销售额占比',
+                    video_data_count AS '带货视频数量',
+                    video_data_watching_num AS '带货视频播放量',
+                    concat_ws( '-', video_data_sale_low, video_data_sale_high ) AS '单视频销售额',
+                    concat_ws( '-', video_data_GPM_low, video_data_sale_high ) AS '视频GPM',
+                    z.`手机号` AS '手机号',
+                    z.`微信号` AS '微信号' 
                 FROM
-                    clean_buyin_authorStatData_authorOverviewV2 
+                    clean_buyin_authorStatData_authorOverviewV2 k
+                    LEFT JOIN (
+                    SELECT
+                        uid,
+                        max( CASE WHEN contact_value REGEXP '^[0-9]+$' THEN contact_value ELSE '' END ) AS '手机号',
+                        max( CASE WHEN contact_value REGEXP '^[0-9]+$' THEN '' ELSE contact_value END ) AS '微信号' 
+                    FROM
+                        clean_buyin_contact_info 
+                    GROUP BY uid
+                    ) z ON k.uid = z.uid 
                 ) b ON c.uid = b.uid 
             ORDER BY
                 c.LEVEL DESC

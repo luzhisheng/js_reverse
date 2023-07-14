@@ -23,7 +23,7 @@ class CleanBuyinContactInfo(Base):
                 "uid": deduplication.replace("uid=", ""),
                 "times_left": contact_info.get('times_left'),
                 "contact_value": contact_info.get('contact_value'),
-                "deduplication": deduplication + '&times_left=' + str(contact_info.get('times_left')),
+                "deduplication": deduplication + '&contact_value=' + str(contact_info.get('contact_value')),
                 "spider_time": update_time
             }
             list_res.append(item)
