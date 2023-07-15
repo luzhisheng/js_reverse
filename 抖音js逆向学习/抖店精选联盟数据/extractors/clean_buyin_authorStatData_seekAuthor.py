@@ -43,7 +43,7 @@ class CleanBuyinAuthorStatDataSeekAutho(Base):
                 "author_tag_satisfy_requirement": author_tag.get('satisfy_requirement'),
                 "author_tag_already_cooperated": 1 if author_tag.get('already_cooperated') else 0,
                 "author_tag_is_star": 1 if author_tag.get('is_star') else 0,
-                "deduplication": uid,
+                "deduplication": f"nickname={author_base.get('nickname')}",
                 "spider_time": update_time
             }
             list_res.append(item)

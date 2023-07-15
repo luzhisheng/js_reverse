@@ -18,7 +18,7 @@ class 精选联盟达人清单(Base):
                    '带货直播观看人数', '场均销售额', '直播GPM', '视频带货销售额占比', '带货视频数量', '带货视频播放量',
                    '单视频销售额', '视频GPM', '手机号', '微信号']
         pf.columns = columns
-        file_path = pd.ExcelWriter('../file/name.xlsx')
+        file_path = pd.ExcelWriter('../file/精选联盟达人清单.xlsx')
         # 替换空单元格
         pf.fillna(' ', inplace=True)
         # 输出
