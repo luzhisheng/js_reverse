@@ -74,7 +74,7 @@ if __name__ == '__main__':
     while True:
         sql = f"""
             select task_id, data, deduplication, update_time from buyin_authorStatData_seekAuthor where
-             date_sub(CURDATE(),INTERVAL 5 DAY) <= DATE(update_time) LIMIT 1000 OFFSET {offset};
+             date_sub(CURDATE(),INTERVAL 20 DAY) <= DATE(update_time) LIMIT 1000 OFFSET {offset};
         """
         res = qc.eb_supports.query(sql)
         if not res:
