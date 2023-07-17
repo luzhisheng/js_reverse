@@ -36,7 +36,7 @@ class 创建巨量百应主播详情爬虫(Base):
 if __name__ == '__main__':
     now = datetime.datetime.now()
     date = now.strftime('%Y_%m_%d_%H_%M_%S')
-    task_id = f'project_daduoduo_dy_author_detail-{date}'
+    task_id = f'project_test-{date}'
     d = 创建巨量百应主播详情爬虫()
     weight = 1
     offset = 0
