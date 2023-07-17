@@ -225,3 +225,5 @@ fs.writeFile('decode.js', code, (err) => {});
 ```javascript
 var a;
 ```
+
+**替换path，单路径可以使用`replaceWith`方法，多路径则使用`replaceWithMultiple`方法**
