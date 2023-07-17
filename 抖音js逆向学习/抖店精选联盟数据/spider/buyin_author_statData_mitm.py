@@ -32,14 +32,15 @@ class BuyinAuthorStatDataMitm(Base):
             uid = dict(parse_qsl(urlsplit(flow.request.url).query)).get('uid')
             list_dicts = []
             data = json.loads(flow.response.content).get('data')
-            item = {
-                "task_id": 'project_test',
-                "data": json.dumps(data),
-                "deduplication": f"uid={uid[0:30]}"
-            }
-            list_dicts.append(item)
-            db_res = self.eb_supports.insert_many(self.作者核心数据V2, list_dicts)
-            self.log(f"入库成功 {self.作者核心数据V2}-{db_res}")
+            if data:
+                item = {
+                    "task_id": 'project_test',
+                    "data": json.dumps(data),
+                    "deduplication": f"uid={uid[0:30]}"
+                }
+                list_dicts.append(item)
+                db_res = self.eb_supports.insert_many(self.作者核心数据V2, list_dicts)
+                self.log(f"入库成功 {self.作者核心数据V2}-{db_res}")
 
         # 联系方式
         if "https://buyin.jinritemai.com/api/contact/contact_info" in flow.request.url:
