@@ -4,7 +4,7 @@
 
 启动代理
 
-    mitmdump -s ./main_spider.py -q -p 9999
+    mitmdump -s ./main_mitm_spider.py -q -p 9999
 
 启动浏览器
     
@@ -12,4 +12,4 @@
 
 启动脚本控制浏览器
 
-    browser_baiyin.py
+    main_spider.py
