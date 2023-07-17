@@ -11,8 +11,8 @@ let ast = parse(js_code, {
 
 const visitor = {
     enter(path) {
-        if (path.isNumericLiteral()) {
-            path.replaceWith({type:"NumericLiteral",value:3});
+        if (path.isNumericLiteral() && path.node.value == 123) {
+            path.replaceWith({type: "NumericLiteral", value: 3});
         }
     },
 }
