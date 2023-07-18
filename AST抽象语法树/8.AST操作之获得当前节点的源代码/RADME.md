@@ -1,3 +1,10 @@
+# AST操作之获得当前节点的源代码
+
+path: path.toString()
+
+node: generator(node).code;
+
+```javascript
 const fs = require('fs');
 const {parse} = require("@babel/parser");
 const traverse = require("@babel/traverse").default;
@@ -11,14 +18,16 @@ let ast = parse(js_code, {
 
 const visitor = {
     VariableDeclarator(path) {
-        delete path.node.init.value
+        console.log(path.toString())
+        let {code} = generator(path.node);
+        console.log(code)
     },
 }
 
 traverse(ast, visitor);
+```
 
-// 写入文件
-let {code} = generator(ast);
-console.log(code)
-fs.writeFile('decode.js', code, (err) => {
-});
+输出：
+
+    a = 123
+    a = 123

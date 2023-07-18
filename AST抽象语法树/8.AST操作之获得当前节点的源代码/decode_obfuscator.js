@@ -10,17 +10,12 @@ let ast = parse(js_code, {
 });
 
 const visitor = {
-    enter(path) {
-        if (path.isNumericLiteral() && path.node.value == 123) {
-            path.replaceWith({type: "NumericLiteral", value: 3});
-        }
+    VariableDeclarator(path) {
+        console.log(path.toString())
+        let {code} = generator(path.node);
+        console.log(code)
     },
 }
 
 traverse(ast, visitor);
 
-// 写入文件
-let {code} = generator(ast);
-console.log(code)
-fs.writeFile('decode.js', code, (err) => {
-});
