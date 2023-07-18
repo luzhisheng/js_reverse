@@ -40,7 +40,7 @@ let ast = parse(js_code, {
 | path.type                      | 获取当前path的节点类型。                                                     |
 | path.key                       | 获取当前path的key值，key通常用于path.get函数。                                   |
 
-**打印当前路径所对应的某个节点信息**
+**1.打印当前路径所对应的某个节点信息**
 
 需求：打印type、start、end、loc、sourceType、interpreter、body等信息
 
@@ -132,7 +132,7 @@ null
 []
 ```
 
-**判断path是什么type，使用path.isXXX 这个方法**
+**2.判断path是什么type，使用path.isXXX 这个方法**
 
 需求：遍历所有节点，输出节点类型为NumericLiteral的value值
 
@@ -157,7 +157,7 @@ NumericLiteral
 123
 ```
 
-**获取path的上一级路径path.parentPath;**
+**3.获取path的上一级路径path.parentPath;**
 
 需求：获取上一级路径节点类型
 
@@ -181,7 +181,7 @@ traverse(ast, visitor);
 上层节点类型:VariableDeclarator
 ```
 
-**获取当前path的key值**
+**4.获取当前path的key值**
 
 需求：打印节点VariableDeclarator|BinaryExpression|Identifier的key值
 
@@ -242,7 +242,7 @@ node_modules\@babel\traverse\lib\path\index.js
 | path.insertAfter(nodes)            | 在当前路径对应节点之后插入一个或多个节点。                                              |
 | path.toString()                    | 用于将 AST 节点转换回对应的源代码字符串。                                            |
 
-**删除path，使用remove方法**
+**1.删除path，使用remove方法**
 
 需求：删除变量值
 
@@ -267,7 +267,7 @@ console.log(code)
 var a;
 ```
 
-**替换path，单路径可以使用`replaceWith`方法，多路径则使用`replaceWithMultiple`方法**
+**2.替换path，单路径可以使用`replaceWith`方法，多路径则使用`replaceWithMultiple`方法**
 
 需求：把var a = 123; 修改成var a = 3 ，用replaceWith方法
 
@@ -291,7 +291,7 @@ var a = 3;
 
 注意点，必须加上`&& path.node.value == 123`判断，否则就是无限循环
 
-**当前路径所对应的源代码**
+**3.当前路径所对应的源代码**
 
 需求：打印当前路径所对应的源代码
 
