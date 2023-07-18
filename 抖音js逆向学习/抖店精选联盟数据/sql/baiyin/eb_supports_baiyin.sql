@@ -194,7 +194,7 @@ CREATE TABLE `clean_buyin_authorStatData_authorProfile` (
   `act_info` varchar(255) DEFAULT '',
   `deduplication` varchar(100) DEFAULT '' COMMENT '去重字段',
   `spider_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '爬虫抓取时间',
-  UNIQUE KEY `task_id` (`deduplication`) USING BTREE,
+  UNIQUE KEY `account_douyin` (`account_douyin`) USING BTREE,
   KEY `uid` (`uid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -230,8 +230,7 @@ CREATE TABLE `clean_buyin_authorStatData_seekAuthor` (
   `author_tag_is_star` smallint(1) DEFAULT '0' COMMENT '是否明星',
   `deduplication` varchar(100) DEFAULT '' COMMENT '去重字段',
   `spider_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '爬虫抓取时间',
-  UNIQUE KEY `task_id` (`deduplication`) USING BTREE,
-  KEY `author_base_uid` (`author_base_uid`) USING BTREE
+  UNIQUE KEY `deduplication` (`deduplication`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -283,4 +282,4 @@ CREATE TABLE `project_buyin_authorStatData` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-13 12:09:55
+-- Dump completed on 2023-07-18 16:58:29
