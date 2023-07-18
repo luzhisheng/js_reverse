@@ -1,1 +1,1 @@
-var a = 123;
+let jscode = "var a = 1 + 2;";
