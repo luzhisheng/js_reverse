@@ -11,7 +11,7 @@
 | path.node.init.value                | 获取某个节点的值。                            |
 | delete path.node.init;              | 删除节点，使用系统的 delete 方法。                |
 
-**遍历打印出节点类型**
+**1.遍历打印出节点类型**
 
 ```javascript
 const fs = require('fs');
@@ -44,7 +44,7 @@ NumericLiteral
 var a = 123;
 ```
 
-**遍历节点打印出 VariableDeclaration 节点的变量声明列表**
+**2.遍历节点打印出 VariableDeclaration 节点的变量声明列表**
 
 ```javascript
 const visitor = {
@@ -92,7 +92,7 @@ undefined
 var a = 123;
 ```
 
-**获取某个节点的值**
+**3.获取某个节点的值**
 ```javascript
 const visitor = {
     VariableDeclarator(path) {
@@ -106,7 +106,7 @@ const visitor = {
 123
 ```
 
-**删除某个节点的值**
+**4.删除某个节点的值**
 
 ```javascript
 const visitor = {
