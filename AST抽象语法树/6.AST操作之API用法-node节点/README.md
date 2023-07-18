@@ -4,12 +4,12 @@
 
 看语法就可以猜到`node`就是path的一个属性
 
-| api                               | 功能                                   |
-|:----------------------------------|--------------------------------------|
-| path.node.type                    | 获取当前节点的类型。                           |
-| path.node.declarations            | 对于 VariableDeclaration 节点, 获取变量声明列表。 |
-| node.init.value                   | 获取某个节点的值。                            |
-| delete path.node.init;            | 删除节点，使用系统的 delete 方法。                |
+| api                                 | 功能                                   |
+|:------------------------------------|--------------------------------------|
+| path.node.type                      | 获取当前节点的类型。                           |
+| path.node.declarations              | 对于 VariableDeclaration 节点, 获取变量声明列表。 |
+| path.node.init.value                | 获取某个节点的值。                            |
+| delete path.node.init;              | 删除节点，使用系统的 delete 方法。                |
 
 **遍历打印出节点类型**
 
