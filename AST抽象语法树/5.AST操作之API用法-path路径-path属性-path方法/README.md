@@ -215,6 +215,8 @@ node_modules\@babel\traverse\lib\path\index.js
 \node_modules\@babel\traverse\lib\path
 ```
 
+**下面是一些常见的path对象的方法API：**
+
 | api                                | 功能                                                                 |
 |------------------------------------|--------------------------------------------------------------------|
 | path.get(key)                      | 获取当前路径下指定属性名（key）对应的子路径。例如，path.get("body") 获取当前路径下名为 "body" 的子路径。 |
