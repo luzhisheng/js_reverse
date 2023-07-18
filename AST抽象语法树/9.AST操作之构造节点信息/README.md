@@ -40,4 +40,7 @@ traverse(ast, visitor);
 let {code} = generator(ast);
 console.log(code)
 ```
+打印数据：
 
+    { init: null }
+    var a = 1 + 2;
