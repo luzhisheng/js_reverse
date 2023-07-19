@@ -1,0 +1,1 @@
+var global_0 = 1,global_1 = 2,global_2 = 3;
