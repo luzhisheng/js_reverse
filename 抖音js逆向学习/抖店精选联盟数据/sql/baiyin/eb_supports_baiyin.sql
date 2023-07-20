@@ -272,6 +272,26 @@ CREATE TABLE `project_buyin_authorStatData` (
   UNIQUE KEY `task_id` (`task_id`,`deduplication`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `project_daduoduo_dy_Tiktok_search_Keyword`
+--
+
+DROP TABLE IF EXISTS `project_daduoduo_dy_Tiktok_search_Keyword`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `project_daduoduo_dy_Tiktok_search_Keyword` (
+  `task_id` varchar(100) DEFAULT NULL COMMENT '项目id',
+  `payload_get` text COMMENT 'get请求参数',
+  `payload_post` varchar(255) DEFAULT '' COMMENT 'post请求参数',
+  `deduplication` varchar(50) DEFAULT '' COMMENT '去重字段',
+  `weight` tinyint(1) DEFAULT '0' COMMENT '权重',
+  `status` tinyint(1) DEFAULT '0',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY `task_id` (`task_id`,`deduplication`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -282,4 +302,4 @@ CREATE TABLE `project_buyin_authorStatData` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-18 16:58:29
+-- Dump completed on 2023-07-19 17:35:07
