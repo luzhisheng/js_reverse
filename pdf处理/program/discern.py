@@ -35,8 +35,12 @@ class Discern(object):
                 line_str += line
                 if '报告编号:' in line:
                     self.xlsx_keys['报告编号'] = line.split("报告编号")[1].strip().replace(': ', '')
+                if 'Report Number:' in line:
+                    self.xlsx_keys['报告编号'] = line.split("Report Number")[1].strip().replace(': ', '')
                 if '样品名称:' in line:
                     self.xlsx_keys['样品名称'] = line.split("样品名称")[1].strip().replace(': ', '')
+                if 'Article Name:' in line:
+                    self.xlsx_keys['样品名称'] = line.split("Article Name")[1].strip().replace(': ', '')
                 if '公司' in line and '中检华通' not in line and '制造商' not in line:
                     self.xlsx_keys['公司名称'] = line.strip()
                 if '最终报告' in line:
