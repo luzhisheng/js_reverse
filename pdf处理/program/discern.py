@@ -1,6 +1,7 @@
 import image_compare
 import pandas as pd
 import pdfplumber
+from image_text_ocr import ImageTextOcr
 import os
 import cv2
 
@@ -8,13 +9,13 @@ import cv2
 class Discern(object):
 
     def __init__(self):
+        self.image_text_ocr = ImageTextOcr()
         self.xlsx_keys = {}
-        self.xlsx_keys_list = []
         self.num = 0
 
     def export_excel(self, export):
         # 将字典列表转换为DataFrame
-        pf = pd.DataFrame(list(export))
+        pf = pd.DataFrame(list([export]))
         file_path = pd.ExcelWriter('../docs/结果.xlsx')
         # 替换空单元格
         pf.fillna(' ', inplace=True)
@@ -59,17 +60,21 @@ class Discern(object):
                     with open(image_file, "wb") as f:
                         f.write(img['stream'].get_data())
 
-    def get_sign(self):
+    def get_images_text(self):
         for i in range(1, self.num + 1):
             try:
                 cma_flag = image_compare.run(f'../target_img/image_{i}.jpg', '../img/cma.jpg')
                 cnas_flag = image_compare.run(f'../target_img/image_{i}.jpg', '../img/cnas.jpg')
+                text_list = self.image_text_ocr.run(f'../target_img/image_{i}.jpg')
             except cv2.error as c:
                 pass
             if cma_flag:
                 self.xlsx_keys['标志'] = '国cma'
             if cnas_flag:
                 self.xlsx_keys['标志'] += ',cnas中文'
+            if text_list:
+                self.xlsx_keys['方案编号'] = text_list[0]
+                self.xlsx_keys['签发日期'] = text_list[1]
 
     def remove_file(self, folder_path):
         with os.scandir(folder_path) as entries:
@@ -102,9 +107,8 @@ class Discern(object):
                     self.xlsx_keys['文件名'] = file_name
                     self.pdf_text(file_path)
                     self.pdf_images(file_path)
-                    self.get_sign()
-                    self.xlsx_keys_list.append(self.xlsx_keys)
-        self.export_excel(self.xlsx_keys_list)
+                    self.get_images_text()
+        self.export_excel(self.xlsx_keys)
 
 
 if __name__ == '__main__':
