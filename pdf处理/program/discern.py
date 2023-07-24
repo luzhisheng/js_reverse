@@ -2,6 +2,7 @@ import image_compare
 import pandas as pd
 import pdfplumber
 import PyPDF2
+from datetime import datetime
 from image_text_ocr import ImageTextOcr
 import os
 import cv2
@@ -18,7 +19,9 @@ class Discern(object):
     def export_excel(self, export):
         # 将字典列表转换为DataFrame
         pf = pd.DataFrame(list(export))
-        file_path = pd.ExcelWriter('../docs/结果.xlsx')
+        current_time = datetime.now()
+        formatted_time = current_time.strftime('%Y-%m-%d %H:%M:%S')
+        file_path = pd.ExcelWriter(f'../docs/{formatted_time}.xlsx')
         # 替换空单元格
         pf.fillna(' ', inplace=True)
         # 输出
