@@ -11,11 +11,12 @@ class Discern(object):
     def __init__(self):
         self.image_text_ocr = ImageTextOcr()
         self.xlsx_keys = {}
+        self.xlsx_keys_list = []
         self.num = 0
 
     def export_excel(self, export):
         # 将字典列表转换为DataFrame
-        pf = pd.DataFrame(list([export]))
+        pf = pd.DataFrame(list(export))
         file_path = pd.ExcelWriter('../docs/结果.xlsx')
         # 替换空单元格
         pf.fillna(' ', inplace=True)
@@ -56,16 +57,16 @@ class Discern(object):
                 for img in images:
                     # 获取图片的二进制流
                     self.num += 1
-                    image_file = f"../target_img/image_{self.num}.jpg"
+                    image_file = f"../target_img/image_{self.num}.png"
                     with open(image_file, "wb") as f:
                         f.write(img['stream'].get_data())
 
     def get_images_text(self):
         for i in range(1, self.num + 1):
             try:
-                cma_flag = image_compare.run(f'../target_img/image_{i}.jpg', '../img/cma.jpg')
-                cnas_flag = image_compare.run(f'../target_img/image_{i}.jpg', '../img/cnas.jpg')
-                text_list = self.image_text_ocr.run(f'../target_img/image_{i}.jpg')
+                cma_flag = image_compare.run(f'../target_img/image_{i}.png', '../img/cma.png')
+                cnas_flag = image_compare.run(f'../target_img/image_{i}.png', '../img/cnas.png')
+                text_list = self.image_text_ocr.run(f'../target_img/image_{i}.png')
             except cv2.error as c:
                 pass
             if cma_flag:
@@ -108,7 +109,8 @@ class Discern(object):
                     self.pdf_text(file_path)
                     self.pdf_images(file_path)
                     self.get_images_text()
-        self.export_excel(self.xlsx_keys)
+                self.xlsx_keys_list.append(self.xlsx_keys)
+        self.export_excel(self.xlsx_keys_list)
 
 
 if __name__ == '__main__':
