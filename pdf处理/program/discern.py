@@ -1,6 +1,7 @@
 import image_compare
 import pandas as pd
 import pdfplumber
+import PyPDF2
 from image_text_ocr import ImageTextOcr
 import os
 import cv2
@@ -51,15 +52,18 @@ class Discern(object):
 
     def pdf_images(self, pdf_path):
         self.num = 0
-        with pdfplumber.open(pdf_path) as pdf:
-            for page in pdf.pages:
-                images = page.images
-                for img in images:
-                    # 获取图片的二进制流
+        pdf_reader = PyPDF2.PdfReader(pdf_path)
+        for page_num in range(len(pdf_reader.pages)):
+            page = pdf_reader.pages[page_num]
+            xObject = page['/Resources']['/XObject'].get_object()
+
+            for obj in xObject:
+                if xObject[obj]['/Subtype'] == '/Image':
+                    size = (xObject[obj]['/Width'], xObject[obj]['/Height'])
                     self.num += 1
                     image_file = f"../target_img/image_{self.num}.png"
                     with open(image_file, "wb") as f:
-                        f.write(img['stream'].get_data())
+                        f.write(xObject[obj].get_data())
 
     def get_images_text(self):
         for i in range(1, self.num + 1):
