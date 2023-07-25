@@ -1,4 +1,3 @@
-import image_compare
 import pandas as pd
 import pdfplumber
 import PyPDF2
@@ -70,22 +69,23 @@ class Discern(object):
 
     def get_images_text(self):
         for i in range(1, self.num + 1):
+            text_dict = {
+                '方案编号': '',
+                '签发日期': '',
+                '标志': ''
+            }
             try:
-                cma_flag = image_compare.run(f'../target_img/image_{i}.png', '../img/cma.png')
-                cnas_flag = image_compare.run(f'../target_img/image_{i}.png', '../img/cnas.png')
-                text_list = self.image_text_ocr.run(f'../target_img/image_{i}.png')
+                text_dict = self.image_text_ocr.run(text_dict, f'../target_img/image_{i}.png')
             except cv2.error as c:
-                cma_flag = ''
-                cnas_flag = ''
-                text_list = ''
+                print(c)
                 pass
-            if cma_flag:
-                self.xlsx_keys['标志'] = '国cma'
-            if cnas_flag:
-                self.xlsx_keys['标志'] += ',cnas中文'
-            if text_list:
-                self.xlsx_keys['方案编号'] = text_list[0]
-                self.xlsx_keys['签发日期'] = text_list[1]
+
+            if text_dict.get('标志'):
+                self.xlsx_keys['标志'] += text_dict.get('标志')
+            if text_dict.get('方案编号'):
+                self.xlsx_keys['方案编号'] = text_dict.get('方案编号')
+            if text_dict.get('签发日期'):
+                self.xlsx_keys['签发日期'] = text_dict.get('签发日期')
 
     def remove_file(self, folder_path):
         with os.scandir(folder_path) as entries:
@@ -125,4 +125,4 @@ class Discern(object):
 
 if __name__ == '__main__':
     discern = Discern()
-    discern.run('../file')
+    discern.run('../file_test')

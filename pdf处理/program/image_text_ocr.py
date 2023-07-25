@@ -23,8 +23,7 @@ class ImageTextOcr(object):
         except ValueError:
             return False
 
-    def image_text_ocr(self, path):
-        text_list = []
+    def image_text_ocr(self, text_dict, path):
         valid_time_list = []
         # 加载图像
         image = Image.open(path)
@@ -34,23 +33,33 @@ class ImageTextOcr(object):
             data_list = line.split(' ')
             for data in data_list:
                 if 'S$T' in data or 'SST' in data:
-                    text_list.append(data.replace('S$T', 'SST'))
+                    text_dict['方案编号'] = data.replace('S$T', 'SST')
+
+                if 'CNAS' in data:
+                    text_dict['标志'] = 'cnas中文,'
+
+                if '200015344424' in data:
+                    text_dict['标志'] = '国cma,'
+
                 valid_time = self.is_valid_time(data)
                 if valid_time:
                     valid_time_list.append(valid_time)
-        if valid_time_list:
-            text_list.append(max(valid_time_list).strftime("%Y-%m-%d"))
-        if len(text_list) == 2:
-            return text_list
-        else:
-            return []
 
-    def run(self, path):
-        res_list = self.image_text_ocr(path)
+        if valid_time_list:
+            text_dict['签发日期'] = max(valid_time_list).strftime("%Y-%m-%d")
+        return text_dict
+
+    def run(self, text_dict, path):
+        res_list = self.image_text_ocr(text_dict, path)
         return res_list
 
 
 if __name__ == '__main__':
     image_text_ocr = ImageTextOcr()
-    res = image_text_ocr.run('../target_img/image_3.png')
+    text_dict = {
+        '方案编号': '',
+        '签发日期': '',
+        '标志': ''
+    }
+    res = image_text_ocr.run(text_dict, '../target_img/image_3.png')
     print(res)
