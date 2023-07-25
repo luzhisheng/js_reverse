@@ -2,14 +2,16 @@ import pandas as pd
 import pdfplumber
 import PyPDF2
 from datetime import datetime
+from base import Base
 from image_text_ocr import ImageTextOcr
 import os
 import cv2
 
 
-class Discern(object):
+class Discern(Base):
 
     def __init__(self):
+        super(Discern, self).__init__()
         self.image_text_ocr = ImageTextOcr()
         self.xlsx_keys = {}
         self.xlsx_keys_list = []
@@ -19,7 +21,7 @@ class Discern(object):
         # 将字典列表转换为DataFrame
         pf = pd.DataFrame(list(export))
         current_time = datetime.now()
-        formatted_time = current_time.strftime('%Y-%m-%d %H:%M:%S')
+        formatted_time = current_time.strftime('%Y-%m-%d-%H-%M-%S')
         file_path = pd.ExcelWriter(f'../docs/{formatted_time}.xlsx')
         # 替换空单元格
         pf.fillna(' ', inplace=True)
@@ -28,14 +30,38 @@ class Discern(object):
         # 保存表格
         file_path.close()
 
+    def is_valid_time(self, input_str):
+        try:
+            valid_time = datetime.strptime(input_str, "%Y-%m-%d")  # 根据实际时间格式调整
+            return valid_time
+        except ValueError:
+            return False
+
+    def pdf_all_text(self, pdf_path):
+        with pdfplumber.open(pdf_path) as pdf:
+            for page in pdf.pages[1:]:
+                # 提取页面文本
+                text = page.extract_text()
+                lines = text.split()
+                valid_time_list = []
+                for line in lines:
+                    if 'SST' in line:
+                        self.xlsx_keys['方案编号'] = line
+
+                    valid_time = self.is_valid_time(line)
+                    if valid_time:
+                        valid_time_list.append(valid_time)
+                if valid_time_list:
+                    self.xlsx_keys['签发日期'] = max(valid_time_list).strftime("%Y-%m-%d")
+
     def pdf_text(self, pdf_path):
         with pdfplumber.open(pdf_path) as pdf:
-            # 遍历每个页面
             page = pdf.pages[0]
             # 提取页面文本
             text = page.extract_text()
             lines = text.split("\n")
             line_str = ''
+            company = ''
             for line in lines:
                 line_str += line
                 if '报告编号:' in line:
@@ -46,11 +72,16 @@ class Discern(object):
                     self.xlsx_keys['样品名称'] = line.split("样品名称")[1].strip().replace(': ', '')
                 if 'Article Name:' in line:
                     self.xlsx_keys['样品名称'] = line.split("Article Name")[1].strip().replace(': ', '')
-                if '公司' in line and '中检华通' not in line and '制造商' not in line:
-                    self.xlsx_keys['公司名称'] = line.strip()
+                if '公司' in line:
+                    company += line.strip()
                 if '最终报告' in line:
                     self.xlsx_keys['检测项目'] = line_str.replace('最终报告', '')
                 self.xlsx_keys['标志'] = ''
+
+            company_list = company.split(" ")
+            for company_str in company_list:
+                if '中检华通' not in company_str and '制造商' not in company_str:
+                    self.xlsx_keys['公司名称'] += company_str
 
     def pdf_images(self, pdf_path):
         self.num = 0
@@ -77,7 +108,7 @@ class Discern(object):
             try:
                 text_dict = self.image_text_ocr.run(text_dict, f'../target_img/image_{i}.png')
             except cv2.error as c:
-                print(c)
+                self.log(c)
                 pass
 
             if text_dict.get('标志'):
@@ -115,10 +146,13 @@ class Discern(object):
                 if entry.is_file():
                     file_path = entry.path
                     file_name = entry.name
+                    self.log(file_name)
                     self.xlsx_keys['文件名'] = file_name
                     self.pdf_text(file_path)
                     self.pdf_images(file_path)
                     self.get_images_text()
+                    if not self.xlsx_keys['方案编号'] and not self.xlsx_keys['签发日期']:
+                        self.pdf_all_text(file_path)
                 self.xlsx_keys_list.append(self.xlsx_keys)
         self.export_excel(self.xlsx_keys_list)
 

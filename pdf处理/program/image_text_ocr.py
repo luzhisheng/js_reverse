@@ -1,20 +1,22 @@
 from datetime import datetime
+from base import Base
 from PIL import Image
 import pytesseract
 import platform
 
 
-class ImageTextOcr(object):
+class ImageTextOcr(Base):
 
     def __init__(self):
+        super(ImageTextOcr, self).__init__()
         current_os = platform.system()
         if current_os == 'Windows':
             pytesseract.pytesseract.tesseract_cmd = r'E:\pc\tesseract-ocr\tesseract.exe'
-            print("当前操作系统是 Windows")
+            self.log("当前操作系统是 Windows")
         elif current_os == 'Linux':
-            print("当前操作系统是 Ubuntu")
+            self.log("当前操作系统是 Ubuntu")
         else:
-            print(f"当前操作系统是 {current_os}")
+            self.log(f"当前操作系统是 {current_os}")
 
     def is_valid_time(self, input_str):
         try:
@@ -28,22 +30,20 @@ class ImageTextOcr(object):
         # 加载图像
         image = Image.open(path)
         result = pytesseract.image_to_string(image, config=r'--oem 3 --psm 6 -l chi_sim+eng')
-        lines = result.split('\n')
+        lines = result.split()
         for line in lines:
-            data_list = line.split(' ')
-            for data in data_list:
-                if 'S$T' in data or 'SST' in data:
-                    text_dict['方案编号'] = data.replace('S$T', 'SST')
+            if 'S$T' in line or 'SST' in line:
+                text_dict['方案编号'] = line.replace('S$T', 'SST').replace('试验方案编号:', '')
 
-                if 'CNAS' in data:
-                    text_dict['标志'] = 'cnas中文,'
+            if 'CNAS' in line:
+                text_dict['标志'] = 'cnas中文,'
 
-                if '200015344424' in data:
-                    text_dict['标志'] = '国cma,'
+            if '200015344424' in line:
+                text_dict['标志'] = '国cma,'
 
-                valid_time = self.is_valid_time(data)
-                if valid_time:
-                    valid_time_list.append(valid_time)
+            valid_time = self.is_valid_time(line)
+            if valid_time:
+                valid_time_list.append(valid_time)
 
         if valid_time_list:
             text_dict['签发日期'] = max(valid_time_list).strftime("%Y-%m-%d")
@@ -61,5 +61,5 @@ if __name__ == '__main__':
         '签发日期': '',
         '标志': ''
     }
-    res = image_text_ocr.run(text_dict, '../target_img/image_3.png')
+    res = image_text_ocr.run(text_dict, '../target_img/image_5.png')
     print(res)
