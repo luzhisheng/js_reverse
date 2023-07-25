@@ -75,6 +75,9 @@ class Discern(object):
                 cnas_flag = image_compare.run(f'../target_img/image_{i}.png', '../img/cnas.png')
                 text_list = self.image_text_ocr.run(f'../target_img/image_{i}.png')
             except cv2.error as c:
+                cma_flag = ''
+                cnas_flag = ''
+                text_list = ''
                 pass
             if cma_flag:
                 self.xlsx_keys['标志'] = '国cma'
