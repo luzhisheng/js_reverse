@@ -46,7 +46,7 @@ class 精选联盟达人清单(Base):
                 b.`单视频销售额`,
                 b.`视频GPM`,
                 b.`手机号`,
-                b.`微信号` 
+                b.`微信号`
             FROM
                 clean_buyin_authorStatData_authorProfile c
                 LEFT JOIN (
@@ -73,9 +73,12 @@ class 精选联盟达人清单(Base):
                         max( CASE WHEN contact_value REGEXP '^[0-9]+$' THEN '' ELSE contact_value END ) AS '微信号' 
                     FROM
                         clean_buyin_contact_info 
-                    GROUP BY uid
+                    GROUP BY
+                        uid 
                     ) z ON k.uid = z.uid 
                 ) b ON c.uid = b.uid 
+            WHERE
+                CONCAT(b.`手机号`, b.`微信号`) != ''
             ORDER BY
                 c.LEVEL DESC
         """
