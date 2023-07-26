@@ -1,5 +1,6 @@
 import pandas as pd
 import pdfplumber
+import re
 import PyPDF2
 from datetime import datetime
 from base import Base
@@ -22,7 +23,7 @@ class Discern(Base):
         pf = pd.DataFrame(list(export))
         current_time = datetime.now()
         formatted_time = current_time.strftime('%Y-%m-%d-%H-%M-%S')
-        file_path = pd.ExcelWriter(f'../docs/{formatted_time}.xlsx')
+        file_path = pd.ExcelWriter(f'../docs/无源{formatted_time}.xlsx')
         # 替换空单元格
         pf.fillna(' ', inplace=True)
         # 输出
@@ -48,6 +49,9 @@ class Discern(Base):
                     if 'SST' in line:
                         self.xlsx_keys['方案编号'] = line
 
+                    if '签发日期' in line:
+                        self.xlsx_keys['签发日期'] = line.replace('签发日期', '')
+
                     valid_time = self.is_valid_time(line)
                     if valid_time:
                         valid_time_list.append(valid_time)
@@ -64,24 +68,30 @@ class Discern(Base):
             company = ''
             for line in lines:
                 line_str += line
-                if '报告编号:' in line:
-                    self.xlsx_keys['报告编号'] = line.split("报告编号")[1].strip().replace(': ', '')
-                if 'Report Number:' in line:
-                    self.xlsx_keys['报告编号'] = line.split("Report Number")[1].strip().replace(': ', '')
-                if '样品名称:' in line:
-                    self.xlsx_keys['样品名称'] = line.split("样品名称")[1].strip().replace(': ', '')
+                if 'CSTBB' in line:
+                    for li in line.split():
+                        if 'CSTBB' in li:
+                            self.xlsx_keys['报告编号'] = li.strip().replace('报告编号：', '')
+                if '样品名称' in line:
+                    try:
+                        self.xlsx_keys['样品名称'] = line.split()[1].strip().replace(': ', '')
+                    except Exception as e:
+                        print(e)
+                        self.xlsx_keys['样品名称'] = ''
                 if 'Article Name:' in line:
                     self.xlsx_keys['样品名称'] = line.split("Article Name")[1].strip().replace(': ', '')
                 if '公司' in line:
                     company += line.strip()
-                if '最终报告' in line:
-                    self.xlsx_keys['检测项目'] = line_str.replace('最终报告', '')
+                if '最终报告' in line or 'Final Report' in line:
+                    self.xlsx_keys['检测项目'] = line_str.replace('最终报告', '').replace('Final Report', '')\
+                        .replace('中国认可国际互认检测', '')
                 self.xlsx_keys['标志'] = ''
 
-            company_list = company.split(" ")
+            company_list = company.split()
             for company_str in company_list:
-                if '中检华通' not in company_str and '制造商' not in company_str:
-                    self.xlsx_keys['公司名称'] += company_str
+                self.xlsx_keys['公司名称'] += company_str
+                self.xlsx_keys['公司名称'] = self.xlsx_keys['公司名称'].replace('中检华通威国际检验(苏州)有限公司', '').\
+                    replace('中检华通威国际检验（苏州）有限公司', '')
 
     def pdf_images(self, pdf_path):
         self.num = 0
@@ -153,10 +163,16 @@ class Discern(Base):
                     self.get_images_text()
                     if not self.xlsx_keys['方案编号'] and not self.xlsx_keys['签发日期']:
                         self.pdf_all_text(file_path)
+                    if not self.xlsx_keys['方案编号']:
+                        matches = re.findall(r'SST\d+BB', file_name)
+                        if matches:
+                            self.xlsx_keys['方案编号'] = matches[0]
+                        else:
+                            self.log("未找到匹配的模式方案编号")
                 self.xlsx_keys_list.append(self.xlsx_keys)
         self.export_excel(self.xlsx_keys_list)
 
 
 if __name__ == '__main__':
     discern = Discern()
-    discern.run('../file_test')
+    discern.run('../file')
