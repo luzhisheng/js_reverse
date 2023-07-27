@@ -27,6 +27,7 @@ class Discern(Base):
         # 替换空单元格
         pf.fillna(' ', inplace=True)
         # 输出
+        pf = pf.sort_values(by='样品名称')
         pf.to_excel(file_path, index=False)
         # 保存表格
         file_path.close()
@@ -46,11 +47,14 @@ class Discern(Base):
                 lines = text.split()
                 valid_time_list = []
                 for line in lines:
-                    if 'SST' in line:
+                    if 'SST' in line and not self.xlsx_keys['方案编号']:
                         self.xlsx_keys['方案编号'] = line
 
-                    if '签发日期' in line:
+                    if '签发日期' in line and not self.xlsx_keys['签发日期']:
                         self.xlsx_keys['签发日期'] = line.replace('签发日期', '')
+
+                    if 'GLP' in line:
+                        self.xlsx_keys['标志'] += 'GLP,'
 
                     valid_time = self.is_valid_time(line)
                     if valid_time:
@@ -85,7 +89,6 @@ class Discern(Base):
                 if '最终报告' in line or 'Final Report' in line:
                     self.xlsx_keys['检测项目'] = line_str.replace('最终报告', '').replace('Final Report', '')\
                         .replace('中国认可国际互认检测', '')
-                self.xlsx_keys['标志'] = ''
 
             company_list = company.split()
             for company_str in company_list:
@@ -161,8 +164,7 @@ class Discern(Base):
                     self.pdf_text(file_path)
                     self.pdf_images(file_path)
                     self.get_images_text()
-                    if not self.xlsx_keys['方案编号'] and not self.xlsx_keys['签发日期']:
-                        self.pdf_all_text(file_path)
+                    self.pdf_all_text(file_path)
                     if not self.xlsx_keys['方案编号']:
                         matches = re.findall(r'SST\d+BB', file_name)
                         if matches:
