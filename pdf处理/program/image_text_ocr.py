@@ -61,5 +61,5 @@ if __name__ == '__main__':
         '签发日期': '',
         '标志': ''
     }
-    res = image_text_ocr.run(text_dict, '../target_img/image_5.png')
+    res = image_text_ocr.run(text_dict, '../target_img/image_2.jpg')
     print(res)

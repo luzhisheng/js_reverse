@@ -1,10 +1,11 @@
 import pandas as pd
+from PIL import Image
 import pdfplumber
 import re
 import PyPDF2
 from datetime import datetime
 from base import Base
-from image_text_ocr import ImageTextOcr
+from program.image_text_ocr import ImageTextOcr
 import os
 import cv2
 
@@ -23,7 +24,7 @@ class Discern(Base):
         pf = pd.DataFrame(list(export))
         current_time = datetime.now()
         formatted_time = current_time.strftime('%Y-%m-%d-%H-%M-%S')
-        file_path = pd.ExcelWriter(f'../docs/无源{formatted_time}.xlsx')
+        file_path = pd.ExcelWriter(f'./docs/无源{formatted_time}.xlsx')
         # 替换空单元格
         pf.fillna(' ', inplace=True)
         # 输出
@@ -87,14 +88,27 @@ class Discern(Base):
                 if '公司' in line:
                     company += line.strip()
                 if '最终报告' in line or 'Final Report' in line:
-                    self.xlsx_keys['检测项目'] = line_str.replace('最终报告', '').replace('Final Report', '')\
+                    self.xlsx_keys['检测项目'] = line_str.replace('最终报告', '').replace('Final Report', '') \
                         .replace('中国认可国际互认检测', '')
 
             company_list = company.split()
             for company_str in company_list:
                 self.xlsx_keys['公司名称'] += company_str
-                self.xlsx_keys['公司名称'] = self.xlsx_keys['公司名称'].replace('中检华通威国际检验(苏州)有限公司', '').\
+                self.xlsx_keys['公司名称'] = self.xlsx_keys['公司名称'].replace('中检华通威国际检验(苏州)有限公司', ''). \
                     replace('中检华通威国际检验（苏州）有限公司', '')
+
+    def processing_image(self, img_file, standard=205):
+        """ 1.将图片进行降噪处理, 通过二值化去掉后面的背景色并加深文字对比度 """
+        img = Image.open(img_file)
+        img = img.convert('L')
+        pixels = img.load()
+        for x in range(img.width):
+            for y in range(img.height):
+                if pixels[x, y] > standard:
+                    pixels[x, y] = 255
+                else:
+                    pixels[x, y] = 0
+        img.save(img_file)
 
     def pdf_images(self, pdf_path):
         self.num = 0
@@ -105,11 +119,12 @@ class Discern(Base):
 
             for obj in xObject:
                 if xObject[obj]['/Subtype'] == '/Image':
-                    size = (xObject[obj]['/Width'], xObject[obj]['/Height'])
                     self.num += 1
-                    image_file = f"../target_img/image_{self.num}.png"
+                    image_file = f"./target_img/image_{self.num}.png"
                     with open(image_file, "wb") as f:
                         f.write(xObject[obj].get_data())
+                    if page_num != 0:
+                        self.processing_image(image_file)
 
     def get_images_text(self):
         for i in range(1, self.num + 1):
@@ -119,7 +134,7 @@ class Discern(Base):
                 '标志': ''
             }
             try:
-                text_dict = self.image_text_ocr.run(text_dict, f'../target_img/image_{i}.png')
+                text_dict = self.image_text_ocr.run(text_dict, f'./target_img/image_{i}.png')
             except cv2.error as c:
                 self.log(c)
                 pass
@@ -155,7 +170,7 @@ class Discern(Base):
                     '签发日期': '',
                     '公司名称': ''
                 }
-                self.remove_file('../target_img')
+                self.remove_file('./target_img')
                 if entry.is_file():
                     file_path = entry.path
                     file_name = entry.name
@@ -177,4 +192,4 @@ class Discern(Base):
 
 if __name__ == '__main__':
     discern = Discern()
-    discern.run('../file')
+    discern.run('./file_test')
