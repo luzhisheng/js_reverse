@@ -35,14 +35,24 @@ class PDFBase(Base):
             self.log(f"出现异常：{e}")
 
     @staticmethod
-    def read_img_ocr(img_path):
+    def read_img_ocr(img_path, standard=205):
         """
         读取图片中文字内容
         :param img_path:
         :return:
         """
-        image = Image.open(img_path)
-        result = pytesseract.image_to_string(image, config=r'--oem 3 --psm 6 -l chi_sim+eng')
+        img = Image.open(img_path)
+        # 在将图片灰度转换，二值化
+        img = img.convert('L')
+        pixels = img.load()
+        for x in range(img.width):
+            for y in range(img.height):
+                if pixels[x, y] > standard:
+                    pixels[x, y] = 255
+                else:
+                    pixels[x, y] = 0
+        # 图像识别
+        result = pytesseract.image_to_string(img, config=r'--oem 3 --psm 6 -l chi_sim+eng')
         lines = result.split()
         return lines
 
