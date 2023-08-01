@@ -1,4 +1,4 @@
-from program.discern import Discern
+from program.testing_agency_report import TestingAgencyReport
 
-discern = Discern()
-discern.run('./file_test')
+testing_agency_report = TestingAgencyReport()
+testing_agency_report.run('./file', './target_img', './docs')
