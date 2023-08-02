@@ -1148,3 +1148,11 @@ function get_ac_signature(__ac_nonce){
     var __ac_signature = window.byted_acrawler.sign("", __ac_nonce)
     return __ac_signature
 }
+
+// console.log(get_ac_signature(1))
+
+module.exports =
+    {
+        get_ac_signature
+    };
+
