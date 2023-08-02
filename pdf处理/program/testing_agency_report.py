@@ -29,7 +29,8 @@ class TestingAgencyReport(PDFBase):
                         valid_time_list = []
                         for line in lines:
                             if 'S$T' in line or 'SST' in line:
-                                text_dict['方案编号'] = line.replace('S$T', 'SST').replace('试验方案编号:', '')
+                                text_dict['方案编号'] = line.replace('S$T', 'SST')\
+                                    .replace('试验方案编号:', '').replace('$', '')
                             if 'CNAS' in line:
                                 text_dict['标志'] = 'cnas中文,'
                             valid_time = self.is_valid_time(line)
@@ -65,7 +66,7 @@ class TestingAgencyReport(PDFBase):
                 if 'CSTBB' in line:
                     for li in line.split():
                         if 'CSTBB' in li:
-                            self.xlsx_keys['报告编号'] = li.strip().replace('报告编号：', '')
+                            self.xlsx_keys['报告编号'] = li.strip().replace('报告编号：', '').replace('）', '')
                 if '样品名称' in line:
                     try:
                         self.xlsx_keys['样品名称'] = line.split()[1].strip().replace(': ', '')

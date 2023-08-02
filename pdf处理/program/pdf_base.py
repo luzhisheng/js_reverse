@@ -1,5 +1,5 @@
 from datetime import datetime
-from extract_from_pages import read_pdf
+from program.extract_from_pages import read_pdf
 from base import Base
 from PIL import Image
 import pandas as pd
