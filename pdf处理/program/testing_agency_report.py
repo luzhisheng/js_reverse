@@ -25,23 +25,23 @@ class TestingAgencyReport(PDFBase):
                     }
 
                     try:
-                        lines = self.read_img_ocr(entry.path)
+                        lines = self.read_img_ocr_binarization(entry.path)
                         valid_time_list = []
                         for line in lines:
                             if 'S$T' in line or 'SST' in line:
                                 text_dict['方案编号'] = line.replace('S$T', 'SST').replace('试验方案编号:', '')
-
                             if 'CNAS' in line:
                                 text_dict['标志'] = 'cnas中文,'
-
-                            if '200015344424' in line:
-                                text_dict['标志'] = '国cma,'
-
                             valid_time = self.is_valid_time(line)
                             if valid_time:
                                 valid_time_list.append(valid_time)
                         if valid_time_list:
                             text_dict['签发日期'] = max(valid_time_list).strftime("%Y-%m-%d")
+
+                        lines = self.read_img_ocr(entry.path)
+                        for line in lines:
+                            if '200015344424' in line:
+                                text_dict['标志'] = '国cma,'
                     except cv2.error as c:
                         self.log(c)
 
@@ -150,4 +150,4 @@ class TestingAgencyReport(PDFBase):
 
 if __name__ == '__main__':
     testing_agency_report = TestingAgencyReport()
-    testing_agency_report.run('../file_test', '../target_img', '../docs')
+    testing_agency_report.run('../file', '../target_img', '../docs')

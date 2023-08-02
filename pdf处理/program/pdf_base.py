@@ -1,6 +1,6 @@
 from datetime import datetime
+from extract_from_pages import read_pdf
 from base import Base
-import subprocess
 from PIL import Image
 import pandas as pd
 import pytesseract
@@ -29,15 +29,14 @@ class PDFBase(Base):
         :return:
         """
         try:
-            subprocess.run(f"pdfimages -png '{input_pdf}' {output_image}/image", shell=True,
-                           capture_output=True, text=True)
+            read_pdf(input_pdf, output_image)
         except Exception as e:
             self.log(f"出现异常：{e}")
 
     @staticmethod
-    def read_img_ocr(img_path, standard=205):
+    def read_img_ocr_binarization(img_path, standard=205):
         """
-        读取图片中文字内容
+        二值化读取图片中文字内容
         :param img_path:
         :return:
         """
@@ -51,6 +50,19 @@ class PDFBase(Base):
                     pixels[x, y] = 255
                 else:
                     pixels[x, y] = 0
+        # 图像识别
+        result = pytesseract.image_to_string(img, config=r'--oem 3 --psm 6 -l chi_sim+eng')
+        lines = result.split()
+        return lines
+
+    @staticmethod
+    def read_img_ocr(img_path):
+        """
+        读取图片中文字内容
+        :param img_path:
+        :return:
+        """
+        img = Image.open(img_path)
         # 图像识别
         result = pytesseract.image_to_string(img, config=r'--oem 3 --psm 6 -l chi_sim+eng')
         lines = result.split()
