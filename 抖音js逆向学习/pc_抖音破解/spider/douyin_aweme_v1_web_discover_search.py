@@ -1,4 +1,4 @@
-from douyin_search import get_ttwid, get_ac_nonce
+from douyin_search import get_ttwid, get_ac_nonce, get_ac_signature
 from urllib.parse import quote
 import requests
 
@@ -1007,7 +1007,8 @@ for search_keyword in keyword_list:
     print(search_keyword)
     encoded_text = quote(search_keyword)
     __ac_nonce = get_ac_nonce(encoded_text)
-    ttwid = get_ttwid(__ac_nonce, encoded_text)
+    __ac_signature = get_ac_signature(encoded_text)
+    ttwid = get_ttwid(__ac_nonce, __ac_signature, encoded_text)
     url = f"https://www.douyin.com/aweme/v1/web/discover/search/?device_platform=webapp&aid=6383&channel=channel_pc_web&" \
           f"search_channel=aweme_user_web&keyword={encoded_text}&search_source=switch_tab&" \
           f"query_correct_type=1&is_filter_search=0&from_group_id=&offset=0&count=10&pc_client_type=1&" \
