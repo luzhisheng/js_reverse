@@ -43,6 +43,8 @@ class TestingAgencyReport(PDFBase):
                         for line in lines:
                             if '200015344424' in line:
                                 text_dict['标志'] = '国cma,'
+                            if '191020340175' in line:
+                                text_dict['标志'] = '省cma,'
                     except cv2.error as c:
                         self.log(c)
 
@@ -66,10 +68,11 @@ class TestingAgencyReport(PDFBase):
                 if 'CSTBB' in line:
                     for li in line.split():
                         if 'CSTBB' in li:
-                            self.xlsx_keys['报告编号'] = li.strip().replace('报告编号：', '').replace('）', '')
+                            self.xlsx_keys['报告编号'] = li.strip().replace('报告编号：', '').replace('）', '')\
+                                .replace('报告编号:', '')
                 if '样品名称' in line:
                     try:
-                        self.xlsx_keys['样品名称'] = line.split()[1].strip().replace(': ', '')
+                        self.xlsx_keys['样品名称'] = line.strip().replace('样品名称: ', '').replace('样品名称:', '')
                     except Exception as e:
                         print(e)
                         self.xlsx_keys['样品名称'] = ''
@@ -100,7 +103,7 @@ class TestingAgencyReport(PDFBase):
                         self.xlsx_keys['方案编号'] = line
 
                     if '签发日期' in line and not self.xlsx_keys['签发日期']:
-                        self.xlsx_keys['签发日期'] = line.replace('签发日期', '')
+                        self.xlsx_keys['签发日期'] = line.replace('签发日期', '').replace('：', '')
 
                     if 'GLP' in line:
                         self.xlsx_keys['标志'] += 'GLP,'
@@ -151,4 +154,4 @@ class TestingAgencyReport(PDFBase):
 
 if __name__ == '__main__':
     testing_agency_report = TestingAgencyReport()
-    testing_agency_report.run('../file', '../target_img', '../docs')
+    testing_agency_report.run('../file_test', '../target_img', '../docs')
