@@ -1,3 +1,4 @@
+var module_a = module
 var exports = undefined
   , module = undefined
   , Image = function Image() {}
@@ -1151,8 +1152,7 @@ function get_ac_signature(__ac_nonce){
 
 // console.log(get_ac_signature(1))
 
-module.exports =
+module_a.exports =
     {
         get_ac_signature
     };
-
