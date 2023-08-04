@@ -1150,7 +1150,7 @@ function get_ac_signature(__ac_nonce){
     return __ac_signature
 }
 
-// console.log(get_ac_signature(1))
+console.log(get_ac_signature('064cccad700cccb6a98df'))
 
 module_a.exports =
     {
