@@ -126,7 +126,8 @@ class TestingAgencyReport(PDFBase):
                     '检测项目': '',
                     '标志': '',
                     '签发日期': '',
-                    '公司名称': ''
+                    '公司名称': '',
+                    '文件名': ''
                 }
                 self.remove_img(img_path)
                 if entry.is_file():

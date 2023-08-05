@@ -110,7 +110,7 @@ class PDFBase(Base):
         # 替换空单元格
         pf.fillna(' ', inplace=True)
         # 输出
-        pf = pf.sort_values(by='样品名称')
+        pf = pf.sort_values(by='文件名')
         pf.to_excel(file_path, index=False)
         # 保存表格
         file_path.close()
