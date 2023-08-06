@@ -5,3 +5,6 @@ Date.prototype.getTime = function () {
 Math.random = function () {
     return 0.8532337990105894
 };
+
+// 深拷贝
+console = Object.assign(console);
