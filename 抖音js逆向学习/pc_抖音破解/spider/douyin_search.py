@@ -99,5 +99,5 @@ if __name__ == '__main__':
     print(__ac_nonce)
     # __ac_signature = get_ac_signature(__ac_nonce)
     # print(__ac_signature)
-    ttwid = get_ttwid("064cccefb0080e03d72da", '_02B4Z6wo00f01tot9IgAAIDB64dQDGkZ-mraDfAAANJUemqeuhkpJWeMLgBB70LEKYBhNOQ0dFX0e7tp56Q2lFlr9zI8QhBILvn5nVtA1y.nQDrwBmKOJElAWo-u0RFA9eZ9tLrt.EcHA8JG88', encoded_text)
+    ttwid = get_ttwid('064ce080e00b43ebb7c7c', '_02B4Z6wo00f01zDcHFAAAIDAAXa413B9WMcw.BjAAKkDggKfg4bfbbD2kAbQmjHPgnmzGMtR9j8EcFvrVkzHQh8kxTKkW-pK7mbZ3GUzCxC7xFbX74AsY5oKvANvTk4pkVKY0KRQv3dAQuFi1f', encoded_text)
     print(ttwid)
