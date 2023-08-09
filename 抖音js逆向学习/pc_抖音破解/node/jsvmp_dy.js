@@ -1,19 +1,96 @@
 window = global;
 
 Date.prototype.getTime = function () {
-    return 14182940000
-};
-
-Math.random = function () {
-    return 0.8532337990105894
+    return 1
 };
 
 var navigator = {
-    userAgent:'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'
+    appCodeName: "Mozilla",
+    appName: "Netscape",
+    appVersion: "5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
+    clipboard: {},
+    cookieEnabled: true,
+    credentials: {},
+    deviceMemory: 8,
+    doNotTrack: null,
+    geolocation: {},
+    gpu: {},
+    hardwareConcurrency: 12,
+    hid: {onconnect: null, ondisconnect: null},
+    ink: {},
+    keyboard: {},
+    language: "zh-CN",
+    languages: ['zh-CN', 'zh', 'en'],
+    locks: {},
+    managed: {onmanagedconfigurationchange: null},
+    maxTouchPoints: 0,
+    mediaCapabilities: {},
+    mediaDevices: {ondevicechange: null},
+    mediaSession: {metadata: null, playbackState: 'none'},
+    mimeTypes: {
+        0: {type: 'application/pdf', suffixes: 'pdf', description: 'Portable Document Format'},
+        1: {type: 'text/pdf', suffixes: 'pdf', description: 'Portable Document Format'},
+        'application/pdf': {type: 'application/pdf', suffixes: 'pdf', description: 'Portable Document Format'},
+        'text/pdf': {type: 'text/pdf', suffixes: 'pdf', description: 'Portable Document Format'},
+        length: 2
+    },
+    onLine: true,
+    pdfViewerEnabled: true,
+    permissions: {},
+    platform: "Linux x86_64",
+    plugins: {
+        0: {type: 'application/pdf', suffixes: 'pdf', description: 'Portable Document Format'},
+        1: {type: 'text/pdf', suffixes: 'pdf', description: 'Portable Document Format'},
+        'application/pdf': {type: 'application/pdf', suffixes: 'pdf', description: 'Portable Document Format'},
+        'text/pdf': {type: 'text/pdf', suffixes: 'pdf', description: 'Portable Document Format'},
+        'description': "Portable Document Format",
+        'filename': "internal-pdf-viewer",
+        'length': 2,
+        'name': "PDF Viewer",
+    },
+    presentation: {defaultRequest: null, receiver: null},
+    product: "Gecko",
+    productSub: "20030107",
+    scheduling: {},
+    serial: {onconnect: null, ondisconnect: null},
+    serviceWorker: {
+        controller: {scriptURL: 'https://www.douyin.com/sw.js', state: 'activated', onstatechange: null, onerror: null},
+        ready: Promise,
+        oncontrollerchange: null,
+        onmessage: null,
+        onmessageerror: null
+    },
+    storage: {},
+    usb: {onconnect: null, ondisconnect: null},
+    userActivation: {hasBeenActive: true, isActive: false},
+    userAgent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
+    userAgentData: {brands: Array(3), mobile: false, platform: 'Linux'},
+    vendor: "Google Inc.",
+    vendorSub: "",
+    virtualKeyboard: {
+        boundingRect: {
+            bottom: 0,
+            height: 0,
+            left: 0,
+            right: 0,
+            top: 0,
+            width: 0,
+            x: 0,
+            y: 0
+        }, overlaysContent: false, ongeometrychange: null
+    },
+    wakeLock: {},
+    webdriver: false,
+    webkitPersistentStorage: {},
+    webkitTemporaryStorage: {},
+    windowControlsOverlay: {visible: false, ongeometrychange: null},
+    xr: {ondevicechange: null}
 };
 
-var document = {
-    'referrer': 'https://www.douyin.com/search/%E5%90%9E%E5%99%AC%E6%98%9F%E7%A9%BA?source=switch_tab&type=user'
+var history = {
+    length: 1,
+    scrollRestoration: "auto",
+    state: {usr: null, key: '1khwc36j', idx: 3}
 };
 
 var location = {
@@ -28,6 +105,29 @@ var location = {
     "search": "?aid=e677f38c-3c8e-4773-89b1-272b9a7dc219&source=normal_search&type=user",
     "hash": ""
 };
+var document = {
+    createEvent: function createEvent() {},
+    location: location,
+    cookie: "",
+    vlinkColor: "",
+    referrer: "https://www.douyin.com/search/%E5%A4%A7%E9%9D%92%E9%9D%92?aid=e677f38c-3c8e-4773-89b1-272b9a7dc219&source=normal_search&type=user",
+    fgColor: "",
+    dir: "",
+    addEventListener: function addEventListener(x) {},
+    createElement: function createElement(x) {
+        return canvas
+    }
+};
+document.createElement[Symbol.toStringTag] = "HTMLImageElement";
+
+var PluginArray = function PluginArray() {}
+var WebSocket = function WebSocket() {}
+var Image = function Image() {}
+var indexedDB = {}
+indexedDB[Symbol.toStringTag] = "IDBFactory";
+
+
+window['document'] = document
 
 var glb;
 (glb = "undefined" == typeof window ? global : window)._$jsvmprt = function (b, e, f) {
@@ -691,6 +791,14 @@ var glb;
 
 jsvmp = module.exports;
 
+console.log([, , "undefined" != typeof exports ? exports : void 0, "undefined" != typeof module ? module : void 0, "undefined" != typeof define ? define : void 0, "undefined" != typeof Object ? Object : void 0, void 0, "undefined" != typeof TypeError ? TypeError : void 0, "undefined" != typeof document ? document : void 0, "undefined" != typeof InstallTrigger ? InstallTrigger : void 0, "undefined" != typeof safari ? safari : void 0, "undefined" != typeof Date ? Date : void 0, "undefined" != typeof Math ? Math : void 0, "undefined" != typeof navigator ? navigator : void 0, "undefined" != typeof location ? location : void 0, "undefined" != typeof history ? history : void 0, "undefined" != typeof Image ? Image : void 0, "undefined" != typeof console ? console : void 0, "undefined" != typeof PluginArray ? PluginArray : void 0, "undefined" != typeof indexedDB ? indexedDB : void 0, "undefined" != typeof DOMException ? DOMException : void 0, "undefined" != typeof parseInt ? parseInt : void 0, "undefined" != typeof String ? String : void 0, "undefined" != typeof Array ? Array : void 0, "undefined" != typeof Error ? Error : void 0, "undefined" != typeof JSON ? JSON : void 0, "undefined" != typeof Promise ? Promise : void 0, "undefined" != typeof WebSocket ? WebSocket : void 0, "undefined" != typeof eval ? eval : void 0, "undefined" != typeof setTimeout ? setTimeout : void 0, "undefined" != typeof encodeURIComponent ? encodeURIComponent : void 0, "undefined" != typeof encodeURI ? encodeURI : void 0, "undefined" != typeof Request ? Request : void 0, "undefined" != typeof Headers ? Headers : void 0, "undefined" != typeof decodeURIComponent ? decodeURIComponent : void 0, "undefined" != typeof RegExp ? RegExp : void 0]);
+
 // console.log(jsvmp);
+
+jsvmp.init({
+    aid: 99999999,
+    dfp: 0
+});
+
 
 console.log(jsvmp.sign('', 1));
