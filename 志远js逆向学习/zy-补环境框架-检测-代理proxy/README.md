@@ -1,31 +1,24 @@
-## 如何更加好的补环境
+#补环境框架
 
-    https://github.com/jsdom/jsdom
+调试框架要有封装的思想，功能单一，可扩展性强，js调试框架，监控所有的环境代理，在自己伪造的环境代理，任意代理，包座代理不会被检测，某些对象不能完美被伪造利用谷歌开源浏览器，进行修改内核代码.
     
-jsdom 是许多 web 标准的纯 JavaScript 实现，特别是 WHATWG DOM和HTML标准，用于 Node.js。一般来说，该项目的目标是模拟足够多的 Web 浏览器子集，以用于测试和抓取真实世界的 Web 应用程序。
-
-
-## 框架
-
-    调试框架要有封装的思想，功能单一，可扩展性强，
-    js调试框架 监控所有的环境
-    代理，在自己伪造的环境代理，任意代理，包座代理不会被检测，某些对象不能完美被伪造
-    利用谷歌开源浏览器，进行修改内核代码
+## 环境被检测
     
-    代码如果被检测
-    tostring，node，基于原型连的检测，dom环境
+检测tostring方法，检测node环境，基于原型连的检测，基于dom环境的检测
     
-## 检测举例 Object.getOwnPropertyDescriptor
+**检测举例 Object.getOwnPropertyDescriptor**
 
-在node中运行 Object.getOwnPropertyDescriptor
+静态方法返回一个对象，该对象描述给定对象上特定属性（即直接存在于对象上而不在对象的原型链中的属性）的配置。返回的对象是可变的，但对其进行更改不会影响原始属性的配置。
 
-    navigator = {
-        userAgent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36"
-    };
-    
-    const descriptor1 = Object.getOwnPropertyDescriptor(navigator, 'userAgent');
-    console.log(descriptor1);
+在node中运行Object.getOwnPropertyDescriptor
+```javascript
+navigator = {
+    userAgent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36"
+};
 
+const descriptor1 = Object.getOwnPropertyDescriptor(navigator, 'userAgent');
+console.log(descriptor1);
+```
 会出现
 
     {
@@ -35,28 +28,31 @@ jsdom 是许多 web 标准的纯 JavaScript 实现，特别是 WHATWG DOM和HTML
       configurable: true
     }
     
-浏览器中运行，这里打印的 undefined
+浏览器中运行，这里打印的 undefined，说明再浏览器中是拿不到这个值。
 
 ![debugger](../../img/63.png)
 
-接下来就需要重写 getOwnPropertyDescriptor 逻辑
+由于node环境中会被检测到，这样就需要hook`getOwnPropertyDescriptor`方法
+```javascript
+navigator = {
+    userAgent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36"
+};
 
-    navigator = {
-        userAgent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36"
-    };
-    
-    Object.getOwnPropertyDescriptor_ = Object.getOwnPropertyDescriptor;
-    
-    Object.getOwnPropertyDescriptor = function (o,p) {
-        if(navigator.toString() == "[object Navigator]"){
-            return undefined;
-        }
-        Object.getOwnPropertyDescriptor_.apply(this, arguments)
-    };
-    
-    const descriptor1 = Object.getOwnPropertyDescriptor(navigator, 'userAgent');
-    console.log(descriptor1);
-    
+Object.getOwnPropertyDescriptor_ = Object.getOwnPropertyDescriptor;
+
+// hook
+Object.getOwnPropertyDescriptor = function (o,p) {
+    // 判断检测的对象是navigator就返回空
+    if(navigator.toString() == '[object Navigator]'){
+        return undefined;
+    }
+    // 不是就正常返回
+    Object.getOwnPropertyDescriptor_.apply(this, arguments)
+};
+
+const descriptor1 = Object.getOwnPropertyDescriptor(navigator, 'userAgent');
+console.log(descriptor1);
+```
 ## Proxy 代理是什么
 
     js代码中读了 window.ayf 现在我需要拦截代码
