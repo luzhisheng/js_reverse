@@ -39,6 +39,8 @@ https://github.com/patriksimek/vm2
     // 需要补的window环境
     const windowfile = `${__dirname}/window.js`;
     const vm = new VM();
+
+    //VMScript调试
     const script = new VMScript(fs.readFileSync(windowfile)+fs.readFileSync(file), "我正在调试的代码");
     vm.run(script);
 
