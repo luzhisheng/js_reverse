@@ -3,7 +3,7 @@ import execjs
 
 
 def get_ac_sign(ac_nonce):
-    with open('../node/_ac_signature.js', 'r', encoding='utf-8') as f:
+    with open('../node/_ac_signature_lx.js', 'r', encoding='utf-8') as f:
         b = f.read()
     c = execjs.compile(b)
     d = c.call('get_ac_signature', ac_nonce)

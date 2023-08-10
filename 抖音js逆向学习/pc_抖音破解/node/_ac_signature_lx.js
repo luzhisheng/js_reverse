@@ -61,7 +61,13 @@ var navigator = {
     permissions: {},
     platform: "Linux x86_64",
     plugins: {
-        0: {type: 'application/pdf', suffixes: 'pdf', description: 'Portable Document Format'},
+        0: {
+            0: MimeType,
+            name: "Native Client",
+            length: 2,
+            filename: "internal-nacl-plugin",
+            description: ""
+        },
         1: {type: 'text/pdf', suffixes: 'pdf', description: 'Portable Document Format'},
         2: {type: 'text/pdf', suffixes: 'pdf', description: 'Portable Document Format'},
         'application/pdf': {type: 'application/pdf', suffixes: 'pdf', description: 'Portable Document Format'},
@@ -1218,7 +1224,9 @@ window.byted_acrawler.init({
     dfp: 0
 });
 
+
 function get_ac_signature(__ac_nonce){
+    window.document.cookie = '__ac_signature=_02B4Z6wo00f0112EppgAAIDAbC4CHUA8KwddpKIAALO9uDlmpWv.TFwlGqNfqIkZz-DwTSKYreqjWw60AS65ETM-KXUAb9JWwuJaZffCQ.4JziCrPpPtw-.oyryhxskIaWwEZkpW5v-edqzw8a; SEARCH_RESULT_LIST_TYPE=%22single%22; passport_csrf_token=fb66cc8b8a1045da45f7fad0a7a18cd5; passport_csrf_token_default=fb66cc8b8a1045da45f7fad0a7a18cd5; home_can_add_dy_2_desktop=%221%22; bd_ticket_guard_client_data=eyJiZC10aWNrZXQtZ3VhcmQtdmVyc2lvbiI6MiwiYmQtdGlja2V0LWd1YXJkLWl0ZXJhdGlvbi12ZXJzaW9uIjoxLCJiZC10aWNrZXQtZ3VhcmQtY2xpZW50LWNzciI6Ii0tLS0tQkVHSU4gQ0VSVElGSUNBVEUgUkVRVUVTVC0tLS0tXHJcbk1JSUJEakNCdFFJQkFEQW5NUXN3Q1FZRFZRUUdFd0pEVGpFWU1CWUdBMVVFQXd3UFltUmZkR2xqYTJWMFgyZDFcclxuWVhKa01Ga3dFd1lIS29aSXpqMENBUVlJS29aSXpqMERBUWNEUWdBRWJWTU5lWUJNRloxOTFtTWVaUzY0UVVSU1xyXG5SbGhDT0N4RnN5VStPbEdOS3ZvMzZzb0EwZ3UvaGVQd0lHaHF1d0FqY0h3U0RPbkg2NzU0cWQyK2E4d0daS0FzXHJcbk1Db0dDU3FHU0liM0RRRUpEakVkTUJzd0dRWURWUjBSQkJJd0VJSU9kM2QzTG1SdmRYbHBiaTVqYjIwd0NnWUlcclxuS29aSXpqMEVBd0lEU0FBd1JRSWhBSXZaVlBxc3RTV0tONkszRU5zVDdaQVgwMWpOL1Bpa2ZlZ1EyOGJBTDhUN1xyXG5BaUFBMk9HbWFWTy9oOVhiSTdzbFluSnVBRnJ4ZGtGZmwzdlNwY3JmUmJka3N3PT1cclxuLS0tLS1FTkQgQ0VSVElGSUNBVEUgUkVRVUVTVC0tLS0tXHJcbiJ9; pwa2=%220%7C0%7C1%7C0%22; tt_scid=h3KjsbcPagrztL9zb3JR6bpJtT6dS7j9-PnqAPWVdsQ7yRvORbFjLLzzdm5K4bKf9ed7; s_v_web_id=verify_ll3jlxw8_gYaHeYiX_M5UI_4oA0_ALpe_gLNjnmLrF4j0; FORCE_LOGIN=%7B%22videoConsumedRemainSeconds%22%3A180%2C%22isForcePopClose%22%3A1%7D; msToken=_V_XNphZkGc8uaJBx_wy9XlsZUOELYb5Eh0gUNAI01O7m4Nmt2nTNZV08-lcXYXsaBBR1qG931dhBxcRO7brmSW6FORCaIbeblD7oIBT6ton1jSDyZj04WdU'
     var __ac_signature = window.byted_acrawler.sign("", __ac_nonce)
     return __ac_signature
 }
