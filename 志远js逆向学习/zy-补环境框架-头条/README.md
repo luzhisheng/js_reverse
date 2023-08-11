@@ -6,10 +6,13 @@
 
 ## 自己写一个浏览器
 
-    1.BOM 浏览器实现的代码历史记录浏览器版本信息之类的
-    2.DOM 根据id取元素
-    3.网络请求 xhr jsonp jsonp_3213123({ayf:1})
-    4.跨窗口worker
+1.BOM 浏览器实现的代码历史记录浏览器版本信息之类的
+
+2.DOM 根据id取元素
+
+3.网络请求 xhr jsonp jsonp_3213123({ayf:1})
+
+4.跨窗口worker
 
 目的： 运行环境
 
@@ -22,25 +25,26 @@
 脱离了nodejs的v8环境，防止检测到nodejs环境
 
 https://github.com/patriksimek/vm2
-
-    var fs = require('fs');
-    const {VM} = require('vm2');
-    const vm = new VM();
-    var data = fs.readFileSync('./src/code.js', 'utf8')
-    vm.run(data)
+```javascript
+var fs = require('fs');
+const {VM} = require('vm2');
+const vm = new VM();
+var data = fs.readFileSync('./src/code.js', 'utf8')
+vm.run(data)
+```
 
 调试沙盒代码
+```javascript
+const {VM, VMScript} = require('vm2');
+const fs = require('fs');
+// 运行的code代码
+const file = `${__dirname}/code.js`;
 
-    const {VM, VMScript} = require('vm2');
-    const fs = require('fs');
-    // 运行的code代码
-    const file = `${__dirname}/code.js`;
-    
-    // 需要补的window环境
-    const windowfile = `${__dirname}/window.js`;
-    const vm = new VM();
+// 需要补的window环境
+const windowfile = `${__dirname}/window.js`;
+const vm = new VM();
 
-    //VMScript调试
-    const script = new VMScript(fs.readFileSync(windowfile)+fs.readFileSync(file), "我正在调试的代码");
-    vm.run(script);
-
+//VMScript调试
+const script = new VMScript(fs.readFileSync(windowfile)+fs.readFileSync(file), "我正在调试的代码");
+vm.run(script);
+```
