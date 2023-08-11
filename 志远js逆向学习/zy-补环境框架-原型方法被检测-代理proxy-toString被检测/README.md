@@ -173,7 +173,7 @@ location.assign = function assign(){
 };
 console.log('修改前返回：' + '\n' + location.assign + '')
 
-// 改变自定义的方法检测toString方法
+// 补环境的自定义方法，通过toString方法被检测
 ;(() => {
     'use strict';
     const $toString = Function.toString
