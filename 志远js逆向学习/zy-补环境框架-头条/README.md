@@ -48,3 +48,74 @@ const vm = new VM();
 const script = new VMScript(fs.readFileSync(windowfile)+fs.readFileSync(file), "我正在调试的代码");
 vm.run(script);
 ```
+## 实例还是原型
+```javascript
+var a = {} // a是实例
+var b = class b{}//实例
+var c = new (function (){})//实例
+var d = Object()//实例
+var e = Object.create({})//实例
+function xx(){} //方法也是对象，方法即是实例也是原型
+```
+简单的举例`window.__proto__ == Window.prototype`
+
+window.__proto__是Window原型
+
+![debugger](./img/1.png)
+
+Window.prototype是Window原型
+
+![debugger](./img/2.png)
+
+所以`window.__proto__ == Window.prototype`
+
+在.__proto__就是父亲的原型，直到null
+
+![debugger](./img/3.png)
+
+## 加深理解原型链的关系
+
+定义一个方法AYF，new 这个AYF方法生成实例ayf
+```javascript
+function AYF(){
+
+}
+
+var ayf = new AYF;
+```
+实例ayf通过`.__proto__`访问原型，这里可以看到构造函数AYF和下面的原型Prototype，这里可以通过构造函数AYF访问实例ayf的原型。
+![debugger](./img/4.png)
+
+这里得到的结论是构造函数的原型（prototype）== 实例的__proto__
+
+**提问:修改AYF的原型的原型，下面案例代码**
+
+错误示范，这里将 {} 对象的实例赋值给了AYF的原型的原型
+```javascript
+function AYF(){
+
+}
+
+var ayf = new AYF;
+
+AYF.prototype.__proto__ = {}
+```
+
+所以打印出来是这样的
+![debugger](./img/5.png)
+
+应该是将Object对象原型赋值给AYF.prototype.__proto__，而不是对象实例赋值
+
+那么拿到实例原型就是`({}).__proto__`
+```javascript
+function AYF(){
+    
+}
+
+var ayf = new AYF;
+
+AYF.prototype.__proto__ = ({}).__proto__
+```
+![debugger](./img/6.png)
+
+理解就到这了
