@@ -58,8 +58,11 @@ Object.defineProperties(WINDOW_AYF.prototype,{
 })
 ```
 控制台对比效果
+
 ![debugger](./img/2.png)
+
 在构建原型`WindowProperties_ayf`
+
 ```javascript
 function WINDOW_AYF(){}
 
@@ -86,8 +89,11 @@ Object.defineProperties(WindowProperties_ayf.prototype,{
 })
 ```
 控制台对比效果
+
 ![debugger](./img/3.png)
+
 最后构建原型`EventTarget_ayf`
+
 ```javascript
 function WINDOW_AYF(){}
 
@@ -125,4 +131,5 @@ Object.defineProperties(EventTarget_ayf.prototype,{
 })
 ```
 控制台对比效果
+
 ![debugger](./img/4.png)
