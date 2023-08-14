@@ -1,18 +1,21 @@
-const History =function History()
-{
+const History = function History() {
     throw new TypeError('Illegal constructor')
 }
 catvm.safefunction(History);
 
-Object.defineProperties(History.prototype,{
-    [Symbol.toStringTag]:{
-        value:'History',
-        configurable:true,
+Object.defineProperties(History.prototype, {
+    [Symbol.toStringTag]: {
+        value: 'History',
+        configurable: true,
     }
 })
-History.prototype.back = function back(){}
+History.prototype.back = function back() {
+}
 catvm.safefunction(History.prototype.back);
+////////////////补环境-start////////////////
 
+
+////////////////补环境-end//////////////////
 history = {}
 history.__proto__ = History.prototype
 

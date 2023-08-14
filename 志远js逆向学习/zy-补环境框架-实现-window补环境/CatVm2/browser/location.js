@@ -10,7 +10,10 @@ Object.defineProperties(Location.prototype,{
         configurable:true,
     }
 })
+////////////////补环境-start////////////////
 
+
+////////////////补环境-end//////////////////
 location = {}
 location.__proto__ = Location.prototype
 location.href = ''

@@ -1,16 +1,18 @@
-const Screen =function Screen()
-{
+const Screen = function Screen() {
     throw new TypeError('Illegal constructor')
 }
 catvm.safefunction(Screen);
 
-Object.defineProperties(Screen.prototype,{
-    [Symbol.toStringTag]:{
-        value:'Screen',
-        configurable:true,
+Object.defineProperties(Screen.prototype, {
+    [Symbol.toStringTag]: {
+        value: 'Screen',
+        configurable: true,
     }
 })
+////////////////补环境-start////////////////
 
+
+////////////////补环境-end//////////////////
 screen = {}
 screen.__proto__ = Screen.prototype
 
