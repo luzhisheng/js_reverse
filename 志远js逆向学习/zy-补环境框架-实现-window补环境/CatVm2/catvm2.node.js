@@ -31,6 +31,8 @@ export default function GetCode(config,fun_text){
     code += fs.readFileSync(`${__dirname}/browser/plugin.js`) + '\r\n'
     code += fs.readFileSync(`${__dirname}/browser/pluginArray.js`) + '\r\n'
     code += fs.readFileSync(`${__dirname}/browser/mimeTypeArray.js`) + '\r\n'
+
+    // 加载dom前先加载dom的原型
     code += htmlElements() + '\r\n'
 
     // dom环境是最后加载的

@@ -1,7 +1,6 @@
 const EventTarget = function EventTarget() {
 
-}
-//方法toString保护
+};
 catvm.safefunction(EventTarget);
 
 Object.defineProperties(EventTarget.prototype, {
@@ -11,23 +10,23 @@ Object.defineProperties(EventTarget.prototype, {
     }
 });
 
+// 添加事件
 EventTarget.prototype.addEventListener = function addEventListener(type, callback) {
     if (!(type in catvm.memory.listeners)) {
         catvm.memory.listeners[type] = []
     }
     catvm.memory.listeners[type].push(callback)
-}
-//方法toString保护
+};
 catvm.safefunction(EventTarget.prototype.addEventListener);
 
+// 触发事件
 EventTarget.prototype.dispatchEvent = function dispatchEvent() {
-
-}
-//方法toString保护
+    debugger
+};
 catvm.safefunction(EventTarget.prototype.dispatchEvent);
 
+// 删除事件
 EventTarget.prototype.removeEventListener = function removeEventListener() {
-
+    debugger
 }
-//方法toString保护
 catvm.safefunction(EventTarget.prototype.removeEventListener);

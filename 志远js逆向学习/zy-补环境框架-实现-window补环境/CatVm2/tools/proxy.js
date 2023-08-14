@@ -5,7 +5,7 @@ catvm.proxy = function (o) {
     }
     return new Proxy(o, {
         set(target, key, value) {
-            console.log('set', '@' + target, '@' + key, '@' + value);
+            console.log('set', target, key, value);
             return Reflect.set(...arguments);
         },
         get(target, key, receiver) {
@@ -19,4 +19,3 @@ catvm.proxy = function (o) {
     });
 
 }
-

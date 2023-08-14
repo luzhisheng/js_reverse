@@ -30,6 +30,7 @@ document.addEventListener = function addEventListener(type, listener, useCapture
 }
 catvm.safefunction(document.addEventListener)
 
+// 补一个 document.createElement("div") 环境
 document.createElement = function createElement(tagName) {
     let tagname = tagName.toLowerCase() + ''
     if (catvm.memory.htmlElements[tagname] == undefined) {

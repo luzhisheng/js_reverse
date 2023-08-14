@@ -11,8 +11,6 @@ Object.defineProperties(HtmlDivElement.prototype,{
     }
 })
 
-//htmlDivElement = catvm.proxy(htmlDivElement)
-
 catvm.memory.htmlElements['div'] = function(){
     const div = new (function(){})
 
