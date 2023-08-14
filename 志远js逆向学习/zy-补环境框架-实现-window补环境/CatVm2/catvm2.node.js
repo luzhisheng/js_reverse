@@ -32,6 +32,8 @@ export default function GetCode(config,fun_text){
     code += fs.readFileSync(`${__dirname}/browser/pluginArray.js`) + '\r\n'
     code += fs.readFileSync(`${__dirname}/browser/mimeTypeArray.js`) + '\r\n'
     code += htmlElements() + '\r\n'
+
+    // dom环境是最后加载的
     code += fs.readFileSync(`${__dirname}/browser/document.js`) + '\r\n'
 
     // 引入用户自定义环境

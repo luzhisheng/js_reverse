@@ -7,11 +7,16 @@ const Window = function Window() {
 catvm.safefunction(Window);
 
 window, setTimeout = function setTimeout(callback, delay) {
+    // x 有可能是方法，也有可能是文本
+    // 如果是个方法，执行这个方法
     typeof (callback) === 'function' ? callback() : undefined;
+    // 如果是个字符串，用eval执行
     typeof (callback) === 'string' ? eval(callback) : undefined;
+    // 正确的是生成uuid，并且保存到内存
     return 0
 };
 catvm.safefunction(window.setTimeout);
+
 Window.prototype.PERSISTENT = 1;
 Window.prototype.TEMPORARY = 0;
 window.open = function open() {
