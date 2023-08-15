@@ -1,22 +1,24 @@
 import fs from 'fs'
 
 // 框架的工具模块
-import vmtools from './tools/node.js'
+import vm2_tools from './tools/node.js'
 import htmlElements from './browser/HTMLElements/htmlElements.node.js'
 import path from 'path';
-import { fileURLToPath } from 'url';
+import {fileURLToPath} from 'url';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export default function GetCode(config,fun_text){
+export default function run(config, fun_text) {
     let code = ''
     // 引入框架的工具代码
-    code += vmtools() +'\r\n'
+    code += vm2_tools() + '\r\n'
 
     // 引入用户框架配置
     for (let item in config) {
         code += 'catvm.memory.config.' + item + '=' + config[item] + '\r\n'
     }
+    code += fun_text + '\r\n'
 
     // 引入浏览器相关，引入尽量按浏览器顺序执行
     code += fs.readFileSync(`${__dirname}/browser/eventTarget.js`) + '\r\n'
