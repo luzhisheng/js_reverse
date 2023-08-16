@@ -7,7 +7,7 @@ catvm.safefunction(Plugin);
 
 //
 catvm.memory.Plugin.iterator = function values() {
-    debugger
+    debugger;
     return {
         next: function () {
             if (this.index_ == undefined) {
@@ -45,12 +45,12 @@ Plugin.prototype.name = ''
 Plugin.prototype.length = 0
 
 Plugin.prototype.item = function item(index) {
-    debugger
+    debugger;
     return this[index]
 }
 catvm.safefunction(Plugin.prototype.item);
 Plugin.prototype.namedItem = function namedItem(key) {
-    debugger
+    debugger;
     return this[key]
 }
 catvm.safefunction(Plugin.prototype.namedItem);
@@ -67,28 +67,30 @@ for (let pr in Plugin.prototype) {
 ////////////////原型-补环境-end//////////////////
 
 // 保存到内存 因为navigator.plugins存在多个，后期添加直接new一个就可以了
-catvm.memory.Plugin.new = function (data) {
+// {description:'Portable Document Format',filename:'internal-pdf-viewer',name:'PDF Viewer',MimeType:[]}
+catvm.memory.Plugin.new = function(data){
     let plugin = {}
 
-    if (data != undefined) {
+    if(data != undefined){
         plugin.description = data.description
         plugin.filename = data.filename
         plugin.name = data.name
 
-        if (data.MimeTypes != undefined) {
+        if(data.MimeTypes != undefined){
             for (let mtindex = 0; mtindex < data.MimeTypes.length; mtindex++) {
-                let mtindex = data.MimeTypes[mtindex]
-                let mimeType = catvm.memory.MimeType.new(mtindex, plugin)
-
+                var mimeTypedata = data.MimeTypes[mtindex];
+                var mimeType = catvm.memory.MimeType.new(mimeTypedata,plugin)
                 plugin[mtindex] = mimeType
-                /* plugin[mimeType.type] = mimeType */
-                Object.defineProperty(plugin, mimeType.type, {
-                    value: mimeType
-                })
-            }
-        }
+                //   plugin[mimeType.type] = mimeType
+                Object.defineProperty(plugin,mimeType.type,{
+                    value:mimeType,
+                    configurable: true
+                });
+
+            }}
         plugin.length = data.MimeTypes.length
     }
     plugin.__proto__ = Plugin.prototype
+
     return plugin
 }
