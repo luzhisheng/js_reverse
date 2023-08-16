@@ -6,7 +6,7 @@ const MimeTypeArray = function MimeTypeArray() {
 catvm.safefunction(MimeTypeArray);
 
 catvm.memory.MimeTypeArray.iterator = function values() {
-    debugger
+    debugger;
 }
 catvm.safefunction(catvm.memory.MimeTypeArray.iterator);
 
@@ -22,13 +22,13 @@ Object.defineProperties(MimeTypeArray.prototype, {
 })
 
 MimeTypeArray.prototype.item = function item(index) {
-    debugger
+    debugger;
     return this[index]
 }
 catvm.safefunction(MimeTypeArray.prototype.item)
 
 MimeTypeArray.prototype.namedItem = function namedItem(key) {
-    debugger
+    debugger;
     return this[key]
 }
 catvm.safefunction(MimeTypeArray.prototype.namedItem)
@@ -44,27 +44,27 @@ for (let pr in MimeTypeArray.prototype) {
     }
 }
 
+
 // 依赖注入
-navigator.mimeTypes = {}
-
-navigator.mimeTypes.temp = 0
-
-for (let pindex = 0; pindex < navigator.plugins.length; pindex++) {
-    let plugin_ = navigator.plugins.item(pindex)
-    for (let mindex = 0; mindex < plugin_.length; mindex++) {
-        let mimeType_ = plugin.item(mindex)
-        if(navigator.mimeTypes[mimeType_.type] == undefined){
-            navigator.mimeTypes[navigator.mimeTypes.temp] = mimeType_
+navigator.mimeTypes={}
+navigator.mimeTypes.temp=0
+for (let pindex=0;pindex<navigator.plugins.length;pindex++){
+    var plugin_=navigator.plugins.item(pindex);
+    for (let mindex=0;mindex<plugin_.length;mindex++){
+        var mimeType_=plugin_.item(mindex)
+        if(navigator.mimeTypes[mimeType_.type]==undefined)
+        {
+            navigator.mimeTypes[navigator.mimeTypes.temp]=mimeType_;
             Object.defineProperty(navigator.mimeTypes,mimeType_.type,{
                 value:mimeType_,
-            })
-            navigator.mimeTypes.temp++
+                configurable: true
+            });
+            navigator.mimeTypes.temp++;
         }
-   
     }
 }
-navigator.mimeTypes.length = navigator.mimeTypes.temp;
-delete  navigator.mimeTypes.temp;
+navigator.mimeTypes.length=navigator.mimeTypes.temp
+delete navigator.mimeTypes.temp;
 
-navigator.mimeTypes.__proto__ = MimeTypeArray.prototype
-navigator.mimeTypes = catvm.proxy(navigator.mimeTypes)
+navigator.mimeTypes.__proto__=MimeTypeArray.prototype
+navigator.mimeTypes=catvm.proxy(navigator.mimeTypes);

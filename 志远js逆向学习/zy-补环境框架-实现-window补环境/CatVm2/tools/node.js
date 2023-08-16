@@ -10,6 +10,6 @@ export default function run(){
     code += fs.readFileSync(`${__dirname}/safefunction.js`) + '\r\n'
     code += fs.readFileSync(`${__dirname}/print.js`) + '\r\n'
     code += fs.readFileSync(`${__dirname}/proxy.js`) + '\r\n'
-
+    code += fs.readFileSync(`${__dirname}/tools.js`)+"\r\n";
     return code
 }
