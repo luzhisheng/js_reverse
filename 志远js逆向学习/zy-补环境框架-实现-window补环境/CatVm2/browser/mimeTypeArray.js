@@ -26,6 +26,7 @@ MimeTypeArray.prototype.item = function item(index) {
     return this[index]
 }
 catvm.safefunction(MimeTypeArray.prototype.item)
+
 MimeTypeArray.prototype.namedItem = function namedItem(key) {
     debugger
     return this[key]
@@ -45,7 +46,8 @@ for (let pr in MimeTypeArray.prototype) {
 
 // 依赖注入
 navigator.mimeTypes = {}
-/* navigator.mimeTypes.temp = 0
+
+navigator.mimeTypes.temp = 0
 
 for (let pindex = 0; pindex < navigator.plugins.length; pindex++) {
     let plugin_ = navigator.plugins.item(pindex)
@@ -61,7 +63,8 @@ for (let pindex = 0; pindex < navigator.plugins.length; pindex++) {
    
     }
 }
-delete  navigator.mimeTypes.temp */
+navigator.mimeTypes.length = navigator.mimeTypes.temp;
+delete  navigator.mimeTypes.temp;
 
 navigator.mimeTypes.__proto__ = MimeTypeArray.prototype
 navigator.mimeTypes = catvm.proxy(navigator.mimeTypes)
