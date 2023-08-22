@@ -1,4 +1,4 @@
-# 任务十六：抓取这5页的数字，计算加和并提交结果
+# 猿人学第16题-调试跳转-指纹-window删除陷阱
 
 打开f12发现直接跳转到首页
 
@@ -16,7 +16,9 @@
     https://match.yuanrenxue.com/api/match/16?page=1&m=x6SpyZZMNySDd7td1f3ce3d0c4c6bde96f904d2d8a428aaYDCZS2Sdxk&t=1650734804000
     https://match.yuanrenxue.com/api/match/16?page=1&m=x2BFAdXwr7d4G6md1f3ce3d0c4c6bde96f904d2d8a428aaBDe5nNDkmX&t=1650734805000
     
-m 就是一个变量值
+m 就是一个变量值，这里直接控制台调试
+
+![debugger](./img/1.png)
 
 开始打断点
 
