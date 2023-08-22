@@ -1,12 +1,51 @@
 # 猿人学第16题-调试跳转-指纹-window删除陷阱
 
-打开f12发现直接跳转到首页
+老版本反爬
 
-    https://blog.csdn.net/sonichty/article/details/106337097
+    打开f12发现直接跳转到首页
     
-添加新书签，网址为以下JS：
-    
-    javascript:window.addEventListener('beforeunload', function (e) { e.preventDefault();e.returnValue = '' });
+        https://blog.csdn.net/sonichty/article/details/106337097
+        
+    添加新书签，网址为以下JS：
+        
+        javascript:window.addEventListener('beforeunload', function (e) { e.preventDefault();e.returnValue = '' });
+
+新反爬是控制台无限输出
+
+![debugger](./img/1.png)
+
+油猴插件解决问题
+```javascript
+// ==UserScript==
+// @name        hook setInterval debugger console
+// @namespace   http://tampermonkey.net/
+// @version     0.1
+// @description pass
+// @author      ayf
+// @run-at      document-start
+// @match       *://*/*
+// @grant       none
+// ==/UserScript==
+
+(function() {
+    var new_setInterval=setInterval;
+    window.setInterval=function(a,b){
+        if(a.toString().indexOf("debugger")!=-1)
+        {
+            return null;
+        }
+        if(a.toString().indexOf("console.log")!=-1)
+        {
+            return null;
+        }
+        if(a.toString().indexOf("console.clear")!=-1)
+        {
+            return null;
+        }
+        new_setInterval(a,b);
+    }
+})();
+```
 
 网页加载完后，点击这个书签注入JS
 
@@ -18,7 +57,7 @@
     
 m 就是一个变量值，这里直接控制台调试
 
-![debugger](./img/1.png)
+![debugger](./img/2.png)
 
 开始打断点
 

@@ -138,10 +138,10 @@
 })();
 ```
 
-## hook setInterval debugger
+## hook setInterval debugger console
 ```javascript
 // ==UserScript==
-// @name        hook setInterval debugger
+// @name        hook setInterval debugger console
 // @namespace   http://tampermonkey.net/
 // @version     0.1
 // @description pass
@@ -159,6 +159,10 @@
             return null;
         }
         if(a.toString().indexOf("console.log")!=-1)
+        {
+            return null;
+        }
+        if(a.toString().indexOf("console.clear")!=-1)
         {
             return null;
         }
