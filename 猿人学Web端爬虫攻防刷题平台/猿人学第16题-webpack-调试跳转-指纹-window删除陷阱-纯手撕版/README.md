@@ -1,6 +1,6 @@
 # 猿人学第16题-webpack-调试跳转-指纹-window删除陷阱-纯手撕版
 
-老版本反爬
+**老版本反爬**
 
     打开f12发现直接跳转到首页
 
@@ -10,7 +10,9 @@
 
         javascript:window.addEventListener('beforeunload', function (e) { e.preventDefault();e.returnValue = '' });
 
-新反爬是控制台无限输出
+网页加载完后，点击这个书签注入JS
+
+**新反爬是控制台无限输出**
 
 ![debugger](./img/1.png)
 
@@ -46,8 +48,6 @@
     }
 })();
 ```
-
-网页加载完后，点击这个书签注入JS
 
 下面开始查请求内容
 
