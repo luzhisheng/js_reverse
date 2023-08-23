@@ -1,349 +1,5 @@
-# 猿人学第16题-webpack-调试跳转-指纹-window删除陷阱-纯手撕版
+window = global;
 
-老版本反爬
-
-    打开f12发现直接跳转到首页
-
-        https://blog.csdn.net/sonichty/article/details/106337097
-
-    添加新书签，网址为以下JS：
-
-        javascript:window.addEventListener('beforeunload', function (e) { e.preventDefault();e.returnValue = '' });
-
-新反爬是控制台无限输出
-
-![debugger](./img/1.png)
-
-油猴插件解决问题
-```javascript
-// ==UserScript==
-// @name        hook setInterval debugger console
-// @namespace   http://tampermonkey.net/
-// @version     0.1
-// @description pass
-// @author      ayf
-// @run-at      document-start
-// @match       *://*/*
-// @grant       none
-// ==/UserScript==
-
-(function() {
-    var new_setInterval=setInterval;
-    window.setInterval=function(a,b){
-        if(a.toString().indexOf("debugger")!=-1)
-        {
-            return null;
-        }
-        if(a.toString().indexOf("console.log")!=-1)
-        {
-            return null;
-        }
-        if(a.toString().indexOf("console.clear")!=-1)
-        {
-            return null;
-        }
-        new_setInterval(a,b);
-    }
-})();
-```
-
-网页加载完后，点击这个书签注入JS
-
-下面开始查请求内容
-
-    https://match.yuanrenxue.com/api/match/16?page=1&m=yRGKX8mcMrTseFH04e67aa2178c08b2cbead16007e5bd66DSJ6YzK5KF&t=1650734803000
-    https://match.yuanrenxue.com/api/match/16?page=1&m=x6SpyZZMNySDd7td1f3ce3d0c4c6bde96f904d2d8a428aaYDCZS2Sdxk&t=1650734804000
-    https://match.yuanrenxue.com/api/match/16?page=1&m=x2BFAdXwr7d4G6md1f3ce3d0c4c6bde96f904d2d8a428aaBDe5nNDkmX&t=1650734805000
-
-`m`就是一个变量值，这里直接控制台调试
-
-![debugger](./img/2.png)
-
-开始打断点，找到加密点
-
-![debugger](./img/3.png)
-
-这里可以看到`btoa`编码加密
-```javascript
-r.m = n[e(528)](btoa, p_s)
-```
-用正常浏览器测试
-
-![debugger](./img/4.png)
-
-用当前环境测试
-
-![debugger](./img/5.png)
-
-这里就可以知道函数`btoa`是被魔改过的，查看主体逻辑
-
-![debugger](./img/6.png)
-
-找到主逻辑，这里的`u(208)`就是`btoa`
-
-```javascript
-window[u(208)] = function(e) {
-    var t = u
-      , r = {};
-    r.TGmSp = t(244) + "ARACTER_ERR",
-    r[t(238)] = t(224) + t(250) + "/",
-    r[t(205)] = "^([^ ]+( +" + t(230) + t(259),
-    r.aYkvo = function(e) {
-        return e()
-    }
-    ,
-    r[t(254)] = function(e, t) {
-        return e % t
-    }
-    ,
-    r.evetF = function(e, t) {
-        return e >> t
-    }
-    ,
-    r.GfTek = t(196),
-    r[t(260)] = function(e, t) {
-        return e << t
-    }
-    ,
-    r[t(229)] = function(e, t) {
-        return e | t
-    }
-    ,
-    r[t(242)] = function(e, t) {
-        return e << t
-    }
-    ,
-    r[t(228)] = function(e, t) {
-        return e & t
-    }
-    ,
-    r[t(207)] = function(e, t) {
-        return e << t
-    }
-    ,
-    r[t(202)] = function(e, t) {
-        return e & t
-    }
-    ,
-    r.jdwcO = function(e, t) {
-        return e === t
-    }
-    ,
-    r.kPdGe = t(231),
-    r[t(195)] = t(213),
-    r[t(201)] = function(e, t) {
-        return e & t
-    }
-    ,
-    r[t(206)] = function(e, t) {
-        return e == t
-    }
-    ,
-    r[t(219)] = function(e, t) {
-        return e + t
-    }
-    ,
-    r[t(220)] = function(e, t) {
-        return e(t)
-    }
-    ;
-    var i = r;
-    if (/([^\u0000-\u00ff])/.test(e))
-        throw new Error(i.TGmSp);
-    for (var o, a, s, l = 0, c = []; l < e[t(261)]; ) {
-        switch (a = e[t(237)](l),
-        s = i.kukBH(l, 6)) {
-        case 0:
-            delete window,
-            delete document,
-            c[t(246)](f[t(245)](i[t(212)](a, 2)));
-            break;
-        case 1:
-            try {
-                "WhHMm" === i[t(198)] || n.g && c[t(246)](f[t(245)](i.pHtmC(2 & o, 3) | i.evetF(a, 4)))
-            } catch (e) {
-                c[t(246)](f[t(245)](i[t(229)](i.cVCcp(3 & o, 4), a >> 4)))
-            }
-            break;
-        case 2:
-            c[t(246)](f[t(245)](i[t(229)](i[t(242)](15 & o, 2), i.evetF(a, 6)))),
-            c[t(246)](f[t(245)](i[t(228)](a, 63)));
-            break;
-        case 3:
-            c[t(246)](f[t(245)](i[t(212)](a, 3)));
-            break;
-        case 4:
-            c.push(f[t(245)](i[t(229)](i[t(207)](i.OWUOc(o, 4), 6), i[t(212)](a, 6))));
-            break;
-        case 5:
-            c[t(246)](f[t(245)](i[t(229)](i[t(207)](i[t(202)](o, 15), 4), a >> 8))),
-            c.push(f.charAt(i[t(202)](a, 63)))
-        }
-        o = a,
-        l++
-    }
-    return 0 == s ? i[t(226)](i[t(241)], i[t(195)]) || (c[t(246)](f[t(245)](i[t(201)](o, 3) << 4)),
-    c.push("FM")) : i.eMnqD(s, 1) && (c[t(246)](f[t(245)]((15 & o) << 2)),
-    c[t(246)]("K")),
-    i[t(219)](i.aQCDK(d(15), window.md5(c[t(234)](""))), i[t(220)](d, 10))
-}
-```
-仔细观察代码，发现大量出现`t(226)`，**函数字面量**，这里我尝试用AST解混淆.
-
-进入这个`t`查看具体的干了什么！
-
-![debugger](./img/7.png)
-
-可以看到通过函数`_0x34e7[e -= 188]`拿到了数组中的字符串
-
-![debugger](./img/8.png)
-
-这就比较简单了，编写`ast`插件，把所有`t(数字)`这样的函数全部替换
-
-```javascript
-const fs = require('fs');
-const parser = require("@babel/parser");
-const traverse = require("@babel/traverse").default;
-const types = require("@babel/types");
-const generator = require("@babel/generator").default;
-
-// 元代码
-process.argv.length > 2 ? encodeFile = process.argv[2] : encodeFile = "./encode.js";
-// 被重新编译后的代码
-process.argv.length > 3 ? decodeFile = process.argv[3] : decodeFile = "./decodeResult.js";
-
-let sourceCode = fs.readFileSync(encodeFile, {encoding: "utf-8"});
-let ast = parser.parse(sourceCode);
-
-var e;
-_0x34e7 = ['split', 'ABHICESQWK', 'FKByN', 'U987654321', 'lmHcG', 'dICfr', 'Szksx', 'Bgrij', 'iwnNJ', 'jihgfdecba', 'GfTek', 'gfdecbaZXY', 'constructo', 'QIoXW', 'jLRMs', 'AqLWq', '0zyxwvutsr', 'TKgNw', 'eMnqD', 'thjIz', 'btoa', 'MNPQRSTWXY', 'oPsqh', 'niIlq', 'evetF', 'LVZVH', 'fYWEX', 'kmnprstwxy', 'aYkvo', 'tsrqpomnlk', 'HfLqY', 'aQCDK', 'lGBLj', 'test', '3210zyxwvu', 'QWK2Fi', 'return /" ', 'hsJtK', 'jdwcO', 'SlFsj', 'OWUOc', 'LCaAn', '[^ ]+)+)+[', 'FAVYf', '2Fi+987654', 'floor', 'join', 'EuwBW', 'OXYrZ', 'charCodeAt', 'SkkHG', 'iYuJr', 'GwoYF', 'kPdGe', 'cVCcp', 'INQRH', 'INVALID_CH', 'charAt', 'push', 'apply', 'lalCJ', 'kTcRS', '+ this + "', 'ykpOn', 'gLnjm', 'gmBaq', 'kukBH', 'dvEWE', 'SFKLi', '^([^ ]+( +', 'qpomnlkjih', '^ ]}', 'pHtmC', 'length']
-l = function(e, t) {
-    return _0x34e7[e -= 188]
-};
-
-const callToLiteral =
-    {
-        CallExpression(path) {
-            // 拿到callee节点和arguments节点
-            let {callee, arguments} = path.node;
-            // 判断callee的节点类型 和 判断arguments是否只有一个参数
-            if (!types.isIdentifier(callee) || arguments.length != 1) {
-                return;
-            }
-            // 获得函数名
-            let name = callee.name;
-            // 检查数组 ['e', 't', 'o', 'u'] 是否包含变量 name 的值
-            // 判断数组中第一个元素的类型是否是NumericLiteral
-            if (!['t'].includes(name) || !types.isNumericLiteral(arguments[0])) {
-                return 0;
-            }
-            // 获取NumericLiteral的值
-            let value = l(arguments[0].value);
-            // 替换节点值
-            path.replaceWith(types.valueToNode(value));
-        }
-    };
-
-traverse(ast, callToLiteral);
-
-let {code} = generator(ast, opts = {jsescOption: {"minimal": true}});
-
-fs.writeFile(decodeFile, code, (err) => {
-});
-```
-编译后的效果
-```javascript
-function dddd(e) {
-  var t = u,
-    r = {};
-  r.TGmSp = "INVALID_CH" + "ARACTER_ERR", r["SkkHG"] = "return /\" " + "+ this + \"" + "/", r["TKgNw"] = "^([^ ]+( +" + "[^ ]+)+)+[" + "^ ]}", r.aYkvo = function (e) {
-    return e();
-  }, r["kukBH"] = function (e, t) {
-    return e % t;
-  }, r.evetF = function (e, t) {
-    return e >> t;
-  }, r.GfTek = "iwnNJ", r["pHtmC"] = function (e, t) {
-    return e << t;
-  }, r["LCaAn"] = function (e, t) {
-    return e | t;
-  }, r["cVCcp"] = function (e, t) {
-    return e << t;
-  }, r["OWUOc"] = function (e, t) {
-    return e & t;
-  }, r["thjIz"] = function (e, t) {
-    return e << t;
-  }, r["jLRMs"] = function (e, t) {
-    return e & t;
-  }, r.jdwcO = function (e, t) {
-    return e === t;
-  }, r.kPdGe = "FAVYf", r["Bgrij"] = "LVZVH", r["QIoXW"] = function (e, t) {
-    return e & t;
-  }, r["eMnqD"] = function (e, t) {
-    return e == t;
-  }, r["aQCDK"] = function (e, t) {
-    return e + t;
-  }, r["lGBLj"] = function (e, t) {
-    return e(t);
-  };
-  var i = r;
-  if (/([^\u0000-\u00ff])/.test(e)) throw new Error(i.TGmSp);
-  for (var o, a, s, l = 0, c = []; l < e["length"];) {
-    switch (a = e["charCodeAt"](l), s = i.kukBH(l, 6)) {
-      case 0:
-        delete window, delete document, c["push"](f["charAt"](i["evetF"](a, 2)));
-        break;
-      case 1:
-        try {
-          "WhHMm" === i["GfTek"] || n.g && c["push"](f["charAt"](i.pHtmC(2 & o, 3) | i.evetF(a, 4)));
-        } catch (e) {
-          c["push"](f["charAt"](i["LCaAn"](i.cVCcp(3 & o, 4), a >> 4)));
-        }
-        break;
-      case 2:
-        c["push"](f["charAt"](i["LCaAn"](i["cVCcp"](15 & o, 2), i.evetF(a, 6)))), c["push"](f["charAt"](i["OWUOc"](a, 63)));
-        break;
-      case 3:
-        c["push"](f["charAt"](i["evetF"](a, 3)));
-        break;
-      case 4:
-        c.push(f["charAt"](i["LCaAn"](i["thjIz"](i.OWUOc(o, 4), 6), i["evetF"](a, 6))));
-        break;
-      case 5:
-        c["push"](f["charAt"](i["LCaAn"](i["thjIz"](i["jLRMs"](o, 15), 4), a >> 8))), c.push(f.charAt(i["jLRMs"](a, 63)));
-    }
-    o = a, l++;
-  }
-  return 0 == s ? i["jdwcO"](i["kPdGe"], i["Bgrij"]) || (c["push"](f["charAt"](i["QIoXW"](o, 3) << 4)), c.push("FM")) : i.eMnqD(s, 1) && (c["push"](f["charAt"]((15 & o) << 2)), c["push"]("K")), i["aQCDK"](i.aQCDK(d(15), window.md5(c["join"](""))), i["lGBLj"](d, 10));
-}
-```
-放入浏览器控制台尝试运行，出现报错u不存在，删除即可。
-
-![debugger](./img/9.png)
-
-再次运行发现，d不存在，需要补d函数
-
-![debugger](./img/10.png)
-
-查看d函数内容
-
-![debugger](./img/11.png)
-
-d函数也存在`t(数字)`这样字面量，放入ast中重新编译，再次运行，发现缺少md5函数
-
-![debugger](./img/12.png)
-
-进行补md5函数
-
-![debugger](./img/13.png)
-
-通过分析发现同样存在类似`t(数字)`这样字面量，不过这次需要替换函数增加`'c', 't', 'r', 'n', 'l'`ast代码修改如下
-```javascript
-if (!['c', 't', 'r', 'n', 'l'].includes(name) || !types.isNumericLiteral(arguments[0])) {
-    return 0;
-}
-```
-ast编译后的md5代码
-```javascript
 function md5(e) {
     var t,
         r = {
@@ -863,23 +519,99 @@ function md5(e) {
     }, e);
 }
 
-console.log(md5(1));
-```
-浏览器控制台执行效果
+function d(e) {
+    var t,
+        n = {};
+    n["fYWEX"] = function (e, t) {
+        return e || t;
+    }, n.bWcgB = function (e, t) {
+        return e * t;
+    }, n["SlFsj"] = "ABCDEFGHJK" + "MNPQRSTWXY" + "Zabcdefhij" + "kmnprstwxy" + "z2345678";
+    for (var r = n, o = "1|3|0|4|2|5"["split"]("|"), a = 0;;) {
+        switch (o[a++]) {
+            case "0":
+                var s = l["length"];
+                continue;
+            case "1":
+                e = r["fYWEX"](e, 32);
+                continue;
+            case "2":
+                for (i = 0; i < e; i++) c += l["charAt"](Math["floor"](r.bWcgB(Math.random(), s)));
+                continue;
+            case "3":
+                var l = r["SlFsj"];
+                continue;
+            case "4":
+                var c = "";
+                continue;
+            case "5":
+                return c;
+        }
+        break;
+    }
+}
 
-![debugger](./img/14.png)
+function dddd(e) {
+    var t,
+        r = {};
+    r.TGmSp = "INVALID_CH" + "ARACTER_ERR", r["SkkHG"] = "return /\" " + "+ this + \"" + "/", r["TKgNw"] = "^([^ ]+( +" + "[^ ]+)+)+[" + "^ ]}", r.aYkvo = function (e) {
+        return e();
+    }, r["kukBH"] = function (e, t) {
+        return e % t;
+    }, r.evetF = function (e, t) {
+        return e >> t;
+    }, r.GfTek = "iwnNJ", r["pHtmC"] = function (e, t) {
+        return e << t;
+    }, r["LCaAn"] = function (e, t) {
+        return e | t;
+    }, r["cVCcp"] = function (e, t) {
+        return e << t;
+    }, r["OWUOc"] = function (e, t) {
+        return e & t;
+    }, r["thjIz"] = function (e, t) {
+        return e << t;
+    }, r["jLRMs"] = function (e, t) {
+        return e & t;
+    }, r.jdwcO = function (e, t) {
+        return e === t;
+    }, r.kPdGe = "FAVYf", r["Bgrij"] = "LVZVH", r["QIoXW"] = function (e, t) {
+        return e & t;
+    }, r["eMnqD"] = function (e, t) {
+        return e == t;
+    }, r["aQCDK"] = function (e, t) {
+        return e + t;
+    }, r["lGBLj"] = function (e, t) {
+        return e(t);
+    };
+    var i = r;
+    if (/([^\u0000-\u00ff])/.test(e)) throw new Error(i.TGmSp);
+    for (var o, a, s, l = 0, c = []; l < e["length"];) {
+        switch (a = e["charCodeAt"](l), s = i.kukBH(l, 6)) {
+            case 0:
+                c["push"](f["charAt"](i["evetF"](a, 2)));
+                break;
+            case 1:
+                try {
+                    "WhHMm" === i["GfTek"] || n.g && c["push"](f["charAt"](i.pHtmC(2 & o, 3) | i.evetF(a, 4)));
+                } catch (e) {
+                    c["push"](f["charAt"](i["LCaAn"](i.cVCcp(3 & o, 4), a >> 4)));
+                }
+                break;
+            case 2:
+                c["push"](f["charAt"](i["LCaAn"](i["cVCcp"](15 & o, 2), i.evetF(a, 6)))), c["push"](f["charAt"](i["OWUOc"](a, 63)));
+                break;
+            case 3:
+                c["push"](f["charAt"](i["evetF"](a, 3)));
+                break;
+            case 4:
+                c.push(f["charAt"](i["LCaAn"](i["thjIz"](i.OWUOc(o, 4), 6), i["evetF"](a, 6))));
+                break;
+            case 5:
+                c["push"](f["charAt"](i["LCaAn"](i["thjIz"](i["jLRMs"](o, 15), 4), a >> 8))), c.push(f.charAt(i["jLRMs"](a, 63)));
+        }
+        o = a, l++;
+    }
+    return 0 == s ? i["jdwcO"](i["kPdGe"], i["Bgrij"]) || (c["push"](f["charAt"](i["QIoXW"](o, 3) << 4)), c.push("FM")) : i.eMnqD(s, 1) && (c["push"](f["charAt"]((15 & o) << 2)), c["push"]("K")), i["aQCDK"](i.aQCDK(d(15), md5(c["join"](""))), i["lGBLj"](d, 10));
+}
 
-原站点环境执行效果
-
-![debugger](./img/15.png)
-
-将所有的js代码在本地nodejs环境中运行，报错`ReferenceError: window is not defined`这里需要补环境`window = global;`
-
-并且删除`delete window, delete document,`在nodejs环境中是不存在window和document。
-
-![debugger](./img/16.png)
-
-再次执行正常返回加密字符串
-
-![debugger](./img/17.png)
-
+console.log(dddd(1692809902000));
