@@ -6,7 +6,6 @@ import json
 class 实例1(object):
 
     def __init__(self):
-        self.url = "https://match.yuanrenxue.com/api/match/4?page={}"
         self.sign_url = "http://127.0.0.1:4001/get_sign"
         self.sum_value = 0
 
@@ -21,10 +20,11 @@ class 实例1(object):
     def get_task(self, i):
         t = int(time.time()) * 1000
         m = self.get_sign(str(t))
-        url = f"https://match.yuanrenxue.com/api/match/16?page={i}&m={m}&t={t}"
+        print(m)
+        url = f"https://match.yuanrenxue.cn/api/match/16?page={i}&m={m}&t={t}"
         Headers = {
             "User-Agent": "yuanrenxue.project",
-            "cookie": f"sessionid=uk6bewvxeyklfq35wqquqph7mc4f25n5;",
+            "cookie": f"sessionid=4jkq6rqs5z8tg86kvh08liq55a3vnmxf;",
         }
         req = requests.get(url, headers=Headers)
         return req.text
@@ -32,6 +32,7 @@ class 实例1(object):
     def run(self):
         for i in range(1, 6):
             res_dict = json.loads(self.get_task(i))
+            print(res_dict)
             for j in res_dict.get('data'):
                 self.sum_value += j.get('value')
         print(self.sum_value)

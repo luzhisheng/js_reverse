@@ -1,9 +1,5 @@
 window = global;
 
-Math.random = function() {
-    return 0.1
-};
-
 var f;
 f = 'U9876543210zyxwvutsrqpomnlkjihgfdecbaZXYWVUTSRQPONABHICESQWK2Fi+9876543210zyxwvutsrqpomnlkjihgfdecbaZXYWVUTSRQPONABHICESQWK2Fi'
 
@@ -526,7 +522,6 @@ function md5(e) {
     }, e);
 }
 
-
 function d(e) {
     var t,
         n = {};
@@ -600,7 +595,7 @@ function dddd(e) {
                 break;
             case 1:
                 try {
-                    "WhHMm" === i["GfTek"] || n.g && c["push"](f["charAt"](i.pHtmC(2 & o, 3) | i.evetF(a, 4)));
+                    "WhHMm" === i["GfTek"] || c["push"](f["charAt"](i.pHtmC(2 & o, 3) | i.evetF(a, 4)));
                 } catch (e) {
                     c["push"](f["charAt"](i["LCaAn"](i.cVCcp(3 & o, 4), a >> 4)));
                 }
@@ -622,4 +617,14 @@ function dddd(e) {
     return 0 == s ? i["jdwcO"](i["kPdGe"], i["Bgrij"]) || (c["push"](f["charAt"](i["QIoXW"](o, 3) << 4)), c.push("FM")) : i.eMnqD(s, 1) && (c["push"](f["charAt"]((15 & o) << 2)), c["push"]("K")), i["aQCDK"](i.aQCDK(d(15), md5(c["join"](""))), i["lGBLj"](d, 10));
 }
 
-console.log(dddd(1692809902000));
+// console.log(dddd('444444444'));
+
+function get_m(time){
+    m = dddd(time);
+    return m
+}
+
+module.exports =
+    {
+        get_m
+    };

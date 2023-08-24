@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const encryption = require("./btoa");
+const encryption = require("./run");
 var bodyParser = require('body-parser');
 app.use(bodyParser());
 
@@ -9,7 +9,7 @@ app.post('/get_sign', function (req, res) {
     let result = req.body;
     let sign = result.sign;
     console.log(sign);
-    result = encryption.aaa(sign);
+    result = encryption.get_m(sign);
     res.send(result.toString());
 });
 
