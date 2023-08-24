@@ -883,3 +883,9 @@ console.log(md5(1));
 
 ![debugger](./img/17.png)
 
+尝试编写python代码，发现无法正确执行，回头继续排查问题，如下图：这里有个`try catch`断点调试`n.g`返回的是`Window{window: Window, self: Window, document: document, name: '', location: Location,…}`
+当然再nodejs中是不存在`Window`，代码就会走`catch`。
+
+![debugger](./img/18.png)
+
+最后删除`n.g`，重新执行python，效果如下。

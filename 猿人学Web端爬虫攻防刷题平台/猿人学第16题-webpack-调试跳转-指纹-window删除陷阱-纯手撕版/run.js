@@ -1,5 +1,12 @@
 window = global;
 
+Math.random = function() {
+    return 0.1
+};
+
+var f;
+f = 'U9876543210zyxwvutsrqpomnlkjihgfdecbaZXYWVUTSRQPONABHICESQWK2Fi+9876543210zyxwvutsrqpomnlkjihgfdecbaZXYWVUTSRQPONABHICESQWK2Fi'
+
 function md5(e) {
     var t,
         r = {
@@ -518,6 +525,7 @@ function md5(e) {
         return i["fEXNi"](h, i["LzcOo"](o, i.vyNVU(p, e), 16 * e["length"]));
     }, e);
 }
+
 
 function d(e) {
     var t,
