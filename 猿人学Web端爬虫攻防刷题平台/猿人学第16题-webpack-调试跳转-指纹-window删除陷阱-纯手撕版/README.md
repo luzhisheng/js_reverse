@@ -889,3 +889,5 @@ console.log(md5(1));
 ![debugger](./img/18.png)
 
 最后删除`n.g`，重新执行python，效果如下。
+
+![debugger](./img/19.png)
