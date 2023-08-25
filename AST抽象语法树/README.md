@@ -8,6 +8,11 @@ babel文档
 
 https://babeljs.io/docs/babel-types
 
+Babel 插件开发手册（官方）
+
+
+https://blog.csdn.net/weixin_33826609/article/details/93164633#toc-visitors
+
 # 操作AST语法树babel库中path全部方法和属性
 
 ## path 属性
