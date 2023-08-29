@@ -3857,24 +3857,32 @@ var _0x56ae = function (_0x4f4e67, _0x43c602) {
     return _0x223635;
 };
 
-console.log(_0x56ae("0x0", "TBzU"))
+// console.log(_0x56ae("0x0", "TBzU"));
 
-const replaceArrayElements =
+const callToLiteral =
     {
-        MemberExpression: {
-            exit(path) {
-                let {object, property} = path.node;
-                if (!types.isIdentifier(object, {name: __0x9a4eb}) ||
-                    !types.isNumericLiteral(property)) {
-                    return;
-                }
-                let value = eval(path.toString());
-                path.replaceWith(types.valueToNode(value));
+        CallExpression(path) {
+            // 拿到callee节点和arguments节点
+            let {callee, arguments} = path.node;
+            // 判断callee的节点类型 和 判断arguments是否只有2个参数
+            if (!types.isIdentifier(callee) || arguments.length != 2) {
+                return;
             }
-        },
-    }
+            // 获得函数名
+            let name = callee.name;
+            // 检查数组是否包含变量 name 的值
+            // 判断数组中第一个元素的类型是否是StringLiteral
+            if (!['_0x56ae'].includes(name) || !types.isStringLiteral(arguments[0])) {
+                return 0;
+            }
+            // 获取NumericLiteral的值
+            let value = _0x56ae(arguments[0].value, arguments[1].value);
+            // 替换节点值
+            path.replaceWith(types.valueToNode(value));
+        }
+    };
 
-traverse(ast, replaceArrayElements);
+traverse(ast, callToLiteral);
 
 let {code} = generator(ast, opts = {jsescOption: {"minimal": true}});
 
