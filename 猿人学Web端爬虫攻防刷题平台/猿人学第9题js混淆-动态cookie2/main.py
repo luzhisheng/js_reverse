@@ -1,42 +1,55 @@
+import re
+
+import requests
+import time
 import json
 
-from rsa_encrypt import RsaUtil
-import requests
 
+class 实例1(object):
 
-def decrypt_res(response_json):
-    rsa = RsaUtil()
-    decrypt_result = rsa.decrypt_by_private_key(response_json.get('result'))
-    print(decrypt_result)
-    return decrypt_result
+    def __init__(self):
+        self.sign_url = "http://127.0.0.1:4001/get_sign"
+        self.sum_value = 0
 
+    def get_decrypt(self):
+        url = "https://match.yuanrenxue.cn/match/9"
+        payload = {}
+        headers = {
+            'Cookie': 'sessionid=t9dlfwn9s4ed4z1w1sktxg3k55dc3ko6'
+        }
+        response = requests.request("GET", url, headers=headers, data=payload)
+        time_str = re.findall(r'decrypt.*?([0-9]{10})', response.text)[0]
+        return time_str
 
-def challenge56(page):
-    url = "https://www.python-spider.com/api/challenge56"
-    payload = f"page={page}"
-    session = requests.session()
-    headers = {
-        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
-    }
-    session.headers = headers
-    response = session.request("POST", url, data=payload)
-    return response.json()
+    def get_sign(self, date_time):
+        data = {
+            'sign': str(date_time)
+        }
+        req = requests.post(self.sign_url, data=data)
+        sign = req.text
+        return sign
 
+    def get_task(self, i, time_str):
+        cookie = self.get_sign(time_str)
+        print(cookie)
+        url = f"https://match.yuanrenxue.cn/api/match/9?page={i}"
+        Headers = {
+            "User-Agent": "yuanrenxue.project",
+            "cookie": cookie
+        }
+        req = requests.get(url, headers=Headers)
+        return req.text
 
-def run():
-    data_num = 0
-    for page in range(1, 101):
-        response_json = challenge56(page)
-        decrypt_result = decrypt_res(response_json)
-        data_list = json.loads(decrypt_result).get('data')
-        data_list_num = []
-        for data in data_list:
-            data_list_num.append(int(data.get('value')))
-            data_num += int(data.get('value'))
-        print(data_list_num, page)
-        print(data_num)
-    print(data_num)
+    def run(self):
+        time_str = self.get_decrypt()
+        for i in range(2, 6):
+            res_dict = json.loads(self.get_task(i, time_str))
+            print(res_dict)
+            for j in res_dict.get('data'):
+                self.sum_value += j.get('value')
+        print(self.sum_value)
 
 
 if __name__ == '__main__':
-    run()
+    a = 实例1()
+    a.run()

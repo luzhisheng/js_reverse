@@ -78,6 +78,8 @@ console.log(document);
 
 `JSEncrypt`是通过_0x4b4d2c生成的
 
+为了方便调试用本地文件替换线上`udc.js`
+
 ## 去除格式化检测代码
 
 第一处
@@ -147,24 +149,30 @@ _0x569c5b.prototype.checkState = function() {
     return this.runState(_0x225f13.test(this.newState.toString()) ? --this.states[1] : --this.states[0]);
 }
 ```
-再次运行报错`Maximum call stack size exceeded`
+再次运行报错`Maximum call stack size exceeded`，调试发现出现死循环
 
-## AST还原简单的`CallExpression`类型
+![debugger](./img/8.png)
 
-如何将下面的代码:
+删除多余代码如下：
+
 ```javascript
-var Xor = function (p,q)
-{
-  return p ^ q;
-}
-let a = Xor(111,222);
+var _0x2672a2 = function(_0x10d09f) {};
+var _0x1f3cb9 = function(_0x50974d) {};
 ```
-转变成下面的:
+
+再次运行断点到了 `debugger`
 ```javascript
-var Xor = function (p,q)
-{
-  return p ^ q;
+if (_0x41a2bf[_0x56ae("0xe73", "XiWX")](("" + _0x457d14 / _0x457d14)[_0x41a2bf[_0x56ae("0xe74", "j3cf")]], 1) || _0x41a2bf[_0x56ae("0xe75", "Q(dc")](_0x41a2bf[_0x56ae("0xe76", "gfNe")](_0x457d14, 20), 0)) {
+    debugger
+} else {
+    debugger
 }
-let a = 111 ^ 222;
 ```
-分析:上面的转变其实就是将  Xor(111,222) 变成 111 ^ 222
+修改后
+```javascript
+if (_0x41a2bf['LRGDx'](("" + _0x457d14 / _0x457d14)['length'], 1) || (_0x457d14 % 20) === 0) {
+
+} else {
+
+}
+```
