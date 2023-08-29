@@ -8,8 +8,9 @@ app.use(bodyParser());
 app.post('/get_sign', function (req, res) {
     let result = req.body;
     let sign = result.sign;
+    let m_num = result.m_num;
     console.log(sign);
-    result = encryption.get_m(sign);
+    result = encryption.get_m(sign, m_num);
     res.send(result.toString());
 });
 

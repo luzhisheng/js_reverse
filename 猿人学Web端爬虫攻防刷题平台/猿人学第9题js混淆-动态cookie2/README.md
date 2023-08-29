@@ -16,7 +16,7 @@ document[$b('\x30\x78\x31\x33\x31', '\x4d\x45\x47\x72') + $b('\x30\x78\x34\x37',
 
 修改后
 ```javascript
-document['cookie'] = 'm=' + '2' +  res  + '; path=/';
+document['cookie'] = 'm=' + (m - 1)['toString']() + res + '; path=/';
 ```
 
 ![debugger](./img/3.png)
@@ -28,13 +28,45 @@ document['cookie'] = 'm=' + '2' +  res  + '; path=/';
 ![debugger](./img/4.png)
 
 ```javascript
-res = f[$b('\x30\x78\x31\x33\x65', '\x25\x25\x41\x48') + '\x5a\x79'](f[$b('\x30\x78\x34\x32', '\x54\x35\x5b\x4f') + '\x41\x42'](decrypt, '1693274196'), '\x72');
+for (var m = 0x1; f[$b('\x30\x78\x31\x37\x36', '\x77\x39\x24\x39') + '\x69\x59'](m, 5); m++) {
+    if (f['\x4e\x6c\x53' + '\x6e\x78'](f['\x64\x48\x6d' + '\x56\x6d'], f[$b('\x30\x78\x31\x30\x64', '\x62\x5a\x32\x76') + '\x56\x6d'])) {
+        res = f[$b('\x30\x78\x31\x35\x61', '\x62\x5a\x32\x76') + '\x49\x71'](decrypt('1693299477'), '\x72');
+    } else {
+        var p = fn[$b('\x30\x78\x66\x61', '\x6c\x33\x5a\x57') + '\x6c\x79'](context, arguments);
+        fn = null;
+        return p;
+    }
+}
 ```
 
 修改后
 ```javascript
-res = decrypt('1693276453') + 'r';
+for (var m = 1; m <= 5; m++) {
+    res = decrypt('1693276453') + 'r';
+}
 ```
+
+这里多刷新几次，你会发现for循环的次数是不固定的，通过后端返回，后期编写爬虫代码时就需要将`m`解析下来。
+
+第一次返回的是5
+
+![debugger](./img/9.png)
+
+第二次返回的是3
+
+![debugger](./img/10.png)
+
+完整的cookie生成代码
+
+```javascript
+for (var m = 1; m<=3; m++) {
+    res = decrypt('1693300807') + 'r';
+}
+
+document['cookie'] = 'm=' + (m - 1)['toString']() + res + '; path=/';
+```
+
+## `decryp`是怎么来的
 
 通过控制台可以看出函数`decrypt`是udc.js文件生成的。
 
@@ -54,7 +86,7 @@ function _0x4f6d79(_0x50f9fa) {
 
 ![debugger](./img/6.png)
 
-目前还原后的代码就是
+还原后的代码就是
 ```javascript
 function decrypt(_0x50f9fa) {
     const _0x506402 = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5GVku07yXCndaMS1evPIPyWwhbdWMVRqL4qg4OsKbzyTGmV4YkG8H0hwwrFLuPhqC5tL136aaizuL/lN5DRRbePct6syILOLLCBJ5J5rQyGr00l1zQvdNKYp4tT5EFlqw8tlPkibcsd5Ecc8sTYa77HxNeIa6DRuObC5H9t85ALJyDVZC3Y4ES/u61Q7LDnB3kG9MnXJsJiQxm1pLkE7Zfxy29d5JaXbbfwhCDSjE4+dUQoq2MVIt2qVjZSo5Hd/bAFGU1Lmc7GkFeLiLjNTOfECF52ms/dks92Wx/glfRuK4h/fcxtGB4Q2VXu5k68e/2uojs6jnFsMKVe+FVUDkQIDAQAB';
@@ -70,7 +102,7 @@ document['cookie'] = 'm=' + '2' +  res  + '; path=/';
 console.log(document);
 ```
 
-## 找出`JSEncrypt`加密生成逻辑
+## `JSEncrypt`加密生成逻辑
 
 先将`udc.js`中的代码，用`v_jstools`进行16进制转成10进制，全局搜索就找到`JSEncrypt`赋值点，
 
@@ -171,8 +203,93 @@ if (_0x41a2bf[_0x56ae("0xe73", "XiWX")](("" + _0x457d14 / _0x457d14)[_0x41a2bf[_
 修改后
 ```javascript
 if (_0x41a2bf['LRGDx'](("" + _0x457d14 / _0x457d14)['length'], 1) || (_0x457d14 % 20) === 0) {
-
+    'debugger'
 } else {
-
+    'debugger'
 }
 ```
+
+到这里就可以顺利调试了
+
+## 去除浏览器环境检测代码
+
+**window环境检测**
+
+第一处：
+
+![debugger](./img/11.png)
+
+第二处：
+
+![debugger](./img/12.png)
+
+第三处：
+
+![debugger](./img/13.png)
+
+**删除多余代码**
+
+![debugger](./img/14.png)
+
+**atob检测**
+
+当你在本地运行时，没有再出现报错信息，但加密的结果值还是不对。这里就要用到`js proxy`代理，通过代理打印检测点。
+
+```javascript
+window = this;
+navigator = {};
+location = {};
+document = {};
+
+// 框架代理功能
+catvm = {};
+catvm.proxy = function (o) {
+    return new Proxy(o, {
+        set(target, key, value) {
+            console.log('set-->', target, key, value);
+            return Reflect.set(...arguments);
+        },
+        get(target, key, receiver) {
+            console.log('get-->', target, key, target[key]);
+            return target[key];
+        },
+        deleteProperty: function (target, key) {
+            console.log('delete-->', target, key);
+            return true
+        }
+    });
+};
+
+window = catvm.proxy(window);
+navigator = catvm.proxy(navigator);
+location = catvm.proxy(location);
+document = catvm.proxy(document);
+```
+
+打印信息：
+
+    get--> {} atob undefined
+    set--> {} atob [Function (anonymous)]
+    get--> { atob: [Function (anonymous)] } crypto undefined
+    
+`atob undefined`对应的位置：
+
+![debugger](./img/15.png)
+
+修改成：
+
+```javascript
+_0x4f1af6.atob
+```
+
+`crypto undefined`对应的位置：
+
+![debugger](./img/12.png)
+
+直接删除即可。
+
+## python代码运行
+
+最后爬虫实现
+
+![debugger](./img/16.png)
