@@ -1,7 +1,6 @@
 import re
 
 import requests
-import time
 import json
 
 
@@ -30,12 +29,12 @@ class 实例1(object):
         return sign
 
     def get_task(self, i, time_str):
-        cookie = self.get_sign(time_str)
-        print(cookie)
+        m = self.get_sign(time_str)
+        print(m)
         url = f"https://match.yuanrenxue.cn/api/match/9?page={i}"
         Headers = {
             "User-Agent": "yuanrenxue.project",
-            "cookie": cookie
+            'Cookie': f'm={m}; sessionid=t9dlfwn9s4ed4z1w1sktxg3k55dc3ko6'
         }
         req = requests.get(url, headers=Headers)
         return req.text

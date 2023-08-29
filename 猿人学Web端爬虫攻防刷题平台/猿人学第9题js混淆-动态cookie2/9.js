@@ -11582,7 +11582,7 @@ function decrypt(_0x50f9fa) {
 
 function get_m(time){
     res = decrypt(time) + 'r';
-    document['cookie'] = 'm=' + '2' +  res  + '; path=/';
+    document['cookie'] = 'm=' + '2' + res;
     return document['cookie']
 }
 
