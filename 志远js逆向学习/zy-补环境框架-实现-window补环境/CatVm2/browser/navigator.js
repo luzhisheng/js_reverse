@@ -39,4 +39,4 @@ for (let prototype_ in Navigator.prototype) {
 
 }
 
-navigator = catvm.proxy(navigator)
+navigator = catvm.proxy(navigator);
