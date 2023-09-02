@@ -55,28 +55,29 @@ Object.getOwnPropertyDescriptor = function (tag, val) {
 Navigator.prototype.appCodeName = "Mozilla";
 Navigator.prototype.appName = "Netscape";
 Navigator.prototype.appVersion = "5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36";
-Navigator.prototype.connection = '';
+Navigator.prototype.connection = {onchange: null, effectiveType: '3g', rtt: 300, downlink: 1.3, saveData: false};
 Navigator.prototype.cookieEnabled = true;
 Navigator.prototype.doNotTrack = null;
-Navigator.prototype.geolocation = '';
+Navigator.prototype.geolocation = {};
 Navigator.prototype.hardwareConcurrency = 8;
 Navigator.prototype.language = "zh-CN";
 Navigator.prototype.languages = ['zh-CN', 'zh', 'en'];
 Navigator.prototype.maxTouchPoints = 0;
-Navigator.prototype.mediaSession = '';
-Navigator.prototype.mimeTypes = '';
+Navigator.prototype.mediaCapabilities = {};
+Navigator.prototype.mediaSession = {metadata: null, playbackState: 'none'};
+Navigator.prototype.mimeTypes = {0: 'MimeType', 1: 'MimeType', 'application/pdf': 'MimeType', 'text/pdf': 'MimeType', length: 2};
 Navigator.prototype.onLine = true;
-Navigator.prototype.permissions = '';
+Navigator.prototype.permissions = {};
 Navigator.prototype.platform = "Win32";
 Navigator.prototype.plugins = "";
 Navigator.prototype.product = "Gecko";
 Navigator.prototype.productSub = "20030107";
-Navigator.prototype.userActivation = "";
+Navigator.prototype.userActivation = {hasBeenActive: false, isActive: false};
 Navigator.prototype.userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36";
 Navigator.prototype.vendor = "Google Inc.";
 Navigator.prototype.vendorSub = "";
-Navigator.prototype.webkitPersistentStorage = "";
-Navigator.prototype.webkitTemporaryStorage = "";
+Navigator.prototype.webkitPersistentStorage = {};
+Navigator.prototype.webkitTemporaryStorage = {};
 ////////////////原型-补环境-end//////////////////
 
 // 解决实例可以调用属性，但是原型对象不能调用属性
@@ -110,7 +111,7 @@ Screen.prototype.availTop = 0;
 Screen.prototype.availWidth = 1536;
 Screen.prototype.colorDepth = 24;
 Screen.prototype.height = 864;
-Screen.prototype.orientation = '';
+Screen.prototype.orientation = {angle: 0, type: 'landscape-primary', onchange: null};
 Screen.prototype.pixelDepth = 24;
 Screen.prototype.width = 1536;
 ////////////////补环境-end//////////////////
@@ -139,7 +140,7 @@ Object.defineProperties(Location.prototype, {
 });
 
 location = {};
-location.ancestorOrigins = '';
+location.ancestorOrigins = {length: 0};
 location.assign = '';
 location.hash = '';
 location.host = 'match.yuanrenxue.cn';
@@ -211,6 +212,8 @@ z = [
     document['location']['toString'],
     document['location']['valueOf']
 ];
+
+console.log(z);
 
 b64_zw = btoa(z);
 document['cookie'] = 'mz=' + b64_zw + ';path=/';
