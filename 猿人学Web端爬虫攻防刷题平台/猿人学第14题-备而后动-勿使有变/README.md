@@ -1,4 +1,4 @@
-## hook cookie
+## hook cookie mz=
 
 ```javascript
 // ==UserScript==
@@ -149,4 +149,190 @@ this.FFSDOr = "['|\"].+['|\"];? *}";
 ```javascript
 this.YPtKGA = "";
 this.FFSDOr = "";
+```
+
+## hook cookie m=
+```javascript
+// ==UserScript==
+// @name        hook cookie
+// @namespace   http://tampermonkey.net/
+// @version     0.1
+// @description pass
+// @author      ayf
+// @run-at      document-start
+// @match       *://*/*
+// @grant       none
+// ==/UserScript==
+
+(function () {
+    'use strict';
+    Object.defineProperty(document, "cookie", {
+        set:function(val){
+            console.log('hook cookie')
+            if(val.indexOf("m=") != -1){
+                debugger;
+            }
+            return val;
+        }
+    })
+})();
+```
+加密点
+![debugger](./img/1.png)
+
+cookie生成
+```javascript
+document.cookie = G.fixAu(G.OoepU(G.OoepU(G.MQOJb(G.JEyfp(G.JEyfp(G.LnlnO("m=", G.tlpBr(m5, G.CdSNM(gee, aa, bb, c, d, e, b64_zw))), "|"), b), "|") + a, "|"), window.n), G.ZDKbv)
+```
+还原后
+```javascript
+document.cookie = "m=" + m5(gee(aa, bb, c, d, e, b64_zw)) + "|" + b + "|" + a +"|" + window.n + ';path=/';
+```
+m5生成
+![debugger](./img/2.png)
+
+gee生成
+![debugger](./img/3.png)
+
+node环境运行
+
+报错
+```javascript
+ReferenceError: navigator is not defined
+```
+
+补环境
+```javascript
+navigator = {};
+navigator.appCodeName = 'Mozilla';
+navigator.cookieEnabled = true;
+```
+
+报错
+```javascript
+ReferenceError: CanvasCaptureMediaStreamTrack is not defined
+```
+CanvasCaptureMediaStreamTrack检测
+```javascript
+try {
+    bp = eval("CanvasCaptureMediaStreamTrack");
+    var cb = cP << 24 | cP << 16 | cP << 8 | cP;
+    var cu = [];
+} catch (cm) {
+    console.log(cm);
+    console.log(cm);
+    console.log(cm);
+    var cb = 0;
+    var cu = [];
+}
+```
+删除无效部分
+
+```javascript
+var cb = cP << 24 | cP << 16 | cP << 8 | cP;
+var cu = [];
+```
+
+aa 生成
+```javascript
+a = Date.parse(new Date) * 8;
+p = G.cWQTT(E, G.tlpBr(parseInt, G.BtdNq(a, 8)));
+aa = m5(p);
+```
+
+还原后
+```javascript
+a = Date.parse(new Date) * 8;
+p = E(parseInt(a / 8));
+aa = m5(p);
+```
+
+E 生成
+```javascript
+function E(K) {
+    var Y = {};
+    Y.omDMx = G.vplbC;
+    Y.CuLuB = function(h, b) {
+        return G.TcSyJ(h, b)
+    }
+    ;
+    Y.OPnPG = function(h, b) {
+        return G.bOtEk(h, b)
+    }
+    ;
+    Y.PtKem = function(h, b) {
+        return G.vwmjl(h, b)
+    }
+    ;
+    Y.eZkFz = function(h, b) {
+        return G.vwmjl(h, b)
+    }
+    ;
+    Y.kXFxj = function(h, b) {
+        return h + b
+    }
+    ;
+    Y.AKZTZ = function(h, b) {
+        return h + b
+    }
+    ;
+    Y.JYVAM = function(h, b) {
+        return G.ykolN(h, b)
+    }
+    ;
+    Y.gJsFT = function(h, b) {
+        return G.Wmydc(h, b)
+    }
+    ;
+    Y.xiQWv = function(h, b) {
+        return h + b
+    }
+    ;
+    Y.pSnMY = function(h, b) {
+        return G.xkAVN(h, b)
+    }
+    ;
+    Y.SgOqf = function(h, b) {
+        return G.UnFsY(h, b)
+    }
+    ;
+    Y.wxVwq = "jsencrypt";
+    var x = Y;
+    function d(h, b) {
+        var F = x.omDMx.split("|");
+        var H = 0;
+        while (!![]) {
+            switch (F[H++]) {
+            case "0":
+                var D = b;
+                continue;
+            case "1":
+                var u = new I;
+                continue;
+            case "2":
+                var Q = u.encode(h, D);
+                continue;
+            case "3":
+                if (x.CuLuB(m5[x.OPnPG(x.PtKem(x.eZkFz("to", "St"), "ri"), "ng")]()[x.kXFxj(x.AKZTZ("inde", "xO"), "f")]("\n"), -(x.JYVAM(1507, x.gJsFT(-311, -11)) + -4927)))
+                    while (!![]) {
+                        console.log(x.xiQWv(x.pSnMY(x.pSnMY(x.pSnMY("\u751F\u800C", "\u4E3A\u866B"), "\uFF0C\u6211"), "\u5F88\u62B1"), "\u6B49"))
+                    }
+                continue;
+            case "4":
+                return Q;
+            case "5":
+                var I = x.SgOqf(_n, x.wxVwq);
+                continue;
+            }
+            break
+        }
+    }
+    return result = G.UMXqo(d, K, K),
+    result
+}
+```
+
+还原后
+```javascript
+
 ```
