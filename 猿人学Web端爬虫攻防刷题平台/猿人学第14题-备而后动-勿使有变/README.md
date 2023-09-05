@@ -334,5 +334,125 @@ function E(K) {
 
 还原后
 ```javascript
+function E(K) {
+    var Y = {};
+    Y.omDMx = '0|5|1|2|3|4';
+    Y.CuLuB = function(h, b) {
+        return h != b
+    }
+    ;
+    Y.OPnPG = function(h, b) {
+        return h + b
+    }
+    ;
+    Y.PtKem = function(h, b) {
+        return h + b
+    }
+    ;
+    Y.eZkFz = function(h, b) {
+        return h + b
+    }
+    ;
+    Y.kXFxj = function(h, b) {
+        return h + b
+    }
+    ;
+    Y.AKZTZ = function(h, b) {
+        return h + b
+    }
+    ;
+    Y.JYVAM = function(h, b) {
+        return h + b
+    }
+    ;
+    Y.gJsFT = function(h, b) {
+        return h * b
+    }
+    ;
+    Y.xiQWv = function(h, b) {
+        return h + b
+    }
+    ;
+    Y.pSnMY = function(h, b) {
+        return h + b
+    }
+    ;
+    Y.SgOqf = function(h, b) {
+        return h(b)
+    }
+    ;
+    Y.wxVwq = "jsencrypt";
+    var x = Y;
+    function d(h, b) {
+        var F = x.omDMx.split("|");
+        var H = 0;
+        while (!![]) {
+            switch (F[H++]) {
+            case "0":
+                var D = b;
+                continue;
+            case "1":
+                var u = new I;
+                continue;
+            case "2":
+                var Q = u.encode(h, D);
+                continue;
+            case "3":
+                if (x.CuLuB(m5[x.OPnPG(x.PtKem(x.eZkFz("to", "St"), "ri"), "ng")]()[x.kXFxj(x.AKZTZ("inde", "xO"), "f")]("\n"), -(x.JYVAM(1507, x.gJsFT(-311, -11)) + -4927)))
+                    while (!![]) {
+                        console.log(x.xiQWv(x.pSnMY(x.pSnMY(x.pSnMY("\u751F\u800C", "\u4E3A\u866B"), "\uFF0C\u6211"), "\u5F88\u62B1"), "\u6B49"))
+                    }
+                continue;
+            case "4":
+                return Q;
+            case "5":
+                var I = x.SgOqf(_n, x.wxVwq);
+                continue;
+            }
+            break
+        }
+    }
+    return result = d(K, K), result
+}
+```
 
+无线循环
+```javascript
+if (x.CuLuB(m5[x.OPnPG(x.PtKem(x.eZkFz("to", "St"), "ri"), "ng")]()[x.kXFxj(x.AKZTZ("inde", "xO"), "f")]("\n"), -(x.JYVAM(1507, x.gJsFT(-311, -11)) + -4927)))
+    while (!![]) {
+        console.log(x.xiQWv(x.pSnMY(x.pSnMY(x.pSnMY("\u751F\u800C", "\u4E3A\u866B"), "\uFF0C\u6211"), "\u5F88\u62B1"), "\u6B49"))
+    }
+continue;
+```
+还原后，这是一段代码格式化检测
+```javascript
+if (m5['toString']()['indexOf']("\n") != -1)
+    while (!![]) {
+        console.log('生而为虫，我很抱歉')
+    }
+```
+
+运行代码：
+```javascript
+第一次
+PXQfGBR5AwChSToMrtGAo7giJNcQoAaZIgaD46Bg9zAEHVGhgRkQDsLhISr%2FCA4AkwDn6goCbSChAt8IJDwgIOGgCBgf0aPHpTI0X8GhJMkiJggSIu2SIBoxQoOIEDAwvsKhrOIAFI3ToIhkIC7KUaJuIAoAp%2BADoYEYHhtCIUI%3D
+
+第二次
+P2vLEh4YwiMI3hA%2Bx9CBrC0QGALhgkodCBZXMqMLBQoQhdKigH8wCqvzoqDEGiC%2BASIGDQoasDGABzcwNKGggmn%2BEDIMsiNC8hICOXKiphsqDPgjIuH%2FKDrVAqFv%2BAgAoCKg778gIuryAaLoMjZqoyDmngAqXdMAZNM6FHQigG8%3D
+```
+
+重新加载
+```javascript
+第一次
+PXQfGBR5AwChSToMrtGAo7giJNcQoAaZIgaD46Bg9zAEHVGhgRkQDsLhISr%2FCA4AkwDn6goCbSChAt8IJDwgIOGgCBgf0aPHpTI0X8GhJMkiJggSIu2SIBoxQoOIEDAwvsKhrOIAFI3ToIhkIC7KUaJuIAoAp%2BADoYEYHhtCIUI%3D
+
+第二次
+P2vLEh4YwiMI3hA%2Bx9CBrC0QGALhgkodCBZXMqMLBQoQhdKigH8wCqvzoqDEGiC%2BASIGDQoasDGABzcwNKGggmn%2BEDIMsiNC8hICOXKiphsqDPgjIuH%2FKDrVAqFv%2BAgAoCKg778gIuryAaLoMjZqoyDmngAqXdMAZNM6FHQigG8%3D
+```
+
+node检测代码
+```javascript
+eval("delete document");
+eval("delete window");
+eval("window = {}");
 ```
