@@ -1,36 +1,71 @@
 import requests
 
-
-class Headers(object):
-    def items(self):
-        return (
-            ('content-length', '0'),
-            ('pragma', 'no-cache'),
-            ('cache-control', 'no-cache'),
-            ('sec-ch-ua', '"Google Chrome";v="93", " Not;A Brand";v="99", "Chromium";v="93"'),
-            ('sec-ch-ua-mobile', '?0'),
-            ('user-agent',
-             'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
-             ' (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36'),
-            ('sec-ch-ua-platform', '"macOS"'),
-            ('accept', '*/*'),
-            ('origin', 'https://match.yuanrenxue.com'),
-            ('sec-fetch-site', 'same-origin'),
-            ('sec-fetch-mode', 'cors'),
-            ('sec-fetch-dest', 'empty'),
-            ('referer', 'https://match.yuanrenxue.com/match/3'),
-            ('accept-encoding', 'gzip, deflate, br'),
-            ('accept-language', 'zh-CN,zh;q=0.9'),
-            ('cookie', 'Hm_lvt_c99546cf032aaa5a679230de9a95c7db=1648698333,1648863299'),
-            ('cookie', 'Hm_lvt_9bcbda9cbf86757998a2339a0437208e=1648718340,1648863297'),
-            ('cookie', 'no-alert3=true'),
-            ('cookie', 'sessionid=6k0qhqvkp2jwtcph63e3k6ft7nwbl8ov'),
-            ('cookie', 'm=155'),
-            ('cookie', 'tk=9019357195599414472'),
-            ('cookie', 'Hm_lpvt_9bcbda9cbf86757998a2339a0437208e=1649223546'),
-            ('cookie', 'Hm_lpvt_c99546cf032aaa5a679230de9a95c7db=1649224147'),
-        )
+session = requests.session()
 
 
-req = requests.post('https://match.yuanrenxue.com/jssm', headers=Headers())
-print(req.headers)
+def get_sessionid():
+    url = "https://match.yuanrenxue.cn/jssm"
+    headers = {
+        "Host": "match.yuanrenxue.cn",
+        "Connection": "keep-alive",
+        "Content-Length": "0",
+        "sec-ch-ua": "\"Chromium\";v=\"112\", \"Google Chrome\";v=\"112\", \"Not:A-Brand\";v=\"99\"",
+        "sec-ch-ua-mobile": "?0",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                      "Chrome/112.0.0.0 Safari/537.36",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Accept": "*/*",
+        "Origin": "https://match.yuanrenxue.cn",
+        "Sec-Fetch-Site": "same-origin",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Dest": "empty",
+        "Referer": "https://match.yuanrenxue.cn/match/3",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "zh-CN,zh;q=0.9",
+        "Cookie": ""
+    }
+    # 清空headers头内容
+    session.headers.clear()
+    # 更新headers头
+    session.headers.update(headers)
+    resp = session.post(url)
+    cookies = resp.cookies
+    print(cookies)
+    cookie = requests.utils.dict_from_cookiejar(cookies)
+    return cookie
+
+
+def yrx3(page):
+    num_list = []
+    url = 'https://match.yuanrenxue.cn/api/match/3?page=' + str(page)
+    cookie = get_sessionid()
+    headers = {
+        "Host": "match.yuanrenxue.cn",
+        "Connection": "keep-alive",
+        "sec-ch-ua": "\"Chromium\";v=\"112\", \"Google Chrome\";v=\"112\", \"Not:A-Brand\";v=\"99\"",
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+        "X-Requested-With": "XMLHttpRequest",
+        "sec-ch-ua-mobile": "?0",
+        "User-Agent": "yuanrenxue.project",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Sec-Fetch-Site": "same-origin",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Dest": "empty",
+        "Referer": "https://match.yuanrenxue.cn/match/3",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "zh-CN,zh;q=0.9",
+        "Cookie": "sessionid={}".format(cookie['sessionid'])
+    }
+    session.headers.clear()
+    session.headers.update(headers)
+    resp = session.get(url)
+    data = resp.json()
+    print(data)
+    for num in data['data']:
+        num_list.append(num['value'])
+
+
+if __name__ == '__main__':
+    cookie = get_sessionid()
+    print(cookie)
+    yrx3(1)
