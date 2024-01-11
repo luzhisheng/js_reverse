@@ -14,7 +14,7 @@ def get_num():
             "user-agent": "yuanrenxue.project",
             "cookie": "Hm_lvt_c99546cf032aaa5a679230de9a95c7db=1648698333,1648863299; "
                       "Hm_lvt_9bcbda9cbf86757998a2339a0437208e=1648718340,1648863297; "
-                      "no-alert3=true; m=155; tk=7332741390523673465; sessionid=ac0xs5o2sopkirmvude3epvr8uzo8w66;"
+                      "no-alert3=true; m=155; tk=7332741390523673465; sessionid=XXXXXXX;"
                       " Hm_lpvt_9bcbda9cbf86757998a2339a0437208e=1649313675; "
                       "Hm_lpvt_c99546cf032aaa5a679230de9a95c7db=1649316025"
         }
