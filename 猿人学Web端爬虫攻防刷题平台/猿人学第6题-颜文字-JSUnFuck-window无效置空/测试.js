@@ -1,7 +1,31 @@
 const JSEncrypt = require('JSEncrypt');
 
+Date.now = function now() {
+    return 1661986251253
+};
+Date.parse = function () {
+    return 1661986251253
+};
+Date.prototype.valueOf = function () {
+    return 1661986251253
+};
+Date.prototype.getTime = function () {
+    return 1661986251253
+};
+Date.prototype.toString = function () {
+    return 1661986251253
+};
+// Performance.prototype.now = function now() {
+//     return Number('1661986251253'.slice(8))
+// };
+Math.random = function random() {
+    return 0.08636862211354912
+};
+// window.crypto.getRandomValues = function getRandomValues(array32, ...args) {
+//     return array32;
+// };
 // 公钥
-var pubKey = `MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDq04c6My441Gj0UFKgrqUhAUg+kQZeUeWSPlAU9fr4HBPDldAeqzx1UR99KJHuQh/zs1HOamE2dgX9z/2oXcJaqoRIA/FXysx+z2YlJkSk8XQLcQ8EBOkp//MZrixam7lCYpNOjadQBb2Ot0U/Ky+jF2p+Ie8gSZ7/u+Wnr5grywIDAQAB`;
+var pubKey = "-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDq04c6My441Gj0UFKgrqUhAUg+kQZeUeWSPlAU9fr4HBPDldAeqzx1UR92KJHuQh/zs1HOamE2dgX9z/2oXcJaqoRIA/FXysx+z2YlJkSk8XQLcQ8EBOkp//MZrixam7lCYpNOjadQBb2Ot0U/Ky+jF2p+Ie8gSZ7/u+Wnr5grywIDAQAB-----END PUBLIC KEY-----";
 
 // 私钥
 var priKey = `MIICXgIBAAKBgQCrbSQz+MLEviJbvj55pcdAKTWGut9ax/4zaKiuRlSgpkF8Z5na
@@ -23,7 +47,7 @@ var encryptor = new JSEncrypt();
 //设置公钥
 encryptor.setPublicKey(pubKey);
 // 对内容进行加密
-var rsaPassWord = encryptor.encrypt("1|1704568922000");
+var rsaPassWord = encryptor.encrypt(1704820252000);
 console.log('加密后:', rsaPassWord);
 
 // 解密
