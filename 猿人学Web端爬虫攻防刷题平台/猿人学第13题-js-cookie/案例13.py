@@ -3,14 +3,14 @@ import re
 import json
 
 
-url = "https://match.yuanrenxue.com/match/13"
-url_page = "https://match.yuanrenxue.com/api/match/13?page={}"
-url_login_info = "https://match.yuanrenxue.com/api/loginInfo"
+url = "https://match.yuanrenxue.cn/match/13"
+url_page = "https://match.yuanrenxue.cn/api/match/13?page={}"
+url_login_info = "https://match.yuanrenxue.cn/api/loginInfo"
 
 
 def get_cookie():
     Headers = {
-        "cookie": f"sessionid=qrpjppp8jlv9y6w46ue7kewvjlnac11y;",
+        "cookie": f"sessionid=xxxxxxx;",
     }
     res = requests.get(url=url, headers=Headers)
     item = re.findall(r'document.cookie=(.*);path=', res.text)[0]
