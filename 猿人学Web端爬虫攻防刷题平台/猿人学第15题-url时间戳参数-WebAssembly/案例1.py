@@ -20,7 +20,7 @@ for i in range(1, 6):
         "User-Agent": "yuanrenxue.project",
         "cookie": f"sessionid=1u2ghdn3n2kg56t7kq0opn9ljixfisau;",
     }
-    res = requests.get(url=f"https://match.yuanrenxue.com/api/match/15?m={m}&page={i}", headers=Headers)
+    res = requests.get(url=f"https://match.yuanrenxue.cn/api/match/15?m={m}&page={i}", headers=Headers)
     res_dict = json.loads(res.text)
     for j in res_dict.get('data'):
         sum_value += j.get('value')
