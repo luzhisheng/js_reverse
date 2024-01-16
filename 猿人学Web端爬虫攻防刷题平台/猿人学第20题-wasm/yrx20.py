@@ -4,13 +4,13 @@ import json
 import hashlib
 
 
-url = " https://match.yuanrenxue.com/api/match/20?page={}&sign={}&t={}"
+url = " https://match.yuanrenxue.cn/api/match/20?page={}&sign={}&t={}"
 
 
 def get_res(page):
     Headers = {
         "User-Agent": "yuanrenxue.project",
-        "cookie": "sessionid=kivvuwmza629j35a52d4azpxb7hzd9xy;"
+        "cookie": "sessionid=xxxx;"
     }
     t = int(time.time() * 1000)
     sign_item = f"{page}|{t}D#uqGdcw41pWeNXm"
