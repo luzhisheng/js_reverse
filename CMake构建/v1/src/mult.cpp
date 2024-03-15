@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "head.h"
+#include "../include/head.h"
 
 int multiply(int a, int b)
 {

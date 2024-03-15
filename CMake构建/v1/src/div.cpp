@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "head.h"
+#include "../include/head.h"
 
 double divide(int a, int b)
 {

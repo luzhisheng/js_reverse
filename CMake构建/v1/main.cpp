@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include "head.h"
 
-int main()
-{
+int main() {
     int a = 20;
     int b = 12;
     printf("a = %d, b = %d\n", a, b);
