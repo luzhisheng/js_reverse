@@ -3,12 +3,11 @@
     <h2>{{ name }}</h2>
     <h2>{{ age }}</h2>
     <h2>{{ address }}</h2>
-    <h2>{{ car.price }}</h2>
-    <h2>{{ car.brand }}</h2>
+    <h2>{{ car.price }}-----{{ car.brand }}</h2>
     <button @click="changeName">修改名字</button>
     <button @click="changeAge">修改年龄</button>
     <button @click="showTel">查看联系方式</button>
-
+    <button @click="changeCar">修改汽车价格和名字</button>
     <ul>
       <li v-for="g in games" :key="g.id">{{ g.name }}</li>
     </ul>
@@ -16,34 +15,6 @@
   </div>
 
 </template>
-
-<!--基本写法-->
-<!--<script>-->
-<!--export default {-->
-<!--  name: "Person",-->
-<!--  // setup() {-->
-<!--  //   // 数据-->
-<!--  //   let name = 'ayf'-->
-<!--  //   let age = 19-->
-<!--  //   let tel = '143334132144'-->
-<!--  //   let address = '北京昌平区'-->
-<!--  //-->
-<!--  //   function changeName() {-->
-<!--  //     name = 'dddd'-->
-<!--  //   }-->
-<!--  //-->
-<!--  //   function changeAge() {-->
-<!--  //     age += 1-->
-<!--  //   }-->
-<!--  //-->
-<!--  //   function showTel() {-->
-<!--  //     alert(tel)-->
-<!--  //   }-->
-<!--  //-->
-<!--  //   return {name: name, age: age, changeName, changeAge, showTel, address}-->
-<!--  // }-->
-<!--}-->
-<!--</script>-->
 
 <!--语法糖写法-->
 <script setup>
@@ -56,7 +27,7 @@ let name = ref('ayf')
 let age = ref(19)
 let tel = '143334132144'
 let address = '北京昌平区'
-let car = reactive({brand: 'byd', price: 10000000})
+let car = ref({brand: 'byd', price: 10000000})
 
 let games = reactive([
   {id: 'ayf002', name: '王者荣耀'},
@@ -80,6 +51,19 @@ function showTel() {
 
 function changeGame() {
   games[0].name = '王者荣耀国际版'
+}
+
+
+//字典覆盖方式
+function changeCar() {
+  // reactive 才能用分方式
+  // Object.assign(car, {brand: 'ft', price: 20000000})
+
+  // 不能这样写
+  // car = {brand: 'ft', price: 20000000}
+
+  // 但是ref可以
+  car.value = {brand: 'ft', price: 20000000}
 }
 </script>
 
