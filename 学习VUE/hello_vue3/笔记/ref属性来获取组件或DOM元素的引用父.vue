@@ -1,13 +1,22 @@
-<template>
-  <main>
-    <Person a="haha" />
-  </main>
-</template>
-
 <script setup lang="ts">
 import Person from './components/Person.vue'
+import {ref} from "vue";
+
+// 创建一个ren，用于存储ref标记的内容
+let ren = ref()
+
+function showLog(){
+  console.log(ren.value)
+}
 
 </script>
+
+<template>
+  <main>
+    <Person ref="ren" />
+    <button @click="showLog">点ren我输出</button>
+  </main>
+</template>
 
 <style scoped>
 header {

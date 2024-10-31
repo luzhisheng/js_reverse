@@ -1,11 +1,19 @@
 <template>
   <main>
-    <Person a="haha" />
+    <Person a="haha" :list="PersonList"/>
   </main>
 </template>
 
 <script setup lang="ts">
 import Person from './components/Person.vue'
+import {reactive} from 'vue'
+import {type Persons} from '@/types'
+
+let PersonList = reactive<Persons>([
+  {id: 'ayf0001', name: '张一', age: 18},
+  {id: 'ayf0002', name: '张二', age: 19},
+  {id: 'ayf0003', name: '张三', age: 17}
+])
 
 </script>
 

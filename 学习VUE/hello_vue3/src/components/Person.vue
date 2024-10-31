@@ -1,56 +1,25 @@
 <template>
   <div class="person">
-    <h2>姓名：{{ person.name }}</h2>
-    <h2>年龄：{{ person.age }}</h2>
-    <h2>汽车：{{ person.car.c1 }}-{{ person.car.c2 }}</h2>
-    <button @click="changeName">修改名字</button>
-    <button @click="changeAge">修改年龄</button>
-    <button @click="changeCar">修改车</button>
+    <img v-for="(dog, index) in dogList" :src="dog" :key="index">
+    <button @click="changeImg">点击换图</button>
   </div>
-
 </template>
 
-<script setup>
-import {reactive, watch} from "vue";
+<script setup lang="ts">
+import {ref, reactive} from 'vue'
+import axios from "axios";
+let dogList = reactive([
+    'https://images.dog.ceo/breeds/spaniel-irish/n02102973_2902.jpg'
+])
 
-let person = reactive({
-  name: '张三',
-  age: 18,
-  car: {
-    c1: '奔驰',
-    c2: '宝马',
+async function changeImg() {
+  try{
+    let res = await axios.get("https://dog.ceo/api/breeds/image/random")
+    dogList.push(res.data.message)
+  } catch (e) {
+    alert(e)
   }
-})
-
-function changeName() {
-  person.name += '~~~'
 }
-
-function changeAge() {
-  person.age += 1
-}
-
-function changeCar() {
-  person.car.c1 = "雅迪"
-}
-
-
-//监视某个属性
-watch(() => {
-  return person.name
-}, (nValue, oValue) => {
-  console.log(nValue, oValue)
-}, {deep: true})
-
-//监视某个对象
-watch(() => person.car, (nValue, oValue) => {
-  console.log(nValue, oValue)
-}, {deep: true})
-
-//监视多个数据
-watch([() => person.car, () => person.name], (nValue, oValue) => {
-  console.log(nValue, oValue)
-}, {deep: true})
 
 </script>
 
@@ -63,5 +32,9 @@ watch([() => person.car, () => person.name], (nValue, oValue) => {
 
 button {
   margin: 5px;
+}
+
+img {
+  height: 100px;
 }
 </style>
