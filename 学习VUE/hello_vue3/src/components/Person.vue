@@ -1,26 +1,15 @@
 <template>
   <div class="person">
+    <h2>当前求和：{{ num }}</h2>
     <img v-for="(dog, index) in dogList" :src="dog" :key="index">
     <button @click="changeImg">点击换图</button>
+    <button @click="changeNum">点击求和</button>
   </div>
 </template>
 
 <script setup lang="ts">
-import {ref, reactive} from 'vue'
-import axios from "axios";
-let dogList = reactive([
-    'https://images.dog.ceo/breeds/spaniel-irish/n02102973_2902.jpg'
-])
-
-async function changeImg() {
-  try{
-    let res = await axios.get("https://dog.ceo/api/breeds/image/random")
-    dogList.push(res.data.message)
-  } catch (e) {
-    alert(e)
-  }
-}
-
+import { dogList, changeImg } from '@/hooks/useDog'
+import { num, changeNum } from '@/hooks/useSum'
 </script>
 
 
