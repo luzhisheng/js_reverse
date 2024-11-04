@@ -2,7 +2,7 @@
   <div class="news">
     <ul>
       <li v-for="g in newList">
-        <RouterLink :to="{ name: 'news-details', query: { id: g.id } }">{{ g.name }}</RouterLink>
+        <button @click="showNewsDetail(g)">查看详情</button><RouterLink :to="{ name: 'news-details', query: { id: g.id } }">{{ g.name }}</RouterLink>
       </li>
     </ul>
 <!--    展示区-->
@@ -13,8 +13,8 @@
 </template>
 
 <script setup lang="ts">
-import {RouterView, RouterLink} from 'vue-router'
-import {reactive, } from 'vue'
+import {RouterView, RouterLink, useRouter} from 'vue-router'
+import {reactive} from 'vue'
 
 const newList = reactive([
   {id:'00001', name: '测试测试测试测试', datetime: 1000},
@@ -24,6 +24,13 @@ const newList = reactive([
   {id:'00005', name: '测试测试测试测试', datetime: 1000},
   {id:'00006', name: '测试测试测试测试', datetime: 1000}
 ])
+
+const router = useRouter()
+
+function showNewsDetail(g){
+  router.replace({ name: 'news-details', query: { id: g.id } })
+}
+
 </script>
 
 <style scoped>
