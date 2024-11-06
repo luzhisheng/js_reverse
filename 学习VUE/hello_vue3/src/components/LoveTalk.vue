@@ -12,12 +12,17 @@ import {reactive, ref} from 'vue'
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid'
 
-let talkList = reactive([
-  {id: 'dasfada001', title: '111ue3入门到实战，最新版vue3+TypeScript前端开发教程'},
-  {id: 'dasfada002', title: '333ue3入门到实战，最新版vue3+TypeScript前端开发教程'},
-  {id: 'dasfada003', title: '222ue3入门到实战，最新版vue3+TypeScript前端开发教程'}
-])
+import { useTalkStore } from "@/store/lovetalk"
 
+const talkStore = useTalkStore()
+let talkList = reactive(talkStore.talkList)
+
+// 记录改变的数据，实现刷新不丢失数据,草稿,购物车,暂时不着急入库的数据
+talkStore.$subscribe((mutate, state) => {
+  console.log(mutate)
+  console.log(state)
+  localStorage.setItem('talkList', JSON.stringify(state.talkList))
+})
 
 async function getTitle(){
   let res = await axios.get("https://api.uomg.com/api/rand.qinghua?format=json")

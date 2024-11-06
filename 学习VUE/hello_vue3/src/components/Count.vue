@@ -1,6 +1,6 @@
 <template>
   <div class="count">
-    <h2>当前求和:{{ sum }}</h2>
+    <h2>当前求和:{{ sum }} 放大10倍 {{ bigSum }}</h2>
     <select v-model.number="n">
       <option value="1">1</option>
       <option value="2">2</option>
@@ -13,15 +13,24 @@
 
 <script setup lang="ts">
 import {ref} from 'vue'
+import {useCountStore} from '@/store/count'
+import {storeToRefs} from "pinia"
 
-let sum = ref(1)
+const countStore = useCountStore()
+
+// 只负责转换 pinia 数据，变成响应式
+const {sum, bigSum} = storeToRefs(countStore)
+
+console.log(bigSum)
+
 let n = ref(1)
 
-function add(){
-  sum.value += n.value
+function add() {
+  countStore.increment(n.value)
 }
-function minus(){
-  sum.value -= n.value
+
+function minus() {
+  countStore.reduce(n.value)
 }
 </script>
 
