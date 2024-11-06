@@ -1,42 +1,52 @@
-import {createRouter, createWebHistory} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
+import Props from '@/pages/01_props/Father.vue'
+import Event from '@/pages/02_custom-event/Father.vue'
+import Bus from '@/pages/03_mitt/Father.vue'
+import Model from '@/pages/04_v-model/Father.vue'
+import AttrsListeners from '@/pages/05_$attrs/Father.vue'
+import RefChildrenParent from '@/pages/06_$refs-$parent/Father.vue'
+import ProvideInject from '@/pages/07_provide-inject/Father.vue'
+import Pinia from '@/pages/08_pinia/Father.vue'
+import Slot from '@/pages/09_slot/Father.vue'
 
-import Home from '@/pages/Home.vue'
-import News from '@/pages/News.vue'
-import About from '@/pages/About.vue'
-import Details from '@/pages/Details.vue'
-
-//创建路由器
-const router = createRouter({
-    history: createWebHistory(), //路由器的工作模式
+export default createRouter({
+    history: createWebHistory(),
     routes: [
         {
-            name: 'home',
-            path: '/',
-            component: Home
+            path: '/props',
+            component: Props
         },
         {
-            name: 'news',
-            path: '/news',
-            component: News,
-            children: [
-                {
-                    name: 'news-details',
-                    path: 'details', // 注意：子路由的 path 不需要以 "/" 开头
-                    component: Details
-                }
-            ]
+            path: '/event',
+            component: Event
         },
         {
-            name: 'about',
-            path: '/about',
-            component: About
+            path: '/mitt',
+            component: Bus
         },
         {
-            path: '/news',
-            redirect: '/about', // 重定向
-        }
+            path: '/model',
+            component: Model
+        },
+        {
+            path: '/attrs',
+            component: AttrsListeners
+        },
+        {
+            path: '/ref-parent',
+            component: RefChildrenParent
+        },
+        {
+            path: '/provide-inject',
+            component: ProvideInject
+        },
+        {
+            path: '/pinia',
+            component: Pinia
+        },
+        {
+            path: '/slot',
+            component: Slot
+        },
     ]
 })
-
-// 暴露出去 router
-export default router
