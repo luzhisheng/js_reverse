@@ -3,6 +3,7 @@
     <h3>父组件</h3>
     <div class="content">
       <Category title="热门游戏列表">
+<!--        根据子组建的 <slot>默认内容</slot> 显示内容-->
         <ul>
           <li v-for="g in games" :key="g.id">{{ g.name }}</li>
         </ul>
