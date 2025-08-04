@@ -1,26 +1,9 @@
 import numpy as np
-import matplotlib
+from 支持中文 import init_plot
 import matplotlib.pyplot as plt
-import os
 
 
-plt.rcParams['font.sans-serif'] = ['SimHei']
-plt.rcParams['axes.unicode_minus'] = False
-
-
-def has_display():
-    """判断是否有图形显示环境"""
-    if os.name == "posix":
-        return "DISPLAY" in os.environ
-    return True
-
-
-if has_display():
-    matplotlib.use("TkAgg")
-    SHOW_PLOT = True
-else:
-    matplotlib.use("Agg")
-    SHOW_PLOT = False
+SHOW_PLOT = init_plot()
 
 # 固定随机种子
 np.random.seed(42)

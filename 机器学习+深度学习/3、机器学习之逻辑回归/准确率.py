@@ -1,30 +1,13 @@
 import numpy as np
-import matplotlib
+from 支持中文 import init_plot
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LogisticRegression
 from sklearn.datasets import make_moons
 from sklearn.metrics import accuracy_score
-import os
-
-# ===== 支持中文 =====
-plt.rcParams['font.sans-serif'] = ['SimHei']
-plt.rcParams['axes.unicode_minus'] = False
 
 
-# ===== 自动判断是否有 GUI =====
-def has_display():
-    if os.name == "posix":
-        return "DISPLAY" in os.environ
-    return True
-
-
-if has_display():
-    matplotlib.use("TkAgg")
-    SHOW_PLOT = True
-else:
-    matplotlib.use("Agg")
-    SHOW_PLOT = False
+SHOW_PLOT = init_plot()
 
 # ===== 生成月牙形数据 =====
 np.random.seed(42)
