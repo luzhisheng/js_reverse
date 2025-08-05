@@ -32,8 +32,8 @@ plt.scatter(passed['test1'], passed['test2'], color='blue', label='通过')
 plt.scatter(failed['test1'], failed['test2'], color='red', label='未通过')
 
 # 6. 生成网格点并转换为多项式特征
-x1_min, x1_max = X['test1'].min() - 5, X['test1'].max() + 5
-x2_min, x2_max = X['test2'].min() - 5, X['test2'].max() + 5
+x1_min, x1_max = X['test1'].min(), X['test1'].max()
+x2_min, x2_max = X['test2'].min(), X['test2'].max()
 xx1, xx2 = np.meshgrid(
     np.linspace(x1_min, x1_max, 300),
     np.linspace(x2_min, x2_max, 300)
@@ -50,7 +50,7 @@ plt.contour(xx1, xx2, probs, levels=[0.5], linewidths=2, colors='green')
 # 8. 图形设置
 plt.xlabel("test1")
 plt.ylabel("test2")
-plt.title(f"二阶多项式逻辑回归（准确率: {accuracy:.2f}）")
+plt.title(f"实战芯片质量通过预测-数据训练二次多项式函数（准确率: {accuracy:.2f}）")
 plt.legend()
 plt.grid(True)
 plt.axis('equal')
