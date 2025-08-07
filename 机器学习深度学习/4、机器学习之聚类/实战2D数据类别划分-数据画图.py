@@ -12,9 +12,9 @@ plt.figure(figsize=(8, 6))
 plt.scatter(data['V1'], data['V2'], color='blue', label="样本点")
 
 # 坐标轴 & 标题
-plt.xlabel("聚类 1")
-plt.ylabel("聚类 2")
-plt.title("原始数据分布（V1 vs V2）")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.title("原始数据分布")
 plt.legend()
 plt.grid(True)
 plt.axis('equal')
