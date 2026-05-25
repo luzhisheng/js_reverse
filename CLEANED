@@ -1,0 +1,416 @@
+(module
+  (func $L.ds (import "L" "ds") (param externref f64))
+  (func $L.dh (import "L" "dh") (param externref i32))
+  (func $L.C (import "L" "C") (param externref i32))
+  (func $L.r (import "L" "r") (param externref i32 i32))
+  (func $L.W (import "L" "W") (param externref i32 i32 i32))
+  (func $L.t (import "L" "t") (param externref i32 i32 i32 i32))
+  (func $L.f (import "L" "f") (param externref i32 i32 i32 i32 i32))
+  (func $L.p (import "L" "p") (param externref i32))
+  (func $L.dd (import "L" "dd") (param externref))
+  (func $L.dP (import "L" "dP") (param externref i32))
+  (func $L.I (import "L" "I") (param externref) (result i32))
+  (func $L.dp (import "L" "dp") (param externref) (result i32))
+  (memory $L.O (import "L" "O") 3)
+  (table $y.F (import "y" "F") 204 204 funcref)
+  (global $global0 (mut i32) (i32.const 0))
+
+  (func $db (export "db")
+    i32.const 1
+    global.set $global0
+  )
+
+  (func $c (export "c") (param $var0 i32) (param $var1 i32) (param $var2 externref) (result i32)
+    (local $var3 i32)
+    (local $var4 i32)
+    (local $var5 i32)
+    (local $var6 i32)
+    (local $var7 i32)
+    (local $var8 i32)
+    (local $var9 i32)
+    (local $var10 i32)
+    (local $var11 i32)
+    (local $var12 i32)
+    (local $var13 i32)
+    (local $var14 i32)
+    (local $var15 i32)
+    (local $var16 i32)
+    (local $var17 i32)
+    (local $var18 i32)
+    (local $var19 i32)
+    (local $var20 i32)
+    (local $var21 i32)
+    (local $var22 i32)
+    (local $var23 i32)
+    (local $var24 i32)
+    (local $var25 i32)
+    (local $var26 i32)
+    (local $var27 i32)
+    (local $var28 i32)
+    (local $var29 i32)
+    (local $var30 i32)
+    (local $var31 i32)
+    loop $label60
+      i32.const 157173
+      local.get $var1
+      i32.const 474
+      i32.mul
+      local.get $var0
+      i32.load8_u
+      local.tee $var3
+      i32.const 1
+      i32.shl
+      i32.add
+      i32.add
+      local.tee $var31
+      i32.load8_u
+      local.set $var3
+      local.get $var31
+      i32.load8_u offset=1
+      local.set $var1
+      block $label54
+        block $label87
+          block $label16
+            block $label3
+              block $label15
+                block $label20
+                  block $label17
+                    block $label19
+                      block $label13
+                        block $label6
+                          block $label14
+                            block $label11
+                              block $label10
+                                block $label8
+                                  block $label7
+                                    block $label4
+                                      block $label2
+                                        block $label18
+                                          block $label12
+                                            block $label9
+                                              block $label5
+                                                block $label1
+                                                  block $label0
+                                                    block $label53
+                                                      block $label52
+                                                        block $label51
+                                                          block $label50
+                                                            block $label49
+                                                              block $label48
+                                                                block $label47
+                                                                  block $label46
+                                                                    block $label45
+                                                                      block $label44
+                                                                        block $label43
+                                                                          block $label42
+                                                                            block $label41
+                                                                              block $label40
+                                                                                block $label39
+                                                                                  block $label38
+                                                                                    block $label37
+                                                                                      block $label36
+                                                                                        block $label35
+                                                                                          block $label34
+                                                                                            block $label33
+                                                                                              block $label32
+                                                                                                block $label31
+                                                                                                  block $label30
+                                                                                                    block $label29
+                                                                                                      block $label28
+                                                                                                        block $label27
+                                                                                                          block $label26
+                                                                                                            block $label25
+                                                                                                              block $label24
+                                                                                                                block $label23
+                                                                                                                  block $label22
+                                                                                                                    block $label21
+                                                                                                                      local.get $var3
+                                                                                                                      br_table $label0 $label1 $label1 $label2 $label3 $label4 $label2 $label2 $label5 $label6 $label2 $label7 $label8 $label7 $label2 $label3 $label7 $label9 $label7 $label7 $label3 $label7 $label10 $label7 $label7 $label7 $label7 $label2 $label7 $label7 $label9 $label7 $label7 $label2 $label6 $label2 $label1 $label11 $label6 $label12 $label1 $label12 $label1 $label12 $label8 $label6 $label13 $label8 $label1 $label8 $label2 $label4 $label12 $label8 $label7 $label7 $label2 $label7 $label2 $label7 $label2 $label6 $label4 $label7 $label7 $label2 $label7 $label4 $label7 $label12 $label7 $label8 $label12 $label2 $label14 $label8 $label1 $label6 $label12 $label1 $label2 $label7 $label15 $label6 $label12 $label12 $label16 $label6 $label7 $label2 $label1 $label12 $label4 $label7 $label17 $label18 $label2 $label7 $label1 $label7 $label7 $label4 $label9 $label2 $label12 $label7 $label7 $label16 $label2 $label12 $label18 $label0 $label2 $label8 $label7 $label7 $label9 $label2 $label1 $label1 $label7 $label2 $label13 $label6 $label9 $label1 $label0 $label6 $label2 $label1 $label7 $label1 $label18 $label7 $label12 $label12 $label2 $label7 $label6 $label4 $label18 $label2 $label2 $label4 $label2 $label18 $label4 $label7 $label7 $label2 $label7 $label7 $label4 $label12 $label7 $label4 $label1 $label1 $label7 $label19 $label12 $label11 $label12 $label7 $label8 $label1 $label7 $label2 $label7 $label8 $label7 $label10 $label16 $label11 $label2 $label7 $label7 $label2 $label1 $label18 $label7 $label1 $label7 $label7 $label1 $label18 $label20 $label12 $label8 $label7 $label7 $label2 $label4 $label7 $label18 $label4 $label7 $label7 $label1 $label12 $label7 $label8 $label18 $label7 $label21 $label22 $label23 $label24 $label25 $label26 $label27 $label28 $label29 $label30 $label31 $label32 $label33 $label34 $label35 $label36 $label37 $label38 $label39 $label40 $label41 $label42 $label43 $label44 $label45 $label46 $label47 $label48 $label49 $label50 $label51 $label52 $label53 $label54
+                                                                                                                    end $label21
+                                                                                                                    local.get $var0
+                                                                                                                    i32.load offset=1
+                                                                                                                    i32.const 16777215
+                                                                                                                    i32.and
+                                                                                                                    local.set $var4
+                                                                                                                    local.get $var0
+                                                                                                                    i32.load8_u offset=4
+                                                                                                                    local.set $var5
+                                                                                                                    i32.const 5
+                                                                                                                    local.get $var0
+                                                                                                                    i32.add
+                                                                                                                    local.set $var0
+                                                                                                                    local.get $var28
+                                                                                                                    i32.const 1
+                                                                                                                    i32.add
+                                                                                                                    local.set $var28
+                                                                                                                    local.get $var0
+                                                                                                                    local.set $var29
+                                                                                                                    local.get $var1
+                                                                                                                    local.set $var30
+                                                                                                                    block $label55
+                                                                                                                      block $label59
+                                                                                                                        block $label58
+                                                                                                                          block $label57
+                                                                                                                            block $label56
+                                                                                                                              local.get $var8
+                                                                                                                              br_table $label55 $label56 $label57 $label58 $label59
+                                                                                                                            end $label56
+                                                                                                                            local.get $var12
+                                                                                                                            i32.const 1
+                                                                                                                            i32.add
+                                                                                                                            local.set $var12
+                                                                                                                            br $label55
+                                                                                                                          end $label57
+                                                                                                                          local.get $var16
+                                                                                                                          i32.const 1
+                                                                                                                          i32.add
+                                                                                                                          local.set $var16
+                                                                                                                          br $label55
+                                                                                                                        end $label58
+                                                                                                                        local.get $var20
+                                                                                                                        i32.const 1
+                                                                                                                        i32.add
+                                                                                                                        local.set $var20
+                                                                                                                        br $label55
+                                                                                                                      end $label59
+                                                                                                                      unreachable
+                                                                                                                    end $label55
+                                                                                                                    local.get $var5
+                                                                                                                    local.set $var1
+                                                                                                                    local.get $var4
+                                                                                                                    local.set $var0
+                                                                                                                    br $label60
+                                                                                                                  end $label22
+                                                                                                                  local.get $var2
+                                                                                                                  i32.const 1
+                                                                                                                  call $L.dh
+                                                                                                                  i32.const 1
+                                                                                                                  local.get $var0
+                                                                                                                  i32.add
+                                                                                                                  local.set $var0
+                                                                                                                  br $label60
+                                                                                                                end $label23
+                                                                                                                local.get $var0
+                                                                                                                i32.load offset=1
+                                                                                                                i32.const 16777215
+                                                                                                                i32.and
+                                                                                                                local.get $var0
+                                                                                                                i32.load8_u offset=4
+                                                                                                                i32.store8
+                                                                                                                i32.const 5
+                                                                                                                local.get $var0
+                                                                                                                i32.add
+                                                                                                                local.set $var0
+                                                                                                                br $label60
+                                                                                                              end $label24
+                                                                                                              local.get $var2
+                                                                                                              call $L.I
+                                                                                                              if
+                                                                                                                i32.const 5
+                                                                                                                local.get $var0
+                                                                                                                i32.add
+                                                                                                                local.set $var0
+                                                                                                              else
+                                                                                                                local.get $var0
+                                                                                                                i32.load8_u offset=4
+                                                                                                                local.set $var1
+                                                                                                                local.get $var0
+                                                                                                                i32.load offset=1
+                                                                                                                i32.const 16777215
+                                                                                                                i32.and
+                                                                                                                local.set $var0
+                                                                                                              end
+                                                                                                              br $label60
+                                                                                                            end $label25
+                                                                                                            i32.const 1
+                                                                                                            local.get $var0
+                                                                                                            i32.add
+                                                                                                            local.set $var0
+                                                                                                            block $label64
+                                                                                                              block $label61
+                                                                                                                block $label63
+                                                                                                                  block $label62
+                                                                                                                    local.get $var21
+                                                                                                                    i32.const 1
+                                                                                                                    i32.add
+                                                                                                                    local.tee $var21
+                                                                                                                    br_table $label61 $label62 $label63 $label61
+                                                                                                                  end $label62
+                                                                                                                  local.get $var0
+                                                                                                                  local.set $var22
+                                                                                                                  local.get $var1
+                                                                                                                  local.set $var23
+                                                                                                                  i32.const 0
+                                                                                                                  local.set $var24
+                                                                                                                  br $label64
+                                                                                                                end $label63
+                                                                                                                local.get $var0
+                                                                                                                local.set $var25
+                                                                                                                local.get $var1
+                                                                                                                local.set $var26
+                                                                                                                i32.const 0
+                                                                                                                local.set $var27
+                                                                                                                br $label64
+                                                                                                              end $label61
+                                                                                                              unreachable
+                                                                                                            end $label64
+                                                                                                            block $label69
+                                                                                                              block $label68
+                                                                                                                block $label67
+                                                                                                                  block $label66
+                                                                                                                    block $label65
+                                                                                                                      local.get $var8
+                                                                                                                      i32.const 1
+                                                                                                                      i32.sub
+                                                                                                                      local.tee $var8
+                                                                                                                      br_table $label65 $label66 $label67 $label68
+                                                                                                                    end $label65
+                                                                                                                    local.get $var9
+                                                                                                                    local.set $var0
+                                                                                                                    local.get $var10
+                                                                                                                    local.set $var1
+                                                                                                                    br $label69
+                                                                                                                  end $label66
+                                                                                                                  local.get $var13
+                                                                                                                  local.set $var0
+                                                                                                                  local.get $var14
+                                                                                                                  local.set $var1
+                                                                                                                  br $label69
+                                                                                                                end $label67
+                                                                                                                local.get $var17
+                                                                                                                local.set $var0
+                                                                                                                local.get $var18
+                                                                                                                local.set $var1
+                                                                                                                br $label69
+                                                                                                              end $label68
+                                                                                                              unreachable
+                                                                                                            end $label69
+                                                                                                            br $label60
+                                                                                                          end $label26
+                                                                                                          local.get $var0
+                                                                                                          i32.load16_u offset=1
+                                                                                                          local.set $var4
+                                                                                                          local.get $var0
+                                                                                                          i32.load8_u offset=3
+                                                                                                          local.set $var5
+                                                                                                          i32.const 4
+                                                                                                          local.get $var0
+                                                                                                          i32.add
+                                                                                                          local.set $var0
+                                                                                                          local.get $var28
+                                                                                                          i32.const 1
+                                                                                                          i32.add
+                                                                                                          local.set $var28
+                                                                                                          local.get $var0
+                                                                                                          local.set $var29
+                                                                                                          local.get $var1
+                                                                                                          local.set $var30
+                                                                                                          block $label70
+                                                                                                            block $label74
+                                                                                                              block $label73
+                                                                                                                block $label72
+                                                                                                                  block $label71
+                                                                                                                    local.get $var8
+                                                                                                                    br_table $label70 $label71 $label72 $label73 $label74
+                                                                                                                  end $label71
+                                                                                                                  local.get $var12
+                                                                                                                  i32.const 1
+                                                                                                                  i32.add
+                                                                                                                  local.set $var12
+                                                                                                                  br $label70
+                                                                                                                end $label72
+                                                                                                                local.get $var16
+                                                                                                                i32.const 1
+                                                                                                                i32.add
+                                                                                                                local.set $var16
+                                                                                                                br $label70
+                                                                                                              end $label73
+                                                                                                              local.get $var20
+                                                                                                              i32.const 1
+                                                                                                              i32.add
+                                                                                                              local.set $var20
+                                                                                                              br $label70
+                                                                                                            end $label74
+                                                                                                            unreachable
+                                                                                                          end $label70
+                                                                                                          local.get $var5
+                                                                                                          local.set $var1
+                                                                                                          local.get $var4
+                                                                                                          local.set $var0
+                                                                                                          br $label60
+                                                                                                        end $label27
+                                                                                                        i32.const 0
+                                                                                                        return
+                                                                                                      end $label28
+                                                                                                      local.get $var2
+                                                                                                      local.get $var0
+                                                                                                      i32.load16_u offset=1
+                                                                                                      f64.convert_i32_u
+                                                                                                      call $L.ds
+                                                                                                      i32.const 3
+                                                                                                      local.get $var0
+                                                                                                      i32.add
+                                                                                                      local.set $var0
+                                                                                                      br $label60
+                                                                                                    end $label29
+                                                                                                    local.get $var0
+                                                                                                    i32.load8_u offset=3
+                                                                                                    local.set $var1
+                                                                                                    local.get $var0
+                                                                                                    i32.load16_u offset=1
+                                                                                                    local.set $var0
+                                                                                                    br $label60
+                                                                                                  end $label30
+                                                                                                  i32.const 1
+                                                                                                  local.get $var0
+                                                                                                  i32.add
+                                                                                                  local.set $var0
+                                                                                                  block $label78
+                                                                                                    block $label77
+                                                                                                      block $label76
+                                                                                                        block $label75
+                                                                                                          local.get $var21
+                                                                                                          i32.const 1
+                                                                                                          i32.sub
+                                                                                                          local.tee $var21
+                                                                                                          br_table $label75 $label76 $label77
+                                                                                                        end $label75
+                                                                                                        local.get $var24
+                                                                                                        if
+                                                                                                          local.get $var2
+                                                                                                          i32.const 1
+                                                                                                          call $L.dP
+                                                                                                        end
+                                                                                                        br $label78
+                                                                                                      end $label76
+                                                                                                      local.get $var27
+                                                                                                      if
+                                                                                                        local.get $var2
+                                                                                                        i32.const 1
+                                                                                                        call $L.dP
+                                                                                                      end
+                                                                                                      br $label78
+                                                                                                    end $label77
+                                                                                                    unreachable
+                                                                                                  end $label78
+                                                                                                  br $label60
+                                                                                                end $label31
+                                                                                                i32.const 1
+                                                                                                local.get $var0
+                                                                                                i32.add
+                                                                                                local.set $var0
+                                                                                                local.get $var8
+                                                                                                i32.const 1
+                                                                                                i32.sub
+                                                                                                local.set $var8
+                                                                                                br $label60
+                                                                                              end $label32
+                                                                                              local.get $var2
+                                                                                              local.get $var0
+                                                                                              i32.load8_u offset=1
+                                                                                              i32.const 3
+                                                                                              i32.shl
+                                                                                              f64.load offset=155909
+                                                                                              call $L.ds
+                                                                                              i32.const 2
+                                                                                             
